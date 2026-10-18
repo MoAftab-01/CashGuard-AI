@@ -1,0 +1,100 @@
+{
+  "transport": "Actual isolated Edge/Chromium browser via CDP",
+  "synthetic_data_only": true,
+  "regular_demo_sha256": "1d992cbd20c2b5265890db4dad4cb2420572788d2ccdbccfe3f7df4fe171f369",
+  "benchmark": {
+    "origin": "Existing phase6 chronological synthetic generator; no amount modifications",
+    "rows": 986,
+    "engine": "Calibrated amount review",
+    "scored": 617,
+    "flagged": 24,
+    "selected_label_is_injected": true,
+    "selected_transaction": "2025-05-10 | Fictional Transport",
+    "selected_amount_cents": -2744,
+    "selected_explanation": "Amount is 3.33x the prior reference median (8.230 currency units; category and direction, 56 training examples). Robust log amount deviation: 4.90. No supported recurring due date matched. Decision threshold: 3.5000, strict greater-than; calibrated on 245 prior reference rows through 2025-04-30. Calibration rank is not a probability. Unusual activity is not confirmed fraud.",
+    "sha256": "06aa40dbea46a6d325f5ed7953530173ed8c0f3f0cbabfb971a1977ec213ca17"
+  },
+  "overview": {
+    "Estimated cash balance": "USD 16,268.23",
+    "Total income": "USD 31,541.47",
+    "Total expenses": "USD 17,773.24",
+    "Net cash flow": "USD 13,768.23"
+  },
+  "forecast": {
+    "Estimated balance at cutoff": "USD 16,268.23",
+    "Projected closing balance": "USD 17,859.81",
+    "Days below threshold": "0"
+  },
+  "scenario": {
+    "Baseline minimum cash": "USD 16,204.86",
+    "Scenario minimum cash": "USD 15,704.86",
+    "Closing balance change": "USD -500.00",
+    "Scenario breach days": "0"
+  },
+  "gemma": {
+    "source": "ai",
+    "model": "gemma3:4b",
+    "mocked": false
+  },
+  "runtime_errors": [],
+  "scenes": [
+    {
+      "scene": "Problem",
+      "start_seconds": 0.0,
+      "caption": "A freelancer can have income on paper and still run short before the next payment. CashGuard explores that gap locally."
+    },
+    {
+      "scene": "Overview",
+      "start_seconds": 7.780999999988126,
+      "caption": "Fictional demo data. Opening cash is an explicit assumption; reconstructed balances are estimates, not bank balances."
+    },
+    {
+      "scene": "Forecast",
+      "start_seconds": 17.23399999999674,
+      "caption": "The existing engine projects recurring events and residual cash flow over 30 days. These are conditional estimates, not guarantees."
+    },
+    {
+      "scene": "Anomaly review",
+      "start_seconds": 35.76599999998871,
+      "caption": "This separate labeled synthetic benchmark contains deliberate amount changes. The default engine genuinely flags this example; unusual does not mean fraud."
+    },
+    {
+      "scene": "Scenario",
+      "start_seconds": 58.780999999988126,
+      "caption": "Back to the standard demo. A hypothetical emergency expense changes the same event ledger; it does not change recorded history."
+    },
+    {
+      "scene": "Local Gemma",
+      "start_seconds": 73.28099999998813,
+      "caption": "Gemma 3 runs through local Ollama on computed evidence. It explains the analytics; Python still calculates every financial amount."
+    },
+    {
+      "scene": "Technical proof",
+      "start_seconds": 100.71899999999732,
+      "caption": "Calibration is separate from the synthetic final holdout. Benchmarks support reproducibility, not claims of real-world accuracy. Hosted CI is not yet verified."
+    },
+    {
+      "scene": "Closing",
+      "start_seconds": 113.59399999999732,
+      "caption": "A local early-warning workspace for cash-flow questions. No bank connection, financial-advice service, fraud confirmation, customers or revenue are claimed."
+    }
+  ],
+  "video": {
+    "file": "cashguard-demo-2min.mp4",
+    "seconds": 120.26599999998871,
+    "frames": 507,
+    "audio": false,
+    "caption_track": true,
+    "source": "Actual browser CDP screencast; original event timing, no generated UI",
+    "sha256": "f32cd88d4cee4dfc20a84ffbf1ab7da5f028a01f966ee62910123cb60b7f8e6d"
+  },
+  "captions": "cashguard-demo-2min-captions.srt",
+  "decode_exit_code": 0,
+  "reviewed_capture_screens": [
+    "anomaly-explanation",
+    "scenario-simulator",
+    "gemma-insights"
+  ],
+  "review": "Actual captured screens inspected; synthetic transactions, negative cash delta and validated real Gemma output visible; no personal tabs or machine paths visible",
+  "original_recording_preserved": "cashguard-demo.mp4"
+}

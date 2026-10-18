@@ -1,0 +1,31 @@
+1
+00:00:00,000 --> 00:00:07,781
+A freelancer can have income on paper and still run short before the next payment. CashGuard explores that gap locally.
+
+2
+00:00:07,781 --> 00:00:17,234
+Fictional demo data. Opening cash is an explicit assumption; reconstructed balances are estimates, not bank balances.
+
+3
+00:00:17,234 --> 00:00:35,766
+The existing engine projects recurring events and residual cash flow over 30 days. These are conditional estimates, not guarantees.
+
+4
+00:00:35,766 --> 00:00:58,781
+This separate labeled synthetic benchmark contains deliberate amount changes. The default engine genuinely flags this example; unusual does not mean fraud.
+
+5
+00:00:58,781 --> 00:01:13,281
+Back to the standard demo. A hypothetical emergency expense changes the same event ledger; it does not change recorded history.
+
+6
+00:01:13,281 --> 00:01:40,719
+Gemma 3 runs through local Ollama on computed evidence. It explains the analytics; Python still calculates every financial amount.
+
+7
+00:01:40,719 --> 00:01:53,594
+Calibration is separate from the synthetic final holdout. Benchmarks support reproducibility, not claims of real-world accuracy. Hosted CI is not yet verified.
+
+8
+00:01:53,594 --> 00:02:00,266
+A local early-warning workspace for cash-flow questions. No bank connection, financial-advice service, fraud confirmation, customers or revenue are claimed.
