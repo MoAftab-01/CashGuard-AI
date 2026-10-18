@@ -1,0 +1,85 @@
+{
+  "baseline": {
+    "passed": 338,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 67.73
+  },
+  "A": {
+    "passed": 49,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 11.24,
+    "dependency_check": "No broken requirements found.",
+    "note": "One upstream Starlette HTTPX TestClient deprecation warning; requests and assertions passed."
+  },
+  "B": {
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 20.4,
+    "tracking_runs_finished": 7,
+    "mlflow_ui_http_status": 200,
+    "selected_synthetic_f1": 0.96
+  },
+  "C": {
+    "configuration_tests": 4,
+    "streamlit_compatibility_tests": 30,
+    "container_http_checks": 13,
+    "container_dashboard_checks": 15,
+    "healthy_services": [
+      "dashboard",
+      "api",
+      "mlflow"
+    ],
+    "non_root_uid": 10001,
+    "container_tracking_runs_finished": 2,
+    "dependencies": "No broken requirements found.",
+    "issue_fixed": "MLflow HTTP termination URL printer raised UnicodeEncodeError on cp1252 Windows consoles; use its supported suppression setting."
+  },
+  "D": {
+    "passed": 81,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 12.37,
+    "lint": "All checks passed",
+    "ci": "Written and locally inspected; not executed on GitHub",
+    "drift": {
+      "reference_rows": 492,
+      "current_rows": 234,
+      "background_ratio_delta": 0.3094206209372759,
+      "shift_amount_ks": 0.5599854075463832,
+      "shift_category_js_bits": 0.7045360211801448,
+      "shift_ratio_delta": 7.4855808222088225,
+      "alert_and_residual_status": "Unassessed: no comparable alert vectors or realized forecast ledger supplied"
+    }
+  },
+  "E": {
+    "passed": 451,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 88.88,
+    "new_tests": 113,
+    "api_client_tests": 19,
+    "native_http_checks": 13,
+    "native_dashboard_checks": 15,
+    "container_http_checks": 13,
+    "container_dashboard_checks": 15,
+    "real_api_gemma_seconds": 7.421056999999564,
+    "missing_model_fallback": "model_missing",
+    "direct_timeout_fallback": "timeout",
+    "ui_mode": "all nine pages preserved in direct mode; tested API client, full page migration deferred",
+    "ci": "not executed on GitHub",
+    "timestamp_utc": "2026-10-18T16:19:54.623601+00:00",
+    "linux": {
+      "passed": 451,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 55.44,
+      "network": "disabled",
+      "uid": 10001,
+      "source": "read-only bind mount"
+    },
+    "temporary_containers": "stopped after verification; tracking volume retained"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "runs": [
+    {
+      "run_id": "d439607937264dc9b98916c24baa9c27",
+      "name": "forecast",
+      "status": "FINISHED",
+      "f1": null,
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html"
+      ]
+    },
+    {
+      "run_id": "79c3373e02824da5b0da6e67a7825924",
+      "name": "candidate_legacy_auto",
+      "status": "FINISHED",
+      "f1": 0.21487603305785125,
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "run_id": "3be123c2cbd44793bc61b1d1159ab02d",
+      "name": "candidate_legacy_calibrated",
+      "status": "FINISHED",
+      "f1": 0.4827586206896552,
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "run_id": "35723a7544a8492e968697185f8cd3a5",
+      "name": "candidate_amount_forest",
+      "status": "FINISHED",
+      "f1": 0.7428571428571429,
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "run_id": "bbfa12bbd31346f992b37e2d66888b96",
+      "name": "candidate_context_forest",
+      "status": "FINISHED",
+      "f1": 0.7428571428571429,
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "run_id": "aca8a075775446eaa9a79c47ff9ff98f",
+      "name": "candidate_amount_stat",
+      "status": "FINISHED",
+      "f1": 0.9230769230769231,
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "run_id": "c815a9efaf484d008087a6cf6df9ab22",
+      "name": "candidate_context_stat",
+      "status": "FINISHED",
+      "f1": 0.96,
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    }
+  ],
+  "ui_health": 200
+}

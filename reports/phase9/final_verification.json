@@ -1,0 +1,93 @@
+{
+  "timestamp_utc": "2026-10-18T17:42:03.973480+00:00",
+  "baseline": {
+    "passed": 451,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 54.04
+  },
+  "final_windows": {
+    "passed": 458,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 85.73,
+    "warnings": 2
+  },
+  "checks": {
+    "pip_check": "No broken requirements found.",
+    "ruff": "All checks passed!",
+    "compileall": "passed",
+    "native_http": 13,
+    "native_dashboard": 15,
+    "container_http": 13,
+    "container_dashboard": 15,
+    "container_build_startup": "three healthy services; UID10001; pip check passed",
+    "container_final_state": "stopped after verification; tracking volume retained",
+    "mlflow_runs_freshly_verified_finished": 9,
+    "synthetic_selected_f1": 0.96,
+    "gemma_full_seconds": 15.162344500000472,
+    "gemma_sparse_seconds": 14.754319500003476,
+    "timeout_fallback_seconds": 1.098829399998067,
+    "screenshots_visually_reviewed": 7,
+    "video": {
+      "file": "cashguard-demo.mp4",
+      "seconds": 167.90699999999197,
+      "frames": 430,
+      "audio": false,
+      "caption_track": true,
+      "source": "Actual browser CDP screencast; original event timing, no generated UI",
+      "sha256": "16adb05b6edd6059a8e1f6f9f9d7f25c73a7a2086c5e89ad368ff692aa55ec80"
+    },
+    "github_ci": "not executed"
+  },
+  "publication": {
+    "repository": "https://github.com/MoAftab-01/CashGuard-AI",
+    "remote_state_at_audit": "public, no branches",
+    "license": "MIT, owner confirmed",
+    "code_pushed": false,
+    "dev_draft_saved_and_read_back": true,
+    "dev_published": false,
+    "video_public_url": null,
+    "agent_session_url": null,
+    "eligibility": "owner confirmed project start inside the entry window and personal eligibility checks on 2026-10-18; not an organizer decision"
+  },
+  "source_changes": [
+    "src/ui/pages.py: negative cash delta display only",
+    "tests/test_app.py: regression",
+    "scripts/prepare_release.py",
+    "scripts/capture_submission.py",
+    "tests/test_release_preparation.py",
+    "LICENSE",
+    "SECURITY.md",
+    "CONTRIBUTING.md",
+    ".gitignore",
+    ".dockerignore",
+    "README.md",
+    "docs/architecture.md",
+    "docs/submission/",
+    "reports/phase9/",
+    "pyproject.toml: fresh-checkout-safe pytest temporary directory"
+  ],
+  "previous_workspace_gate": {
+    "passed": 457,
+    "seconds": 86.48,
+    "superseded_by": "fresh-checkout configuration regression"
+  },
+  "initial_clean_candidate": {
+    "passed": 449,
+    "failed": 0,
+    "errors": 8,
+    "seconds": 77.53,
+    "cause": "pytest nested basetemp parent missing; fixed"
+  },
+  "clean_extracted_source": {
+    "passed": 458,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 90.05,
+    "warnings": 2,
+    "functional_files_match_final_inputs": true,
+    "functional_file_count": 111,
+    "functional_sha256": "517c259187527ffa897a4a0e37144c465ff77945a0e973c4f0ff40c84a7dea4f"
+  }
+}

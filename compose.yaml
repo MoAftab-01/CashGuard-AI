@@ -1,0 +1,54 @@
+name: cashguard-local
+services:
+  dashboard:
+    build:
+      context: .
+      target: runtime
+    ports:
+      - "127.0.0.1:${CASHGUARD_DASHBOARD_PORT:-8501}:8501"
+    environment:
+      CASHGUARD_OLLAMA_URL: http://127.0.0.1:11434
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+      - /home/cashguard:size=16m,uid=10001,gid=10001
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+  api:
+    build:
+      context: .
+      target: runtime
+    command: [python, -m, api]
+    ports:
+      - "127.0.0.1:${CASHGUARD_API_PORT:-8000}:8000"
+    environment:
+      CASHGUARD_API_HOST: "0.0.0.0"
+      CASHGUARD_CONTAINER_BIND: "true"
+      CASHGUARD_ALLOWED_HOSTS: "localhost,127.0.0.1,api"
+      CASHGUARD_OLLAMA_URL: http://127.0.0.1:11434
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready',timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
+  mlflow:
+    profiles: [tracking]
+    build:
+      context: .
+      target: tracking
+    ports:
+      - "127.0.0.1:${CASHGUARD_MLFLOW_PORT:-5000}:5000"
+    environment:
+      MLFLOW_DISABLE_TELEMETRY: "true"
+    volumes:
+      - mlflow-data:/app/var
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+volumes:
+  mlflow-data:

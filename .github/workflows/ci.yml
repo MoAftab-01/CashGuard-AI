@@ -1,0 +1,91 @@
+name: Local platform quality
+
+on:
+  pull_request:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  MLFLOW_DISABLE_TELEMETRY: "true"
+  MLFLOW_SUPPRESS_PRINTING_URL_TO_STDOUT: "true"
+  CASHGUARD_OLLAMA_URL: http://127.0.0.1:9
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12.10"
+          cache: pip
+          cache-dependency-path: requirements.lock.txt
+      - run: python -m pip install -r requirements.lock.txt
+      - run: python -m pip check
+      - run: python -m ruff check .
+      - run: python -m compileall -q api src scripts app.py config.py
+      - name: Unit, API parity, financial invariants and privacy tests
+        run: python -m pytest -q --junitxml=reports/ci/pytest.xml
+      - name: Freeze synthetic selection before opening final partition
+        run: python -m scripts.evaluate_anomaly_candidates --calibration-only --output-dir reports/ci/evaluation
+      - name: Synthetic evaluation and optional tracking smoke
+        run: python -m scripts.evaluate_anomaly_candidates --output-dir reports/ci/evaluation --track-mlflow
+      - name: Assert experiment persistence, not only script exit
+        run: |
+          python -c "import json; from mlflow import MlflowClient; from src.experiment_tracking import local_tracking_uri; r=json.load(open('reports/ci/evaluation/tracking.json')); assert r['status']=='logged' and len(r['run_ids'])==7; c=MlflowClient(tracking_uri=local_tracking_uri()); assert all(c.get_run(i).info.status=='FINISHED' for i in r['run_ids'])"
+      - run: python -m scripts.monitor_models --synthetic --output-dir reports/ci/drift
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: synthetic-quality-results
+          path: |
+            reports/ci/pytest.xml
+            reports/ci/evaluation/selection.json
+            reports/ci/evaluation/results.json
+            reports/ci/evaluation/tracking.json
+            reports/ci/drift/
+          if-no-files-found: warn
+          retention-days: 7
+
+  containers:
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CASHGUARD_DASHBOARD_PORT: "8502"
+      CASHGUARD_API_PORT: "8001"
+      CASHGUARD_MLFLOW_PORT: "5001"
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12.10"
+          cache: pip
+          cache-dependency-path: requirements.lock.txt
+      - run: python -m pip install -r requirements.lock.txt
+      - run: docker compose --profile tracking build
+      - run: docker compose --profile tracking up -d --wait --wait-timeout 180
+      - run: python -m scripts.check_services --api-url http://127.0.0.1:8001 --dashboard-url http://127.0.0.1:8502 --tracking-url http://127.0.0.1:5001 --output reports/ci/container_services.json
+      - run: python -m scripts.smoke_dashboard --port 8502 --output reports/ci/container_dashboard.json
+      - if: always()
+        run: docker compose --profile tracking down
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: container-execution-checks
+          path: reports/ci/container*.json
+          if-no-files-found: warn
+          retention-days: 7

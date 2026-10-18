@@ -1,0 +1,19 @@
+[project]
+name = "cashguard-ai"
+version = "0.8.0"
+description = "Local, explainable financial analytics with deterministic forecasts and chronological anomaly detection"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-ra --basetemp=.pytest_tmp"
+
+[tool.ruff]
+target-version = "py312"
+extend-exclude = [".venv", "var", "reports", ".pytest_cache", ".pytest_tmp"]
+
+[tool.ruff.lint]
+# Critical syntax, undefined-name and invalid-expression checks across old/new code.
+# Broad style churn would obscure the preserved financial implementation.
+select = ["E9", "F63", "F7", "F82"]

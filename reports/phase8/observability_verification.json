@@ -1,0 +1,6 @@
+{
+  "container_metrics_http": 200,
+  "native_structured_events": 33,
+  "native_http_events": 14,
+  "payloads_absent": true
+}

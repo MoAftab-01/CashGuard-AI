@@ -1,0 +1,24 @@
+{
+  "baseline_tests": {
+    "passed": 297,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 34.91
+  },
+  "final_tests": {
+    "passed": 333,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 53.01,
+    "command": ".venv\\Scripts\\python.exe -m pytest -q"
+  },
+  "dependencies": "No broken requirements found",
+  "ollama_client_version": "0.40.5",
+  "real_gemma_test": "See local_gemma.json; actual inference, not mocks",
+  "browser_visual_qa": false,
+  "saved_metric_reconciliation": "Exact counts/matrices; floating metrics within 1e-9 of exported labels/predictions",
+  "dashboard_live_runs": 15,
+  "dashboard_entry_http_status": 200,
+  "dashboard_health_http_status": 200,
+  "live_model_inference_sent": false
+}

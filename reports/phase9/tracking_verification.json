@@ -1,0 +1,94 @@
+{
+  "fresh_readback": true,
+  "finished": 9,
+  "runs": [
+    {
+      "store": "native",
+      "run_id": "d439607937264dc9b98916c24baa9c27",
+      "status": "FINISHED",
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html"
+      ]
+    },
+    {
+      "store": "native",
+      "run_id": "79c3373e02824da5b0da6e67a7825924",
+      "status": "FINISHED",
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "store": "native",
+      "run_id": "3be123c2cbd44793bc61b1d1159ab02d",
+      "status": "FINISHED",
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "store": "native",
+      "run_id": "35723a7544a8492e968697185f8cd3a5",
+      "status": "FINISHED",
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "store": "native",
+      "run_id": "bbfa12bbd31346f992b37e2d66888b96",
+      "status": "FINISHED",
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "store": "native",
+      "run_id": "aca8a075775446eaa9a79c47ff9ff98f",
+      "status": "FINISHED",
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "store": "native",
+      "run_id": "c815a9efaf484d008087a6cf6df9ab22",
+      "status": "FINISHED",
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    },
+    {
+      "store": "container",
+      "run_id": "f2b0e91b4e75477bb553e3b7220c1652",
+      "status": "FINISHED",
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html"
+      ]
+    },
+    {
+      "store": "container",
+      "run_id": "0fb9f12835bc497bb8f2bd205c78f55e",
+      "status": "FINISHED",
+      "artifacts": [
+        "evaluation/aggregate_metrics.json",
+        "evaluation/evaluation_0.html",
+        "evaluation/evaluation_1.html"
+      ]
+    }
+  ]
+}

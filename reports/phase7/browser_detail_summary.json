@@ -1,0 +1,123 @@
+{
+  "mobile_dark_stress": {
+    "width": 390,
+    "height": 844,
+    "documentWidth": 390,
+    "mainWidth": 390,
+    "mainScrollWidth": 390,
+    "mainHeight": 2300,
+    "background": "rgb(11, 18, 32)",
+    "charts": 1,
+    "metrics": [
+      {
+        "label": "Baseline minimum cash",
+        "value": "USD 16,204.86"
+      },
+      {
+        "label": "Scenario minimum cash",
+        "value": "USD 15,704.86"
+      },
+      {
+        "label": "Closing balance change",
+        "value": "USD -1,340.00"
+      },
+      {
+        "label": "Scenario breach days",
+        "value": "0"
+      }
+    ],
+    "clippedMetricValues": 0,
+    "chartChecks": [
+      {
+        "title": "<b><b>Estimated cash balance</b></b>",
+        "titleInside": true,
+        "legendInside": true,
+        "titleLegendOverlap": false
+      }
+    ],
+    "screenshots": [
+      "reports\\phase7\\screenshots\\detail-mobile-dark-stress-0.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-stress-1.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-stress-2.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-stress-3.png"
+    ]
+  },
+  "mobile_dark_evaluation": {
+    "width": 390,
+    "height": 844,
+    "documentWidth": 390,
+    "mainWidth": 390,
+    "mainScrollWidth": 390,
+    "mainHeight": 5922,
+    "background": "rgb(11, 18, 32)",
+    "charts": 5,
+    "metrics": [
+      {
+        "label": "Precision",
+        "value": "0.078"
+      },
+      {
+        "label": "Recall",
+        "value": "1.000"
+      },
+      {
+        "label": "F1",
+        "value": "0.145"
+      },
+      {
+        "label": "False Positive Rate",
+        "value": "0.623"
+      }
+    ],
+    "clippedMetricValues": 0,
+    "chartChecks": [
+      {
+        "title": "<b><b>Rolling-origin balance MAE</b></b>",
+        "titleInside": true,
+        "legendInside": true,
+        "titleLegendOverlap": false
+      },
+      {
+        "title": "<b><b>Synthetic confusion matrix</b></b>",
+        "titleInside": true,
+        "legendInside": true,
+        "titleLegendOverlap": false
+      },
+      {
+        "title": "<b><b>Synthetic score distribution</b></b>",
+        "titleInside": true,
+        "legendInside": true,
+        "titleLegendOverlap": false
+      },
+      {
+        "title": "<b><b>Synthetic confusion matrix</b></b>",
+        "titleInside": true,
+        "legendInside": true,
+        "titleLegendOverlap": false
+      },
+      {
+        "title": "<b><b>Synthetic score distribution</b></b>",
+        "titleInside": true,
+        "legendInside": true,
+        "titleLegendOverlap": false
+      }
+    ],
+    "screenshots": [
+      "reports\\phase7\\screenshots\\detail-mobile-dark-evaluated-0.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-evaluated-1.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-evaluated-2.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-evaluated-3.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-evaluated-4.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-evaluated-5.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-evaluated-6.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-evaluated-7.png",
+      "reports\\phase7\\screenshots\\detail-mobile-dark-evaluated-8.png"
+    ]
+  },
+  "runtime_errors": [],
+  "forecast_horizon_ticks": [
+    7,
+    14,
+    30
+  ]
+}

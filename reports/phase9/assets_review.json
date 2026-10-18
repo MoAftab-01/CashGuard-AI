@@ -1,0 +1,15 @@
+{
+  "timestamp_utc": "2026-10-18T17:35:26.074355+00:00",
+  "all_asset_hashes_match": true,
+  "synthetic_data_only": true,
+  "visual_inspection": "Seven actual PNGs inspected; no personal tabs, addresses, machine paths or real financial records visible",
+  "financial_indicator": "Negative scenario cash delta is downward/red",
+  "anomaly": "Known injected transport example genuinely flagged; expanded earlier-history reference visible",
+  "gemma": "Actual local generation and validated AI output visible",
+  "model_evaluation": "Actual selected synthetic comparison and confusion matrix visible",
+  "video_decode_exit": 0,
+  "video_seconds": 167.90699999999197,
+  "audio": false,
+  "caption_track": true,
+  "owner_review_still_required": true
+}

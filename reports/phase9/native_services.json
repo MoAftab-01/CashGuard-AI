@@ -1,0 +1,20 @@
+{
+  "api_url": "http://127.0.0.1:8000",
+  "fictional_data_only": true,
+  "checks": [
+    "/health",
+    "/ready",
+    "/openapi.json",
+    "/docs",
+    "analytics/summary",
+    "transactions/validate",
+    "forecast",
+    "anomalies/detect",
+    "risk/analyze",
+    "scenarios/simulate",
+    "invalid_number_rejected",
+    "dashboard_health",
+    "mlflow_health"
+  ],
+  "estimated_balance": "85.15"
+}

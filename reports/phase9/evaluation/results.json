@@ -1,0 +1,777 @@
+{
+  "measured_at_utc": "2026-10-18T17:09:08.013500+00:00",
+  "protocol": {
+    "protocol": "phase6-chronological-v1",
+    "method": "context_stat",
+    "threshold": 3.5,
+    "fingerprint": "367539b12146d100f0aa6a924b8f4dbf454cca2f1a59193455fc2a9a00f2c037",
+    "calibration_metrics": [
+      {
+        "method": "legacy_auto",
+        "threshold": 0.5,
+        "precision": 0.1061946903,
+        "recall": 0.9230769231,
+        "f1": 0.1904761905,
+        "false_positive_rate": 0.4316239316,
+        "confusion_matrix": [
+          [
+            133,
+            101
+          ],
+          [
+            1,
+            12
+          ]
+        ],
+        "test_rows": 247,
+        "injected_count": 13,
+        "predicted_unusual": 113
+      },
+      {
+        "method": "legacy_calibrated",
+        "threshold": 0.6033467137,
+        "precision": 0.3125,
+        "recall": 0.3846153846,
+        "f1": 0.3448275862,
+        "false_positive_rate": 0.047008547,
+        "confusion_matrix": [
+          [
+            223,
+            11
+          ],
+          [
+            8,
+            5
+          ]
+        ],
+        "test_rows": 247,
+        "injected_count": 13,
+        "predicted_unusual": 16
+      },
+      {
+        "method": "amount_forest",
+        "threshold": 0.666228653,
+        "precision": 0.4761904762,
+        "recall": 0.7692307692,
+        "f1": 0.5882352941,
+        "false_positive_rate": 0.047008547,
+        "confusion_matrix": [
+          [
+            223,
+            11
+          ],
+          [
+            3,
+            10
+          ]
+        ],
+        "test_rows": 247,
+        "injected_count": 13,
+        "predicted_unusual": 21
+      },
+      {
+        "method": "context_forest",
+        "threshold": 0.6573165086,
+        "precision": 0.4761904762,
+        "recall": 0.7692307692,
+        "f1": 0.5882352941,
+        "false_positive_rate": 0.047008547,
+        "confusion_matrix": [
+          [
+            223,
+            11
+          ],
+          [
+            3,
+            10
+          ]
+        ],
+        "test_rows": 247,
+        "injected_count": 13,
+        "predicted_unusual": 21
+      },
+      {
+        "method": "amount_stat",
+        "threshold": 3.5,
+        "precision": 0.9,
+        "recall": 0.6923076923,
+        "f1": 0.7826086957,
+        "false_positive_rate": 0.0042735043,
+        "confusion_matrix": [
+          [
+            233,
+            1
+          ],
+          [
+            4,
+            9
+          ]
+        ],
+        "test_rows": 247,
+        "injected_count": 13,
+        "predicted_unusual": 10
+      },
+      {
+        "method": "context_stat",
+        "threshold": 3.5,
+        "precision": 1.0,
+        "recall": 0.6923076923,
+        "f1": 0.8181818182,
+        "false_positive_rate": 0.0,
+        "confusion_matrix": [
+          [
+            234,
+            0
+          ],
+          [
+            4,
+            9
+          ]
+        ],
+        "test_rows": 247,
+        "injected_count": 13,
+        "predicted_unusual": 9
+      }
+    ],
+    "partitions": {
+      "train": [
+        0,
+        120,
+        1729
+      ],
+      "calibration": [
+        120,
+        60,
+        2718
+      ],
+      "final": [
+        180,
+        60,
+        31415
+      ]
+    },
+    "train_rows": 492,
+    "calibration_rows": 247,
+    "train_end": "2025-04-30",
+    "calibration_end": "2025-06-29"
+  },
+  "phase5_reproduced": {
+    "metrics": {
+      "precision": 0.07792207792207792,
+      "recall": 1.0,
+      "f1": 0.14457831325301204,
+      "false_positive_rate": 0.6228070175438597,
+      "confusion_matrix": [
+        [
+          86,
+          142
+        ],
+        [
+          0,
+          12
+        ]
+      ],
+      "test_rows": 240,
+      "injected_count": 12,
+      "predicted_unusual": 154
+    },
+    "distributions": {
+      "train": {
+        "feature_means": {
+          "log_absolute_amount": 3.671457074836682,
+          "direction": -0.5,
+          "log_relative_amount": 0.7019702586567146,
+          "weekday_sin": 0.008124399268181863,
+          "weekday_cos": -0.0018543411163026177,
+          "weekday_rarity": 1.94570484344959
+        },
+        "feature_std": {
+          "log_absolute_amount": 1.1259950701989057,
+          "direction": 0.8660254037844386,
+          "log_relative_amount": 0.14557338725871968,
+          "weekday_sin": 0.7097098217483852,
+          "weekday_cos": 0.704444834227231,
+          "weekday_rarity": 0.019849886814599628
+        },
+        "by_category": [
+          {
+            "category": "Groceries",
+            "rows": 120,
+            "mean_score": 0.4882703893,
+            "min_score": 0.4457294693,
+            "max_score": 0.6038325247,
+            "flagged": 39
+          },
+          {
+            "category": "Income",
+            "rows": 120,
+            "mean_score": 0.5599103457,
+            "min_score": 0.5162759904,
+            "max_score": 0.7117987115,
+            "flagged": 120
+          },
+          {
+            "category": "Shopping",
+            "rows": 120,
+            "mean_score": 0.5002789118,
+            "min_score": 0.459656456,
+            "max_score": 0.6525011676,
+            "flagged": 47
+          },
+          {
+            "category": "Transport",
+            "rows": 120,
+            "mean_score": 0.5119062837,
+            "min_score": 0.4713456338,
+            "max_score": 0.6152943584,
+            "flagged": 61
+          }
+        ]
+      },
+      "test_background": {
+        "feature_means": {
+          "log_absolute_amount": 3.6690828091007095,
+          "direction": -0.47368421052631576,
+          "log_relative_amount": 0.6894157510427791,
+          "weekday_sin": -0.028447339497961226,
+          "weekday_cos": -0.029505988041528097,
+          "weekday_rarity": 1.9464832015881488
+        },
+        "feature_std": {
+          "log_absolute_amount": 1.1350201181666955,
+          "direction": 0.8806947647727111,
+          "log_relative_amount": 0.14758732184547513,
+          "weekday_sin": 0.7061982807422529,
+          "weekday_cos": 0.7068268061002404,
+          "weekday_rarity": 0.019047678895195923
+        },
+        "by_category": [
+          {
+            "category": "Groceries",
+            "rows": 48,
+            "mean_score": 0.4912561627,
+            "min_score": 0.4507475686,
+            "max_score": 0.6202764935,
+            "flagged": 18
+          },
+          {
+            "category": "Income",
+            "rows": 60,
+            "mean_score": 0.5568408131,
+            "min_score": 0.5180640967,
+            "max_score": 0.6769839968,
+            "flagged": 60
+          },
+          {
+            "category": "Shopping",
+            "rows": 60,
+            "mean_score": 0.5063778116,
+            "min_score": 0.4596887064,
+            "max_score": 0.6475089097,
+            "flagged": 28
+          },
+          {
+            "category": "Transport",
+            "rows": 60,
+            "mean_score": 0.5166960869,
+            "min_score": 0.4732040471,
+            "max_score": 0.6023061005,
+            "flagged": 36
+          }
+        ]
+      }
+    },
+    "max_training_score_difference_without_scaler": 0.0,
+    "score_direction_matches_sklearn": true,
+    "recurring_demo_review": [
+      {
+        "date": "2026-02-01T00:00:00.000",
+        "description": "Monthly salary",
+        "category": "Income",
+        "amount_cents": 420000,
+        "is_anomaly": true,
+        "anomaly_score": 0.6734531451
+      },
+      {
+        "date": "2026-02-03T00:00:00.000",
+        "description": "Monthly rent",
+        "category": "Housing",
+        "amount_cents": -140000,
+        "is_anomaly": true,
+        "anomaly_score": 0.6263895814
+      },
+      {
+        "date": "2026-02-07T00:00:00.000",
+        "description": "Streaming subscription",
+        "category": "Subscriptions",
+        "amount_cents": -1599,
+        "is_anomaly": false,
+        "anomaly_score": 0.4437172907
+      },
+      {
+        "date": "2026-02-15T00:00:00.000",
+        "description": "Internet subscription",
+        "category": "Subscriptions",
+        "amount_cents": -5500,
+        "is_anomaly": true,
+        "anomaly_score": 0.6091058114
+      },
+      {
+        "date": "2026-03-01T00:00:00.000",
+        "description": "Monthly salary",
+        "category": "Income",
+        "amount_cents": 420000,
+        "is_anomaly": true,
+        "anomaly_score": 0.6734531451
+      },
+      {
+        "date": "2026-03-03T00:00:00.000",
+        "description": "Monthly rent",
+        "category": "Housing",
+        "amount_cents": -140000,
+        "is_anomaly": true,
+        "anomaly_score": 0.6417516787
+      },
+      {
+        "date": "2026-03-07T00:00:00.000",
+        "description": "Streaming subscription",
+        "category": "Subscriptions",
+        "amount_cents": -1599,
+        "is_anomaly": false,
+        "anomaly_score": 0.4996076124
+      },
+      {
+        "date": "2026-03-15T00:00:00.000",
+        "description": "Internet subscription",
+        "category": "Subscriptions",
+        "amount_cents": -5500,
+        "is_anomaly": true,
+        "anomaly_score": 0.5581695882
+      },
+      {
+        "date": "2026-04-01T00:00:00.000",
+        "description": "Monthly salary",
+        "category": "Income",
+        "amount_cents": 420000,
+        "is_anomaly": true,
+        "anomaly_score": 0.6570217686
+      },
+      {
+        "date": "2026-04-03T00:00:00.000",
+        "description": "Monthly rent",
+        "category": "Housing",
+        "amount_cents": -140000,
+        "is_anomaly": true,
+        "anomaly_score": 0.5581471185
+      },
+      {
+        "date": "2026-04-07T00:00:00.000",
+        "description": "Streaming subscription",
+        "category": "Subscriptions",
+        "amount_cents": -1599,
+        "is_anomaly": false,
+        "anomaly_score": 0.4871220284
+      },
+      {
+        "date": "2026-04-15T00:00:00.000",
+        "description": "Internet subscription",
+        "category": "Subscriptions",
+        "amount_cents": -5500,
+        "is_anomaly": false,
+        "anomaly_score": 0.4826283629
+      },
+      {
+        "date": "2026-05-01T00:00:00.000",
+        "description": "Monthly salary",
+        "category": "Income",
+        "amount_cents": 420000,
+        "is_anomaly": true,
+        "anomaly_score": 0.64335423
+      },
+      {
+        "date": "2026-05-03T00:00:00.000",
+        "description": "Monthly rent",
+        "category": "Housing",
+        "amount_cents": -140000,
+        "is_anomaly": true,
+        "anomaly_score": 0.6072371105
+      },
+      {
+        "date": "2026-05-07T00:00:00.000",
+        "description": "Streaming subscription",
+        "category": "Subscriptions",
+        "amount_cents": -1599,
+        "is_anomaly": false,
+        "anomaly_score": 0.488120362
+      },
+      {
+        "date": "2026-05-15T00:00:00.000",
+        "description": "Internet subscription",
+        "category": "Subscriptions",
+        "amount_cents": -5500,
+        "is_anomaly": false,
+        "anomaly_score": 0.494219335
+      },
+      {
+        "date": "2026-06-01T00:00:00.000",
+        "description": "Monthly salary",
+        "category": "Income",
+        "amount_cents": 420000,
+        "is_anomaly": true,
+        "anomaly_score": 0.6891430358
+      },
+      {
+        "date": "2026-06-03T00:00:00.000",
+        "description": "Monthly rent",
+        "category": "Housing",
+        "amount_cents": -140000,
+        "is_anomaly": true,
+        "anomaly_score": 0.5543940028
+      },
+      {
+        "date": "2026-06-07T00:00:00.000",
+        "description": "Streaming subscription",
+        "category": "Subscriptions",
+        "amount_cents": -1599,
+        "is_anomaly": true,
+        "anomaly_score": 0.6081079383
+      },
+      {
+        "date": "2026-06-15T00:00:00.000",
+        "description": "Internet subscription",
+        "category": "Subscriptions",
+        "amount_cents": -5500,
+        "is_anomaly": true,
+        "anomaly_score": 0.5608505014
+      },
+      {
+        "date": "2026-07-01T00:00:00.000",
+        "description": "Monthly salary",
+        "category": "Income",
+        "amount_cents": 420000,
+        "is_anomaly": true,
+        "anomaly_score": 0.6636888492
+      },
+      {
+        "date": "2026-07-03T00:00:00.000",
+        "description": "Monthly rent",
+        "category": "Housing",
+        "amount_cents": -140000,
+        "is_anomaly": true,
+        "anomaly_score": 0.5730966989
+      },
+      {
+        "date": "2026-07-07T00:00:00.000",
+        "description": "Streaming subscription",
+        "category": "Subscriptions",
+        "amount_cents": -1599,
+        "is_anomaly": true,
+        "anomaly_score": 0.5244685386
+      },
+      {
+        "date": "2026-07-15T00:00:00.000",
+        "description": "Internet subscription",
+        "category": "Subscriptions",
+        "amount_cents": -5500,
+        "is_anomaly": false,
+        "anomaly_score": 0.4963577296
+      }
+    ]
+  },
+  "final_metrics": [
+    {
+      "method": "legacy_auto",
+      "threshold": 0.5,
+      "selected": false,
+      "precision": 0.1203703704,
+      "recall": 1.0,
+      "f1": 0.2148760331,
+      "false_positive_rate": 0.405982906,
+      "confusion_matrix": [
+        [
+          139,
+          95
+        ],
+        [
+          0,
+          13
+        ]
+      ],
+      "test_rows": 247,
+      "injected_count": 13,
+      "predicted_unusual": 108,
+      "background_recurring_rows": 5,
+      "background_recurring_flags": 3
+    },
+    {
+      "method": "legacy_calibrated",
+      "threshold": 0.6033467137,
+      "selected": false,
+      "precision": 0.4375,
+      "recall": 0.5384615385,
+      "f1": 0.4827586207,
+      "false_positive_rate": 0.0384615385,
+      "confusion_matrix": [
+        [
+          225,
+          9
+        ],
+        [
+          6,
+          7
+        ]
+      ],
+      "test_rows": 247,
+      "injected_count": 13,
+      "predicted_unusual": 16,
+      "background_recurring_rows": 5,
+      "background_recurring_flags": 1
+    },
+    {
+      "method": "amount_forest",
+      "threshold": 0.666228653,
+      "selected": false,
+      "precision": 0.5909090909,
+      "recall": 1.0,
+      "f1": 0.7428571429,
+      "false_positive_rate": 0.0384615385,
+      "confusion_matrix": [
+        [
+          225,
+          9
+        ],
+        [
+          0,
+          13
+        ]
+      ],
+      "test_rows": 247,
+      "injected_count": 13,
+      "predicted_unusual": 22,
+      "background_recurring_rows": 5,
+      "background_recurring_flags": 1
+    },
+    {
+      "method": "context_forest",
+      "threshold": 0.6573165086,
+      "selected": false,
+      "precision": 0.5909090909,
+      "recall": 1.0,
+      "f1": 0.7428571429,
+      "false_positive_rate": 0.0384615385,
+      "confusion_matrix": [
+        [
+          225,
+          9
+        ],
+        [
+          0,
+          13
+        ]
+      ],
+      "test_rows": 247,
+      "injected_count": 13,
+      "predicted_unusual": 22,
+      "background_recurring_rows": 5,
+      "background_recurring_flags": 0
+    },
+    {
+      "method": "amount_stat",
+      "threshold": 3.5,
+      "selected": false,
+      "precision": 0.9230769231,
+      "recall": 0.9230769231,
+      "f1": 0.9230769231,
+      "false_positive_rate": 0.0042735043,
+      "confusion_matrix": [
+        [
+          233,
+          1
+        ],
+        [
+          1,
+          12
+        ]
+      ],
+      "test_rows": 247,
+      "injected_count": 13,
+      "predicted_unusual": 13,
+      "background_recurring_rows": 5,
+      "background_recurring_flags": 1
+    },
+    {
+      "method": "context_stat",
+      "threshold": 3.5,
+      "selected": true,
+      "precision": 1.0,
+      "recall": 0.9230769231,
+      "f1": 0.96,
+      "false_positive_rate": 0.0,
+      "confusion_matrix": [
+        [
+          234,
+          0
+        ],
+        [
+          1,
+          12
+        ]
+      ],
+      "test_rows": 247,
+      "injected_count": 13,
+      "predicted_unusual": 12,
+      "background_recurring_rows": 5,
+      "background_recurring_flags": 0
+    }
+  ],
+  "forecast_metrics": [
+    {
+      "horizon_days": 7,
+      "method": "Recurring + residual",
+      "target": "net",
+      "fold_count": 4,
+      "observation_count": 28,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-06T00:00:00.000",
+      "mae": 32.1882142857,
+      "rmse": 50.2735432765,
+      "bias": 2.1003571429
+    },
+    {
+      "horizon_days": 7,
+      "method": "Recurring + residual",
+      "target": "balance",
+      "fold_count": 4,
+      "observation_count": 28,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-06T00:00:00.000",
+      "mae": 91.5135714286,
+      "rmse": 120.431392858,
+      "bias": 16.1892857143
+    },
+    {
+      "horizon_days": 7,
+      "method": "Last balance (zero net)",
+      "target": "net",
+      "fold_count": 4,
+      "observation_count": 28,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-06T00:00:00.000",
+      "mae": 814.9925,
+      "rmse": 1654.0141602272,
+      "bias": -367.0753571429
+    },
+    {
+      "horizon_days": 7,
+      "method": "Last balance (zero net)",
+      "target": "balance",
+      "fold_count": 4,
+      "observation_count": 28,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-06T00:00:00.000",
+      "mae": 2864.2892857143,
+      "rmse": 3048.5490825133,
+      "bias": -2863.94
+    },
+    {
+      "horizon_days": 14,
+      "method": "Recurring + residual",
+      "target": "net",
+      "fold_count": 4,
+      "observation_count": 56,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-13T00:00:00.000",
+      "mae": 29.4696428571,
+      "rmse": 42.9398502892,
+      "bias": -0.6939285714
+    },
+    {
+      "horizon_days": 14,
+      "method": "Recurring + residual",
+      "target": "balance",
+      "fold_count": 4,
+      "observation_count": 56,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-13T00:00:00.000",
+      "mae": 110.3419642857,
+      "rmse": 138.0034580247,
+      "bias": 6.6580357143
+    },
+    {
+      "horizon_days": 14,
+      "method": "Last balance (zero net)",
+      "target": "net",
+      "fold_count": 4,
+      "observation_count": 56,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-13T00:00:00.000",
+      "mae": 432.5639285714,
+      "rmse": 1170.9932892848,
+      "bias": -158.47
+    },
+    {
+      "horizon_days": 14,
+      "method": "Last balance (zero net)",
+      "target": "balance",
+      "fold_count": 4,
+      "observation_count": 56,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-13T00:00:00.000",
+      "mae": 2611.2807142857,
+      "rmse": 2728.4212666322,
+      "bias": -2611.1060714286
+    },
+    {
+      "horizon_days": 30,
+      "method": "Recurring + residual",
+      "target": "net",
+      "fold_count": 4,
+      "observation_count": 120,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-29T00:00:00.000",
+      "mae": 44.57675,
+      "rmse": 115.3329098704,
+      "bias": -1.1340833333
+    },
+    {
+      "horizon_days": 30,
+      "method": "Recurring + residual",
+      "target": "balance",
+      "fold_count": 4,
+      "observation_count": 120,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-29T00:00:00.000",
+      "mae": 207.7844166667,
+      "rmse": 278.1314557947,
+      "bias": -79.62525
+    },
+    {
+      "horizon_days": 30,
+      "method": "Last balance (zero net)",
+      "target": "net",
+      "fold_count": 4,
+      "observation_count": 120,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-29T00:00:00.000",
+      "mae": 229.9101666667,
+      "rmse": 807.9682840341,
+      "bias": -57.0991666667
+    },
+    {
+      "horizon_days": 30,
+      "method": "Last balance (zero net)",
+      "target": "balance",
+      "fold_count": 4,
+      "observation_count": 120,
+      "test_start": "2026-04-01T00:00:00.000",
+      "test_end": "2026-07-29T00:00:00.000",
+      "mae": 2316.4166666667,
+      "rmse": 2403.0912097331,
+      "bias": -2316.3351666667
+    }
+  ],
+  "warnings": [
+    "Calibration selects candidates; only the separate final holdout estimates their performance.",
+    "Synthetic injection labels are not fraud labels. No real-world accuracy or guaranteed live FPR."
+  ]
+}

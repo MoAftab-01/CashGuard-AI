@@ -1,0 +1,124 @@
+{
+  "data_origin": "synthetic",
+  "policy": "phase8-heuristic-v1",
+  "background": {
+    "status": "review_required",
+    "reference_rows": 492,
+    "current_rows": 234,
+    "reference_start": "2025-01-01",
+    "reference_end": "2025-04-30",
+    "current_start": "2025-05-01",
+    "current_end": "2025-06-29",
+    "reference_fingerprint": "cba48d569a337e17276055441930c05c531b63442dd39ab5596d234618542c96",
+    "current_fingerprint": "1466af0a8647f5c1c7ee921a53e17745219f233c0f50e9b3a732cfb7e5f63049",
+    "signals": [
+      {
+        "name": "absolute_amount_distribution",
+        "sufficient": true,
+        "statistic": 0.039660204294350576,
+        "threshold": 0.2,
+        "flagged": false,
+        "reference_value": null,
+        "current_value": null,
+        "explanation": "KS distance over log absolute amounts; IID p-value withheld."
+      },
+      {
+        "name": "category_distribution",
+        "sufficient": true,
+        "statistic": 0.0021570305050482358,
+        "threshold": 0.1,
+        "flagged": false,
+        "reference_value": null,
+        "current_value": null,
+        "explanation": "Jensen-Shannon divergence in bits over the union of categories, including new categories."
+      },
+      {
+        "name": "expense_to_income_ratio",
+        "sufficient": true,
+        "statistic": 0.3094206209372759,
+        "threshold": 0.2,
+        "flagged": true,
+        "reference_value": 0.4879305125373404,
+        "current_value": 0.7973511334746163,
+        "explanation": "Absolute ratio change; unavailable without observed income in both windows."
+      },
+      {
+        "name": "alert_rate",
+        "sufficient": false,
+        "statistic": null,
+        "threshold": 0.1,
+        "flagged": null,
+        "reference_value": null,
+        "current_value": null,
+        "explanation": "Unscored rows are excluded; matching review policy is required. Rate differences are not fraud probabilities."
+      }
+    ],
+    "warnings": [
+      "Drift is not proof of model failure and does not trigger retraining.",
+      "Fixed effect thresholds are review heuristics, not significance or false-positive guarantees.",
+      "Seasonality, payday timing, correlated transactions and window composition can change these diagnostics.",
+      "Missing alert flags remain unassessed. Compare identical engine/calibration policies."
+    ]
+  },
+  "deliberate_shift": {
+    "status": "review_required",
+    "reference_rows": 492,
+    "current_rows": 234,
+    "reference_start": "2025-01-01",
+    "reference_end": "2025-04-30",
+    "current_start": "2025-05-01",
+    "current_end": "2025-06-29",
+    "reference_fingerprint": "cba48d569a337e17276055441930c05c531b63442dd39ab5596d234618542c96",
+    "current_fingerprint": "f570c324fd6019b8ac85cb6f328db8b6771c626ac5ce517e45b56d99705f1d28",
+    "signals": [
+      {
+        "name": "absolute_amount_distribution",
+        "sufficient": true,
+        "statistic": 0.5599854075463832,
+        "threshold": 0.2,
+        "flagged": true,
+        "reference_value": null,
+        "current_value": null,
+        "explanation": "KS distance over log absolute amounts; IID p-value withheld."
+      },
+      {
+        "name": "category_distribution",
+        "sufficient": true,
+        "statistic": 0.7045360211801448,
+        "threshold": 0.1,
+        "flagged": true,
+        "reference_value": null,
+        "current_value": null,
+        "explanation": "Jensen-Shannon divergence in bits over the union of categories, including new categories."
+      },
+      {
+        "name": "expense_to_income_ratio",
+        "sufficient": true,
+        "statistic": 7.4855808222088225,
+        "threshold": 0.2,
+        "flagged": true,
+        "reference_value": 0.4879305125373404,
+        "current_value": 7.973511334746163,
+        "explanation": "Absolute ratio change; unavailable without observed income in both windows."
+      },
+      {
+        "name": "alert_rate",
+        "sufficient": false,
+        "statistic": null,
+        "threshold": 0.1,
+        "flagged": null,
+        "reference_value": null,
+        "current_value": null,
+        "explanation": "Unscored rows are excluded; matching review policy is required. Rate differences are not fraud probabilities."
+      }
+    ],
+    "warnings": [
+      "Drift is not proof of model failure and does not trigger retraining.",
+      "Fixed effect thresholds are review heuristics, not significance or false-positive guarantees.",
+      "Seasonality, payday timing, correlated transactions and window composition can change these diagnostics.",
+      "Missing alert flags remain unassessed. Compare identical engine/calibration policies."
+    ]
+  },
+  "residual_status": "Not assessed: this command has no realized forecast outcome ledger.",
+  "alert_status": "Not assessed: no comparable scored-alert vectors supplied."
+}

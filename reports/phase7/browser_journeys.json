@@ -1,0 +1,113 @@
+{
+  "transport": "Actual Edge browser DOM/CDP",
+  "fictional_data_only": true,
+  "checks": [
+    {
+      "journey": "First-run onboarding",
+      "passed": true,
+      "metrics_absent": true
+    },
+    {
+      "journey": "Load synthetic dataset and review metrics",
+      "passed": true,
+      "metrics": {
+        "Estimated cash balance": "USD 16,268.23",
+        "Total income": "USD 31,541.47",
+        "Total expenses": "USD 17,773.24",
+        "Net cash flow": "USD 13,768.23"
+      }
+    },
+    {
+      "journey": "Transaction filters and cross-page consistency",
+      "passed": true,
+      "overview_unchanged": true,
+      "search_retained": "salary"
+    },
+    {
+      "journey": "Generate 30-day cash-flow forecast",
+      "passed": true,
+      "metrics": {
+        "Estimated balance at cutoff": "USD 16,268.23",
+        "Projected closing balance": "USD 17,859.81",
+        "Days below threshold": "0"
+      }
+    },
+    {
+      "journey": "Change minimum cash threshold",
+      "passed": true,
+      "breach_days": 30,
+      "forecast_cash_unchanged": true
+    },
+    {
+      "journey": "Simulate emergency expense",
+      "passed": true,
+      "metrics": {
+        "Baseline minimum cash": "USD 16,204.86",
+        "Scenario minimum cash": "USD 15,704.86",
+        "Closing balance change": "USD -500.00",
+        "Scenario breach days": "0"
+      }
+    },
+    {
+      "journey": "Simulate reduced income",
+      "passed": true,
+      "metrics": {
+        "Baseline minimum cash": "USD 16,204.86",
+        "Scenario minimum cash": "USD 15,704.86",
+        "Closing balance change": "USD -1,340.00",
+        "Scenario breach days": "0"
+      }
+    },
+    {
+      "journey": "Inspect anomaly alerts and historical explanations",
+      "passed": true,
+      "legacy_metrics": {
+        "Flagged unusual": "58",
+        "Transactions scored": "175",
+        "Warmup / unscored": "30"
+      },
+      "default_zero_alert_warning": true
+    },
+    {
+      "journey": "Generate real local Gemma insights",
+      "passed": true,
+      "source": "ai",
+      "model": "gemma3:4b",
+      "loading_indicator_observed": true
+    },
+    {
+      "journey": "Unavailable-model fallback",
+      "passed": true,
+      "source": "deterministic",
+      "calculated_summaries_retained": true
+    },
+    {
+      "journey": "Inspect all model evaluation results",
+      "passed": true,
+      "charts": 5
+    },
+    {
+      "journey": "Upload valid CSV",
+      "passed": true,
+      "estimated_cash": "USD 85.00",
+      "explicit_opening": "10.00"
+    },
+    {
+      "journey": "Upload invalid CSV and inspect feedback",
+      "passed": true,
+      "metrics_absent": true,
+      "invalid_field": "amount"
+    },
+    {
+      "journey": "Recover from invalid upload and return to consistent demo",
+      "passed": true,
+      "metrics": {
+        "Estimated cash balance": "USD 16,268.23",
+        "Total income": "USD 31,541.47",
+        "Total expenses": "USD 17,773.24",
+        "Net cash flow": "USD 13,768.23"
+      }
+    }
+  ],
+  "runtime_errors": []
+}

@@ -1,0 +1,3 @@
+# Optional: normal dashboard and API operation do not import MLflow.
+-r requirements-api.txt
+mlflow==3.17.1

@@ -1,0 +1,19 @@
+{
+  "baseline_tests": {
+    "passed": 247,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 65.19
+  },
+  "final_tests": {
+    "passed": 297,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 36.74,
+    "command": ".venv\\Scripts\\python.exe -m pytest -q"
+  },
+  "dependencies": "No broken requirements found",
+  "dashboard_health": "HTTP 200 / ok",
+  "automated_llm": "Mocked transport and responses; no real inference in tests",
+  "browser_visual_qa": false
+}

@@ -1,0 +1,30 @@
+{
+  "recorded_at_utc": "2026-10-18T07:17:38.423450+00:00",
+  "python": "3.12.10",
+  "pytest": {
+    "command": ".venv/Scripts/python.exe -m pytest -q",
+    "passed": 338,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 33.74
+  },
+  "dependencies": {
+    "command": ".venv/Scripts/python.exe -m pip check",
+    "result": "No broken requirements found."
+  },
+  "scope": "Executed local checks; no real-world financial validation",
+  "historical_artifacts": "Phase 5/6 preserved; new evaluation outputs in reports/phase7",
+  "startup": {
+    "/": 200,
+    "/_stcore/health": 200
+  },
+  "browser_summary": {
+    "layouts": 36,
+    "screenshots": 104,
+    "navigation_assertions": 36,
+    "overflow": 0,
+    "clippedMetricValues": 0,
+    "chart_issues": {},
+    "runtime_exceptions": 0
+  }
+}

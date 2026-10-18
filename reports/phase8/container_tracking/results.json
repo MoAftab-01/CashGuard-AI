@@ -1,0 +1,386 @@
+{
+  "measured_at_utc": "2026-10-18T16:04:55.048806+00:00",
+  "machine": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+    "logical_cpus": 20,
+    "python": "3.12.10",
+    "architecture": "AMD64",
+    "packages": {
+      "pandas": "2.3.3",
+      "numpy": "2.5.4",
+      "scikit-learn": "1.9.1",
+      "streamlit": "1.66.0",
+      "plotly": "6.9.0",
+      "pydantic": "2.14.1",
+      "pytest": "9.1.1",
+      "requests": "2.34.2"
+    }
+  },
+  "source": "Bundled fictional demo, opening balance 2500.00 illustrative currency units",
+  "forecast": {
+    "metrics": [
+      {
+        "horizon_days": 7,
+        "method": "Recurring + residual",
+        "target": "net",
+        "fold_count": 4,
+        "observation_count": 28,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-06T00:00:00.000",
+        "mae": 32.1882142857,
+        "rmse": 50.2735432765,
+        "bias": 2.1003571429
+      },
+      {
+        "horizon_days": 7,
+        "method": "Recurring + residual",
+        "target": "balance",
+        "fold_count": 4,
+        "observation_count": 28,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-06T00:00:00.000",
+        "mae": 91.5135714286,
+        "rmse": 120.431392858,
+        "bias": 16.1892857143
+      },
+      {
+        "horizon_days": 7,
+        "method": "Last balance (zero net)",
+        "target": "net",
+        "fold_count": 4,
+        "observation_count": 28,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-06T00:00:00.000",
+        "mae": 814.9925,
+        "rmse": 1654.0141602272,
+        "bias": -367.0753571429
+      },
+      {
+        "horizon_days": 7,
+        "method": "Last balance (zero net)",
+        "target": "balance",
+        "fold_count": 4,
+        "observation_count": 28,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-06T00:00:00.000",
+        "mae": 2864.2892857143,
+        "rmse": 3048.5490825133,
+        "bias": -2863.94
+      },
+      {
+        "horizon_days": 14,
+        "method": "Recurring + residual",
+        "target": "net",
+        "fold_count": 4,
+        "observation_count": 56,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-13T00:00:00.000",
+        "mae": 29.4696428571,
+        "rmse": 42.9398502892,
+        "bias": -0.6939285714
+      },
+      {
+        "horizon_days": 14,
+        "method": "Recurring + residual",
+        "target": "balance",
+        "fold_count": 4,
+        "observation_count": 56,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-13T00:00:00.000",
+        "mae": 110.3419642857,
+        "rmse": 138.0034580247,
+        "bias": 6.6580357143
+      },
+      {
+        "horizon_days": 14,
+        "method": "Last balance (zero net)",
+        "target": "net",
+        "fold_count": 4,
+        "observation_count": 56,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-13T00:00:00.000",
+        "mae": 432.5639285714,
+        "rmse": 1170.9932892848,
+        "bias": -158.47
+      },
+      {
+        "horizon_days": 14,
+        "method": "Last balance (zero net)",
+        "target": "balance",
+        "fold_count": 4,
+        "observation_count": 56,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-13T00:00:00.000",
+        "mae": 2611.2807142857,
+        "rmse": 2728.4212666322,
+        "bias": -2611.1060714286
+      },
+      {
+        "horizon_days": 30,
+        "method": "Recurring + residual",
+        "target": "net",
+        "fold_count": 4,
+        "observation_count": 120,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-29T00:00:00.000",
+        "mae": 44.57675,
+        "rmse": 115.3329098704,
+        "bias": -1.1340833333
+      },
+      {
+        "horizon_days": 30,
+        "method": "Recurring + residual",
+        "target": "balance",
+        "fold_count": 4,
+        "observation_count": 120,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-29T00:00:00.000",
+        "mae": 207.7844166667,
+        "rmse": 278.1314557947,
+        "bias": -79.62525
+      },
+      {
+        "horizon_days": 30,
+        "method": "Last balance (zero net)",
+        "target": "net",
+        "fold_count": 4,
+        "observation_count": 120,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-29T00:00:00.000",
+        "mae": 229.9101666667,
+        "rmse": 807.9682840341,
+        "bias": -57.0991666667
+      },
+      {
+        "horizon_days": 30,
+        "method": "Last balance (zero net)",
+        "target": "balance",
+        "fold_count": 4,
+        "observation_count": 120,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-29T00:00:00.000",
+        "mae": 2316.4166666667,
+        "rmse": 2403.0912097331,
+        "bias": -2316.3351666667
+      }
+    ],
+    "folds": [
+      {
+        "cutoff": "2026-03-31T00:00:00.000",
+        "train_rows": 83,
+        "train_end": "2026-03-31T00:00:00.000",
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-04-07T00:00:00.000",
+        "net_mae": 52.9985714286,
+        "net_rmse": 84.8305838548,
+        "balance_mae": 211.2528571429,
+        "balance_rmse": 212.9688879692,
+        "horizon_days": 7
+      },
+      {
+        "cutoff": "2026-04-30T00:00:00.000",
+        "train_rows": 115,
+        "train_end": "2026-04-30T00:00:00.000",
+        "test_start": "2026-05-01T00:00:00.000",
+        "test_end": "2026-05-07T00:00:00.000",
+        "net_mae": 15.7328571429,
+        "net_rmse": 18.5531641506,
+        "balance_mae": 10.4671428571,
+        "balance_rmse": 12.9736782977,
+        "horizon_days": 7
+      },
+      {
+        "cutoff": "2026-05-30T00:00:00.000",
+        "train_rows": 147,
+        "train_end": "2026-05-30T00:00:00.000",
+        "test_start": "2026-05-31T00:00:00.000",
+        "test_end": "2026-06-06T00:00:00.000",
+        "net_mae": 32.1757142857,
+        "net_rmse": 41.5949620919,
+        "balance_mae": 75.8242857143,
+        "balance_rmse": 84.1559464837,
+        "horizon_days": 7
+      },
+      {
+        "cutoff": "2026-06-29T00:00:00.000",
+        "train_rows": 174,
+        "train_end": "2026-06-29T00:00:00.000",
+        "test_start": "2026-06-30T00:00:00.000",
+        "test_end": "2026-07-06T00:00:00.000",
+        "net_mae": 27.8457142857,
+        "net_rmse": 28.9677041844,
+        "balance_mae": 68.51,
+        "balance_rmse": 73.5431481707,
+        "horizon_days": 7
+      },
+      {
+        "cutoff": "2026-03-31T00:00:00.000",
+        "train_rows": 83,
+        "train_end": "2026-03-31T00:00:00.000",
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-04-14T00:00:00.000",
+        "net_mae": 41.3707142857,
+        "net_rmse": 66.7908227764,
+        "balance_mae": 230.2014285714,
+        "balance_rmse": 233.967203593,
+        "horizon_days": 14
+      },
+      {
+        "cutoff": "2026-04-30T00:00:00.000",
+        "train_rows": 115,
+        "train_end": "2026-04-30T00:00:00.000",
+        "test_start": "2026-05-01T00:00:00.000",
+        "test_end": "2026-05-14T00:00:00.000",
+        "net_mae": 23.8385714286,
+        "net_rmse": 29.6049363644,
+        "balance_mae": 27.87,
+        "balance_rmse": 38.55522051,
+        "horizon_days": 14
+      },
+      {
+        "cutoff": "2026-05-30T00:00:00.000",
+        "train_rows": 147,
+        "train_end": "2026-05-30T00:00:00.000",
+        "test_start": "2026-05-31T00:00:00.000",
+        "test_end": "2026-06-13T00:00:00.000",
+        "net_mae": 27.67,
+        "net_rmse": 35.199635753,
+        "balance_mae": 78.1214285714,
+        "balance_rmse": 83.6318304065,
+        "horizon_days": 14
+      },
+      {
+        "cutoff": "2026-06-29T00:00:00.000",
+        "train_rows": 174,
+        "train_end": "2026-06-29T00:00:00.000",
+        "test_start": "2026-06-30T00:00:00.000",
+        "test_end": "2026-07-13T00:00:00.000",
+        "net_mae": 24.9992857143,
+        "net_rmse": 28.2637992846,
+        "balance_mae": 105.175,
+        "balance_rmse": 113.8348684028,
+        "horizon_days": 14
+      },
+      {
+        "cutoff": "2026-03-31T00:00:00.000",
+        "train_rows": 83,
+        "train_end": "2026-03-31T00:00:00.000",
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-04-30T00:00:00.000",
+        "net_mae": 61.2423333333,
+        "net_rmse": 167.3203543605,
+        "balance_mae": 254.5456666667,
+        "balance_rmse": 295.4767548951,
+        "horizon_days": 30
+      },
+      {
+        "cutoff": "2026-04-30T00:00:00.000",
+        "train_rows": 115,
+        "train_end": "2026-04-30T00:00:00.000",
+        "test_start": "2026-05-01T00:00:00.000",
+        "test_end": "2026-05-30T00:00:00.000",
+        "net_mae": 28.5573333333,
+        "net_rmse": 31.9887756356,
+        "balance_mae": 129.1353333333,
+        "balance_rmse": 172.7174081363,
+        "horizon_days": 30
+      },
+      {
+        "cutoff": "2026-05-30T00:00:00.000",
+        "train_rows": 147,
+        "train_end": "2026-05-30T00:00:00.000",
+        "test_start": "2026-05-31T00:00:00.000",
+        "test_end": "2026-06-29T00:00:00.000",
+        "net_mae": 62.4433333333,
+        "net_rmse": 152.2331312385,
+        "balance_mae": 280.678,
+        "balance_rmse": 399.2335728869,
+        "horizon_days": 30
+      },
+      {
+        "cutoff": "2026-06-29T00:00:00.000",
+        "train_rows": 174,
+        "train_end": "2026-06-29T00:00:00.000",
+        "test_start": "2026-06-30T00:00:00.000",
+        "test_end": "2026-07-29T00:00:00.000",
+        "net_mae": 26.064,
+        "net_rmse": 31.8184129083,
+        "balance_mae": 166.7786666667,
+        "balance_rmse": 181.3922967861,
+        "horizon_days": 30
+      }
+    ],
+    "warnings": [
+      "Backtests assume complete records on every calendar day; results on synthetic data do not establish real-world accuracy."
+    ]
+  },
+  "anomaly": {
+    "metrics": {
+      "precision": 0.07792207792207792,
+      "recall": 1.0,
+      "f1": 0.14457831325301204,
+      "false_positive_rate": 0.6228070175438597,
+      "confusion_matrix": [
+        [
+          86,
+          142
+        ],
+        [
+          0,
+          12
+        ]
+      ],
+      "test_rows": 240,
+      "injected_count": 12,
+      "predicted_unusual": 154
+    },
+    "metadata": {
+      "train_rows": 480,
+      "test_rows": 240,
+      "random_state": 42,
+      "train_start": "2025-01-01",
+      "train_end": "2025-04-30",
+      "test_start": "2025-05-01",
+      "test_end": "2025-06-29",
+      "contamination": "auto",
+      "score_threshold": 0.5
+    },
+    "warnings": [
+      "Synthetic injection detection only; labels are not confirmed fraud. No real-world accuracy is established.",
+      "Threshold is fixed from training only; holdout labels never tune features, model or threshold.",
+      "Scores are relative unusualness, not probabilities. Undefined metric denominators are unavailable."
+    ],
+    "false_positive_by_category": [
+      {
+        "category": "Groceries",
+        "background_rows": 48,
+        "false_positives": 18,
+        "false_positive_rate": 0.375
+      },
+      {
+        "category": "Income",
+        "background_rows": 60,
+        "false_positives": 60,
+        "false_positive_rate": 1.0
+      },
+      {
+        "category": "Shopping",
+        "background_rows": 60,
+        "false_positives": 28,
+        "false_positive_rate": 0.4666666667
+      },
+      {
+        "category": "Transport",
+        "background_rows": 60,
+        "false_positives": 36,
+        "false_positive_rate": 0.6
+      }
+    ]
+  },
+  "performance": [],
+  "local_llm": {
+    "inference_requested": false,
+    "reason": "Real-model check not requested"
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "browser_visual_qa": false,
+  "transport": "Live local Streamlit WebSocket",
+  "runs": [
+    {
+      "label": "Startup",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Overview",
+        "Get started with your cash-flow workspace",
+        "Imported transaction preview"
+      ],
+      "metrics": {},
+      "exceptions": 0
+    },
+    {
+      "label": "Overview metrics",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Overview",
+        "Risk at a glance",
+        "30-day outlook",
+        "Recent financial activity"
+      ],
+      "metrics": {
+        "Estimated cash balance": "USD 16,268.23",
+        "Total income": "USD 31,541.47",
+        "Total expenses": "USD 17,773.24",
+        "Net cash flow": "USD 13,768.23"
+      },
+      "exceptions": 0
+    },
+    {
+      "label": "Transactions",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Transactions",
+        "Transactions \u00b7 205"
+      ],
+      "metrics": {},
+      "exceptions": 0
+    },
+    {
+      "label": "Cash Flow Forecast",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Cash Flow Forecast"
+      ],
+      "metrics": {
+        "Estimated balance at cutoff": "USD 16,268.23",
+        "Projected closing balance": "USD 17,859.81",
+        "Days below threshold": "0"
+      },
+      "exceptions": 0
+    },
+    {
+      "label": "Anomaly Detection",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Anomaly Detection",
+        "Investigation queue \u00b7 0"
+      ],
+      "metrics": {
+        "Flagged unusual": "0",
+        "Transactions scored": "118",
+        "Warmup / unscored": "87"
+      },
+      "exceptions": 0
+    },
+    {
+      "label": "Risk Analysis",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Risk Analysis",
+        "Strongest risk contributions first"
+      ],
+      "metrics": {
+        "Current cash buffer": "199.7 days",
+        "Expense-to-income ratio": "54.8%",
+        "Forecast threshold breaches": "0"
+      },
+      "exceptions": 0
+    },
+    {
+      "label": "Scenario Simulator",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Scenario Simulator"
+      ],
+      "metrics": {
+        "Baseline minimum cash": "USD 16,204.86",
+        "Scenario minimum cash": "USD 16,204.86",
+        "Closing balance change": "USD 0.00",
+        "Scenario breach days": "0"
+      },
+      "exceptions": 0
+    },
+    {
+      "label": "Scenario income stress",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Scenario Simulator"
+      ],
+      "metrics": {
+        "Baseline minimum cash": "USD 16,204.86",
+        "Scenario minimum cash": "USD 16,204.86",
+        "Closing balance change": "USD -840.00",
+        "Scenario breach days": "0"
+      },
+      "exceptions": 0
+    },
+    {
+      "label": "Evaluation page",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Model Evaluation",
+        "Forecast backtest | selected history",
+        "Legacy Isolation Forest | historical synthetic benchmark",
+        "Phase 6 | calibrated candidate comparison"
+      ],
+      "metrics": {},
+      "exceptions": 0
+    },
+    {
+      "label": "Forecast evaluation",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Model Evaluation",
+        "Forecast backtest | selected history",
+        "Legacy Isolation Forest | historical synthetic benchmark",
+        "Phase 6 | calibrated candidate comparison"
+      ],
+      "metrics": {},
+      "exceptions": 0
+    },
+    {
+      "label": "Candidate final evaluation",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Model Evaluation",
+        "Forecast backtest | selected history",
+        "Legacy Isolation Forest | historical synthetic benchmark",
+        "Phase 6 | calibrated candidate comparison"
+      ],
+      "metrics": {},
+      "exceptions": 0
+    },
+    {
+      "label": "Data quality",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "Data quality",
+        "Imported transaction preview"
+      ],
+      "metrics": {},
+      "exceptions": 0
+    },
+    {
+      "label": "AI Insights without generation",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "AI Insights",
+        "Calculated financial summaries",
+        "Historical cash flow",
+        "Estimated cash position",
+        "30-day projection",
+        "Minimum cash threshold",
+        "Unusual activity",
+        "Financial risk indicator",
+        "Scenario outcome"
+      ],
+      "metrics": {},
+      "exceptions": 0
+    },
+    {
+      "label": "Unavailable local model",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "AI Insights",
+        "Calculated financial summaries",
+        "Historical cash flow",
+        "Estimated cash position",
+        "30-day projection",
+        "Minimum cash threshold",
+        "Unusual activity",
+        "Financial risk indicator",
+        "Scenario outcome"
+      ],
+      "metrics": {},
+      "exceptions": 0
+    },
+    {
+      "label": "Deterministic fallback",
+      "headings": [
+        "CashGuard AI",
+        "Data workspace",
+        "AI Insights",
+        "Calculated financial summaries",
+        "Historical cash flow",
+        "Estimated cash position",
+        "30-day projection",
+        "Minimum cash threshold",
+        "Unusual activity",
+        "Financial risk indicator",
+        "Scenario outcome"
+      ],
+      "metrics": {},
+      "exceptions": 0
+    }
+  ],
+  "inference_sent_to_model": false
+}

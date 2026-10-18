@@ -1,0 +1,16 @@
+{
+  "fictional_data_only": true,
+  "real_api_transport": true,
+  "real_gemma": {
+    "source": "ai",
+    "error_code": null,
+    "seconds": 7.421056999999564,
+    "context_fingerprint": "d49af8cae8cfa7a00576b835b94ffb10682721abe0024724f51c05cb6d80cb6d"
+  },
+  "missing_model": {
+    "source": "deterministic",
+    "error_code": "model_missing"
+  },
+  "metrics_status": 200,
+  "sensitive_metric_labels_absent": true
+}

@@ -1,0 +1,131 @@
+{
+  "model": "gemma3:4b",
+  "mocked": false,
+  "cases": [
+    {
+      "case": "full_evidence",
+      "wall_seconds": 11.677551100001438,
+      "timeout_seconds": 90.0,
+      "source": "ai",
+      "error_code": null,
+      "context_fingerprint": "d49af8cae8cfa7a00576b835b94ffb10682721abe0024724f51c05cb6d80cb6d",
+      "data_sufficiency": "adequate for heuristics",
+      "validated_sections": [
+        "financial_health",
+        "cash_flow_risk",
+        "spending_insights",
+        "scenario_interpretation",
+        "suggested_steps"
+      ],
+      "validated_explanations": {
+        "financial_health": {
+          "explanation": "The cash balance is an estimate; review historical activity alongside the risk indicator.",
+          "evidence_ids": [
+            "estimated_balance"
+          ],
+          "status": "supported"
+        },
+        "cash_flow_risk": {
+          "explanation": "The heuristic indicator reflects spending volatility; projected balances remain estimates.",
+          "evidence_ids": [
+            "forecast_minimum",
+            "factor_spending_volatility"
+          ],
+          "status": "supported"
+        },
+        "spending_insights": {
+          "explanation": "Review unusual activity against earlier history; unscored activity remains unassessed.",
+          "evidence_ids": [
+            "anomaly_unusual"
+          ],
+          "status": "supported"
+        },
+        "scenario_interpretation": {
+          "explanation": "No scenario is configured, so its effects are unavailable.",
+          "evidence_ids": [
+            "scenario_status"
+          ],
+          "status": "insufficient_evidence"
+        },
+        "suggested_steps": {
+          "explanation": "Review recurring commitments and payment timing, allowing for uncertainty in the supplied evidence.",
+          "evidence_ids": [
+            "data_sufficiency"
+          ],
+          "status": "supported"
+        }
+      },
+      "numeric_claim_policy": "Model prose rejects numerical claims; amounts are rendered separately from trusted evidence"
+    },
+    {
+      "case": "insufficient_history",
+      "wall_seconds": 6.912796399992658,
+      "timeout_seconds": 90.0,
+      "source": "ai",
+      "error_code": null,
+      "context_fingerprint": "2320cd0c441fa5561c428f50539ed6f61cdf6e86b1c164d2f702c4738cdc4aa1",
+      "data_sufficiency": "limited",
+      "validated_sections": [
+        "financial_health",
+        "cash_flow_risk",
+        "spending_insights",
+        "scenario_interpretation",
+        "suggested_steps"
+      ],
+      "validated_explanations": {
+        "financial_health": {
+          "explanation": "The cash balance is an estimate; review expected payment timing.",
+          "evidence_ids": [
+            "estimated_balance"
+          ],
+          "status": "supported"
+        },
+        "cash_flow_risk": {
+          "explanation": "The heuristic indicator reflects projected shortfall; projected balances remain estimates.",
+          "evidence_ids": [
+            "forecast_minimum",
+            "factor_projected_shortfall"
+          ],
+          "status": "supported"
+        },
+        "spending_insights": {
+          "explanation": "Review unusual activity against earlier history; unscored activity remains unassessed.",
+          "evidence_ids": [
+            "anomaly_unusual"
+          ],
+          "status": "supported"
+        },
+        "scenario_interpretation": {
+          "explanation": "No scenario is configured, so its effects are unavailable.",
+          "evidence_ids": [
+            "scenario_status"
+          ],
+          "status": "insufficient_evidence"
+        },
+        "suggested_steps": {
+          "explanation": "Review recurring commitments and payment timing, allowing for uncertainty in the supplied evidence.",
+          "evidence_ids": [
+            "data_sufficiency"
+          ],
+          "status": "supported"
+        }
+      },
+      "numeric_claim_policy": "Model prose rejects numerical claims; amounts are rendered separately from trusted evidence"
+    },
+    {
+      "case": "short_timeout_probe",
+      "wall_seconds": 1.0613334999943618,
+      "timeout_seconds": 1.0,
+      "source": "deterministic",
+      "error_code": "timeout",
+      "context_fingerprint": "d49af8cae8cfa7a00576b835b94ffb10682721abe0024724f51c05cb6d80cb6d",
+      "data_sufficiency": "adequate for heuristics",
+      "validated_sections": [],
+      "validated_explanations": null,
+      "numeric_claim_policy": "Model prose rejects numerical claims; amounts are rendered separately from trusted evidence"
+    }
+  ],
+  "ready": true,
+  "code": "ready",
+  "anomaly_engine": "Calibrated amount review"
+}
