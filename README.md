@@ -7,7 +7,7 @@ Application code: [MIT](LICENSE). [Architecture diagram](docs/architecture.md) Â
 
 ![CashGuard AI showing explicitly estimated cash, income, expenses and a 30-day outlook on fictional transactions](docs/submission/assets/main-dashboard.png)
 
-**Version 0.8: Local API, experiment tracking, containers and monitoring.** It imports transactions, reports data-quality issues,
+**Version 0.9: API-backed portfolio demo, private local analytics and bounded inference.** It imports transactions, reports data-quality issues,
 and computes explainable historical summaries, deterministic cash-flow forecasts,
 chronological Isolation Forest scores, heuristic risk indicators and what-if scenarios.
 The Streamlit interface connects these engines across Overview, Transactions, Cash Flow
@@ -23,10 +23,11 @@ the original Isolation Forest, with severity filters and recurring-payment conte
 Phase 8 adds nine typed FastAPI endpoints, optional local MLflow, non-root Docker
 services, a GitHub Actions quality workflow, private operational metrics/logs and offline
 drift diagnostics. The financial engines and all nine dashboard pages retain their
-direct analytics path. A tested API client is available for a future coherent page
-migration; a dashboard API-mode toggle is not yet implemented.
+direct local path. Portfolio Phase 9 integrates supported dashboard workflows with
+FastAPI through the existing client; execution mode is environment-configured.
 See the [Phase 8 guide and actual verification](docs/phase8_mlops.md) and
-[architecture assessment](docs/phase8_architecture.md). The workflow has not run on GitHub.
+[architecture assessment](docs/phase8_architecture.md). The initial release passed
+GitHub Actions; that historical run does not verify the unpushed portfolio changes.
 
 See the [Phase 6 technical report](docs/phase6_anomaly_review.md),
 [measured comparisons](reports/phase6/results.json), and
@@ -135,8 +136,58 @@ docker compose --profile tracking down
 Host ports bind to loopback. Default containers use deterministic insights because
 host Ollama is outside their loopback network. Native Python remains the verified
 path for host Gemma; no model is downloaded into an image. `.env.example` documents
-configuration. API controls are local safeguards, not authentication or production
-security certification.
+configuration. Local defaults remain loopback-only. Portfolio mode adds service
+authentication and a restricted ingress; these controls are not security certification.
+
+## Portfolio Phase 9: API mode and synthetic staging
+
+This work follows the contest release and preserves its history and reports.
+See the [architecture](docs/phase9_architecture.md),
+[security boundaries](docs/phase9_security.md),
+[deployment and rollback guide](docs/phase9_deployment.md), and
+[executed quality gates](docs/phase9_testing.md).
+
+Direct mode remains the default local command above. To try the API-backed dashboard,
+start the API in one terminal, then start Streamlit in another:
+
+```powershell
+# Terminal 1
+.\.venv\Scripts\python.exe -m api
+# Terminal 2
+$env:CASHGUARD_EXECUTION_MODE = "api"
+$env:CASHGUARD_API_URL = "http://127.0.0.1:8000"
+.\.venv\Scripts\python.exe -m streamlit run app.py
+```
+
+Use a fresh terminal or remove `CASHGUARD_EXECUTION_MODE` to return to direct mode.
+If the API is unavailable, the UI shows an error; it does not silently switch engines.
+Local API mode preserves validated private uploads (1 MiB / 2,000 rows at the API);
+direct mode retains the existing 10 MiB CSV limit. Neither mode writes uploaded CSVs
+to a financial database. Clear the current session before sharing a local browser.
+
+For the separately isolated **synthetic-only** staging profile:
+
+```powershell
+$env:CASHGUARD_API_TOKEN = python -c "import secrets; print(secrets.token_urlsafe(32))"
+$env:CASHGUARD_OPS_TOKEN = python -c "import secrets; print(secrets.token_urlsafe(32))"
+docker compose -f compose.staging.yaml up --build -d --wait --wait-timeout 180
+```
+
+Open **http://localhost:8510**. Select **Start demo** or the landing-page walkthrough.
+All nine pages remain available; public evaluation shows recorded synthetic results.
+Uploads and public API/metrics/MLflow routes are blocked. Model explanations default
+to explicitly labeled deterministic summaries. No GPU, hosted key or persistent disk
+is needed. Stop with `docker compose -f compose.staging.yaml down`.
+
+This is a single-instance demonstration, not a customer financial service. Quotas
+reset on restart, and session state is lost when the process restarts. Optional hosted
+Gemma is disabled pending approval and privacy/billing review. A prepared Render
+configuration estimates 1 CPU / 2 GB at $25/month before other charges; no cloud service
+has been created. Do not expose the raw Streamlit port as the public deployment.
+
+Synthetic F1 **0.9600** is a replay of a known 247-example synthetic holdout, not a
+fresh independent validation or evidence of real-world fraud-detection accuracy.
+Unusual transactions are review candidates; zero alerts does not mean zero risk.
 
 ## Try the dashboard
 

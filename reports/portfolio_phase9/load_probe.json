@@ -1,0 +1,35 @@
+{
+  "synthetic_only": true,
+  "inference_executed": false,
+  "normal": {
+    "requests": 12,
+    "concurrency": 2,
+    "status_counts": {
+      "200": 12
+    },
+    "seconds": 2.892410494001524,
+    "p50_seconds": 0.4830811255014851,
+    "p95_seconds": 0.5949319279996417,
+    "max_seconds": 0.5965946110009099
+  },
+  "overload": {
+    "requests": 18,
+    "concurrency": 6,
+    "status_counts": {
+      "200": 2,
+      "503": 16
+    },
+    "seconds": 0.5547476909996476,
+    "p50_seconds": 0.1120395229991118,
+    "p95_seconds": 0.55013270370182,
+    "max_seconds": 0.5509077659989998
+  },
+  "resource_observation": {
+    "scope": "One idle observation after browser/load checks, not peak RSS or cloud capacity",
+    "container_memory_mib": 382.9,
+    "memory_limit_mib": 1536,
+    "pids": 13,
+    "cpu_percent": 0.74
+  },
+  "scope": "Small local smoke load against previous staging image; subsequent change only clarifies AI UI wording/disabled button. Not a production capacity benchmark."
+}

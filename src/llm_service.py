@@ -21,6 +21,8 @@ from src.insight_prompts import (OutputValidationError, StructuredInsights, buil
 logger = logging.getLogger(__name__)
 MAX_HTTP_BYTES = 1024 * 1024
 MESSAGES = {
+    "disabled": "Model inference is disabled. Calculated financial summaries remain available.",
+    "quota_exceeded": "The model request or cost budget is exhausted. Calculated summaries remain available; try later.",
     "connection_error": "Cannot connect to local Ollama. Install or start Ollama, then check the connection again.",
     "timeout": "Local Ollama timed out. The model may still be loading; try again or increase the inference timeout.",
     "model_missing": "Ollama is running, but the selected model is not installed. Follow the model setup instructions below.",

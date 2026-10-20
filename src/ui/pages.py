@@ -9,6 +9,7 @@ import streamlit as st
 from pydantic import ValidationError
 
 from src.anomaly_detection import AnomalyResult
+from src.api_client import ApiClientError
 from src.dashboard_service import (DashboardBundle, compare_scenario,
                                     display_transactions, export_transactions, filter_transactions,
                                     format_cents, session_value)
@@ -183,7 +184,7 @@ def render_risk(bundle: DashboardBundle, currency: str) -> None:
     warnings_panel(bundle.risk.warnings)
 
 
-def render_scenarios(bundle: DashboardBundle, currency: str, baseline_key: tuple) -> None:
+def render_scenarios(bundle: DashboardBundle, currency: str, baseline_key: tuple, *, backend=None, payload=None) -> None:
     baseline = bundle.forecast
     # Widget state is cleaned when a page is hidden; preserve the user's scenario
     # separately so navigating to Insights and back does not reset their inputs.
@@ -221,7 +222,11 @@ def render_scenarios(bundle: DashboardBundle, currency: str, baseline_key: tuple
                                  delayed_event_id=selected if delay > 0 else None,
                                  delay_days=int(delay) if selected is not None else 0)
         result = session_value(st.session_state, "scenario", (baseline_key, config.model_dump_json()),
-                                lambda: simulate_scenario(baseline, config))
+                                lambda: backend.scenario(payload, config) if backend else simulate_scenario(baseline, config))
+    except ApiClientError as exc:
+        st.session_state.pop("cashguard_latest_scenario", None)
+        st.error(str(exc))
+        return
     except (ValidationError, ValueError) as exc:
         st.session_state.pop("cashguard_latest_scenario", None)
         message = "; ".join(item["msg"] for item in exc.errors(include_input=False)) if isinstance(exc, ValidationError) else str(exc)
@@ -248,8 +253,8 @@ def render_scenarios(bundle: DashboardBundle, currency: str, baseline_key: tuple
     warnings_panel(result.forecast.warnings, "Scenario assumptions and limitations")
 
 
-def render_insights(bundle: DashboardBundle, currency: str, baseline_key: tuple) -> None:
-    render_ai_insights(bundle, currency, baseline_key)
+def render_insights(bundle: DashboardBundle, currency: str, baseline_key: tuple, *, backend=None, payload=None) -> None:
+    render_ai_insights(bundle, currency, baseline_key, backend=backend, payload=payload)
 
 
 def render_quality(imported: ImportResult) -> None:

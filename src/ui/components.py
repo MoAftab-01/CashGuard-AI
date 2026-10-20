@@ -12,7 +12,7 @@ PAGE_DESCRIPTIONS = {
     "Anomaly Detection": "Investigate unusual activity with comparisons to earlier transactions.",
     "Risk Analysis": "Understand each contribution to your financial risk indicator.",
     "Scenario Simulator": "Explore how changes in income, costs and payment timing affect your cash.",
-    "AI Insights": "Local, evidence-linked explanations with calculated summaries always available.",
+    "AI Insights": "Evidence-linked explanations with calculated summaries always available.",
     "Model Evaluation": "Measure chronological forecast errors and labeled synthetic anomaly detection.",
     "Data quality": "Review import findings before relying on financial totals.",
 }

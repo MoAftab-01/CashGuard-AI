@@ -1,0 +1,22 @@
+﻿{
+  "synthetic_only": true,
+  "uid": 10001,
+  "ingress": {
+    "GET /health": 200,
+    "GET /ready": 200,
+    "GET /metrics": 404,
+    "GET /docs": 404,
+    "GET /openapi.json": 404,
+    "GET /api/v1/forecast": 404,
+    "GET /_stcore/upload_file/blocked": 403,
+    "POST /_stcore/upload_file/blocked": 405,
+    "Public metrics even with ops token": 404,
+    "Private API without bearer": 401
+  },
+  "metrics_authenticated_internally": true,
+  "aggregate_api_metrics": {
+    "process_resident_memory_bytes": 243380224.0,
+    "process_cpu_seconds_total": 9.55,
+    "cashguard_inflight_analytics": 0.0
+  }
+}

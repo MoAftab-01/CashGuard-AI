@@ -1,0 +1,6 @@
+{
+  "source": "https://api.osv.dev/v1/querybatch",
+  "packages_queried": 50,
+  "findings": [],
+  "scope": "Pinned Python runtime packages only; no code, credentials or financial data sent; not an OS-image or security certification scan"
+}

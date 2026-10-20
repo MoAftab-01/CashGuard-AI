@@ -1,0 +1,15 @@
+{
+  "scope": "Public source allowlist and currently changed Git paths, not a security certification",
+  "files_checked": 248,
+  "changed_files_checked": 59,
+  "all_changed_files_allowlisted": true,
+  "private_staging_credentials_junit_and_generated_csv_ignored": true,
+  "findings": [],
+  "pattern_scan_passed": true,
+  "license_present": true,
+  "limitations": [
+    "Pattern matching cannot prove absence of every secret or personal datum.",
+    "Only new submission screenshots are packaged; historical screenshots/logs/databases/caches remain local.",
+    "Financial CSVs are limited to the approved demo and known synthetic benchmark outputs."
+  ]
+}

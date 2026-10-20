@@ -31,6 +31,12 @@ class ImportRequest(BaseModel):
     reviewed_duplicates: StrictBool = False
 
 
+class CSVRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    csv_text: str = Field(max_length=1024 * 1024)
+    remove_ambiguous_duplicates: StrictBool = False
+
+
 class HistoryRequest(ImportRequest):
     as_of: CalendarDate | None = None
     currency: Currency = "USD"
@@ -69,6 +75,17 @@ class InsightsRequest(AnalysisRequest):
     model: str = Field(default="gemma3:4b", min_length=1, max_length=128)
     timeout_seconds: int = Field(default=30, ge=1, le=90, strict=True)
     scenario: StrictScenario | None = None
+
+    @field_validator("model")
+    @classmethod
+    def validated_model(cls, value):
+        return OllamaSettings.local_model_name(value)
+
+
+class ModelRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    model: str = Field(default="gemma3:4b", min_length=1, max_length=128)
+    timeout_seconds: int = Field(default=30, ge=1, le=90, strict=True)
 
     @field_validator("model")
     @classmethod

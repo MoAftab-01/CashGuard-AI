@@ -3,6 +3,7 @@
 import hashlib
 import logging
 from dataclasses import asdict
+from uuid import uuid4
 
 import pandas as pd
 import streamlit as st
@@ -12,12 +13,36 @@ from src import data_processing
 from src.dashboard_service import (ANOMALY_ENGINES, DashboardInputError, build_dashboard, dashboard_anomalies, display_transactions,
                                     require_ready_import, session_value)
 from src.metrics import money_to_cents
+from src.api_client import ApiClientError
+from src.dashboard_backend import DashboardBackend
+from src.settings import Settings
 from src.ui import pages
 from src.ui.components import apply_style, page_header
 from src.ui.model_evaluation import render_model_evaluation
 
 PAGES = ["Overview", "Transactions", "Cash Flow Forecast", "Anomaly Detection", "Risk Analysis",
          "Scenario Simulator", "AI Insights", "Model Evaluation", "Data quality"]
+WALKTHROUGH = {
+    "Overview": "Start with estimated cash, income and expenses. The opening balance is an explicit assumption, not a bank connection.",
+    "Cash Flow Forecast": "Explore the next 30 days and change the minimum cash threshold. Read the assumptions before relying on a projection.",
+    "Anomaly Detection": "Inspect coverage and explanations. This fictional history may have no alerts; zero alerts does not mean zero risk.",
+    "Scenario Simulator": "Try a hypothetical emergency or income reduction. Compare the projected minimum cash with the unchanged baseline.",
+    "AI Insights": "Check the configured model status, then request explanations if available. Deterministic mode intentionally makes no model call.",
+    "Model Evaluation": "Review the synthetic benchmark and its limitations. Injected amount changes are not confirmed fraud labels.",
+}
+
+
+def _navigate(page):
+    st.session_state["navigation"] = page
+
+
+def _begin_walkthrough():
+    _start_demo()
+    st.session_state["cashguard_walkthrough"] = True
+
+
+def _end_walkthrough():
+    st.session_state["cashguard_walkthrough"] = False
 
 
 @st.cache_data(max_entries=2, show_spinner=False)
@@ -53,6 +78,18 @@ def _start_demo() -> None:
 def main() -> None:
     st.set_page_config(page_title="CashGuard AI | Financial Analytics", page_icon="◈", layout="wide")
     apply_style()
+    try:
+        settings = Settings.from_environment()
+    except ValueError:
+        st.error("Application configuration is invalid. Check the configured backend settings.")
+        return
+    profile = (settings.deployment_profile, settings.public_demo, settings.execution_mode, settings.api_url,
+               hashlib.sha256(settings.api_token.get_secret_value().encode()).hexdigest() if settings.api_token else None)
+    if st.session_state.get("cashguard_runtime_profile", profile) != profile:
+        st.session_state.clear()
+    st.session_state["cashguard_runtime_profile"] = profile
+    session_id = st.session_state.setdefault("cashguard_session_id", uuid4().hex)
+    backend = DashboardBackend(settings, session_id=session_id) if settings.execution_mode == "api" else None
     st.session_state.setdefault("cash_threshold", "500.00")
     with st.sidebar:
         st.title("CashGuard AI")
@@ -60,11 +97,18 @@ def main() -> None:
         page = st.radio("Navigation", PAGES, key="navigation")
         st.divider()
         st.subheader("Data workspace")
-        source = st.radio("Data source", ["Synthetic demo", "Upload CSV"], key="data_source")
+        if settings.public_demo:
+            source = "Synthetic demo"
+            st.info("Public synthetic demo. Real financial CSV uploads are disabled.")
+        else:
+            source = st.radio("Data source", ["Synthetic demo", "Upload CSV"], key="data_source")
         if source == "Synthetic demo":
             st.button("Start demo", key="start_demo", on_click=_start_demo, width="stretch")
             st.caption("Sets fictional opening cash to 2,500.00 and the minimum threshold to 500.00. No bank balance is assumed.")
-        uploaded = st.file_uploader("Transaction CSV", type=["csv"], key="transaction_upload") if source == "Upload CSV" else None
+        uploaded = st.file_uploader("Transaction CSV", type=["csv"], key="transaction_upload",
+                                    max_upload_size=max(1, settings.max_request_bytes // (1024 * 1024)) if backend else 10) if source == "Upload CSV" else None
+        if source == "Upload CSV" and backend:
+            st.caption("API mode accepts at most 2,000 transactions within its encoded request-size limit. Use direct local mode for larger private histories.")
         currency = st.selectbox("Currency label (no conversion)", ["USD", "INR", "EUR", "GBP"], key="currency")
         opening = st.text_input("Opening balance", placeholder="e.g. 2500.00", key="opening_balance")
         st.caption("Immediately before the first imported transaction. Enter 0 explicitly for a zero starting point. Use a single currency.")
@@ -76,14 +120,32 @@ def main() -> None:
         if st.button("Clear session data", key="clear_session"):
             st.session_state.clear()
             st.rerun()
-        st.caption("Local processing · No bank connection")
+        if source == "Synthetic demo":
+            with st.expander("Guided synthetic walkthrough"):
+                st.button("Start guided walkthrough", key="guided_start", on_click=_begin_walkthrough, width="stretch")
+                for index, target in enumerate(WALKTHROUGH, 1):
+                    st.button(f"{index}. {target}", key=f"guided_{index}", on_click=_navigate, args=(target,), width="stretch")
+                st.caption("These controls navigate the existing pages. They do not connect to a bank or create model output.")
+        st.caption("Synthetic-only · API backend · No bank connection" if settings.public_demo else "Local processing · No bank connection")
         st.caption("Display: switch Light / Dark in the app Settings menu.")
         with st.expander("About estimates and local AI"):
             st.write("CashGuard is a local budgeting research tool, not a bank, financial advisor or fraud detection service.")
             st.write("Balances are reconstructed estimates. Currency selection changes labels only. Use one currency per file.")
-            st.write("Raw transactions stay in your session. Clicking Generate AI Insights sends only aggregate evidence to local Ollama; no cloud model is used.")
+            st.write("API mode uses the configured backend provider. Its status and any hosted processing are disclosed on AI Insights; only minimized aggregates reach inference."
+                     if backend else "Raw transactions stay in your session. Clicking Generate AI Insights sends only aggregate evidence to local Ollama; no cloud model is used.")
 
     page_header(page)
+    if source == "Upload CSV":
+        st.session_state["cashguard_walkthrough"] = False
+    if st.session_state.get("cashguard_walkthrough"):
+        st.info(WALKTHROUGH.get(page, "Use the sidebar to explore the synthetic workspace."))
+        st.button("Exit walkthrough", key="guided_exit", on_click=_end_walkthrough)
+    if source == "Synthetic demo" and not opening.strip():
+        with st.container(border=True):
+            st.subheader("Explore cash flow with fictional transactions")
+            st.write("Load the sample, inspect a conditional forecast and test an emergency expense. No financial upload or bank account is needed.")
+            st.button("Launch synthetic walkthrough", key="landing_demo", on_click=_begin_walkthrough, type="primary")
+            st.caption("The sample uses explicitly assumed opening cash. This research prototype does not provide financial advice or fraud decisions.")
     if source == "Upload CSV" and uploaded is None:
         _select_source((source, None))
         st.info("Upload a UTF-8 CSV with date, description, amount and category columns using the sidebar.")
@@ -99,12 +161,21 @@ def main() -> None:
         st.error("Sample CSV is missing or unreadable. Run: python scripts/generate_sample_data.py")
         return
     fingerprint = hashlib.sha256(raw).hexdigest()
-    _select_source((source, fingerprint))
-    import_key = (fingerprint, remove_duplicates)
-    imported = session_value(st.session_state, "import", import_key,
-                              lambda: data_processing.validate_csv(raw, remove_ambiguous_duplicates=remove_duplicates))
+    _select_source((source, fingerprint, settings.execution_mode, settings.api_url))
+    import_key = (fingerprint, remove_duplicates, settings.execution_mode, settings.api_url)
+    try:
+        with st.spinner("Validating transaction history…"):
+            imported = session_value(st.session_state, "import", import_key,
+                                      lambda: backend.import_csv(raw, remove_duplicates) if backend else
+                                      data_processing.validate_csv(raw, remove_ambiguous_duplicates=remove_duplicates))
+    except ApiClientError as exc:
+        st.error(str(exc))
+        st.info("No partial results are displayed. Retry when the configured API is available.")
+        return
     if source == "Synthetic demo":
         st.caption("SYNTHETIC DEMO · Fictional financial activity in illustrative currency units. No conversion is applied.")
+        if backend:
+            st.caption("API analytics · Session-owned results · Model inference only on request")
     else:
         st.caption("PRIVATE SESSION · Raw transactions stay in this session's memory and are not saved to a database. Only aggregate evidence is sent to local Ollama when you explicitly generate AI insights. When replacing a file, verify the opening balance and currency again.")
     st.caption(f"{imported.input_rows:,} input rows · {len(imported.data):,} valid preview rows · {imported.duplicates_removed:,} duplicates removed")
@@ -149,12 +220,21 @@ def main() -> None:
         return
     anomaly_key = (*import_key, as_of, anomaly_engine, "phase6-v1")
     if page == "Model Evaluation":
-        render_model_evaluation(imported, opening, as_of, irregular, import_key, source)
+        if settings.public_demo:
+            from src.ui.model_evaluation import render_public_evaluation
+            render_public_evaluation()
+        else:
+            render_model_evaluation(imported, opening, as_of, irregular, import_key, source)
         return
     if page == "Anomaly Detection":
-        with st.spinner("Comparing transactions with strictly earlier history…"):
-            result = session_value(st.session_state, "anomalies", anomaly_key,
-                                    lambda: dashboard_anomalies(imported.data, as_of=as_of, engine=anomaly_engine))
+        try:
+            with st.spinner("Comparing transactions with strictly earlier history…"):
+                result = session_value(st.session_state, "anomalies", anomaly_key,
+                                        lambda: backend.anomalies(imported, as_of=as_of, engine=anomaly_engine, currency=currency, reviewed=reviewed)
+                                        if backend else dashboard_anomalies(imported.data, as_of=as_of, engine=anomaly_engine))
+        except ApiClientError as exc:
+            st.error(str(exc))
+            return
         pages.render_anomalies(result, currency, dataset_key)
         return
     if not opening.strip():
@@ -171,12 +251,22 @@ def main() -> None:
         opening_cents, threshold_cents = money_to_cents(opening), money_to_cents(threshold)
         baseline_key = (*import_key, as_of, opening_cents, threshold_cents, irregular, reviewed, anomaly_engine, "phase6-v1")
         with st.spinner("Calculating financial analytics…"):
-            anomaly = session_value(st.session_state, "anomalies", anomaly_key,
+            if backend and page in {"Overview", "Cash Flow Forecast", "Risk Analysis", "Scenario Simulator", "AI Insights"}:
+                payload = backend.payload(imported, opening, as_of=as_of, threshold=threshold,
+                                          irregular=irregular, reviewed=reviewed, engine=anomaly_engine, currency=currency)
+                bundle = session_value(st.session_state, "dashboard_api", baseline_key,
+                                       lambda: backend.dashboard(payload))
+            else:
+                anomaly = session_value(st.session_state, "anomalies", anomaly_key,
                                      lambda: dashboard_anomalies(imported.data, as_of=as_of, engine=anomaly_engine))
-            bundle = session_value(st.session_state, "dashboard", baseline_key,
+                bundle = session_value(st.session_state, "dashboard", baseline_key,
                                     lambda: build_dashboard(imported, opening, as_of=as_of, cash_threshold=threshold,
                                                             include_irregular_income=irregular,
                                                             reviewed_duplicates=reviewed, anomalies=anomaly))
+    except ApiClientError as exc:
+        st.error(str(exc))
+        st.info("No partial results are displayed. Retry when the configured API is available.")
+        return
     except (ValueError, OverflowError) as exc:
         st.error(str(exc))
         return
@@ -188,9 +278,15 @@ def main() -> None:
     elif page == "Risk Analysis":
         pages.render_risk(bundle, currency)
     elif page == "Scenario Simulator":
-        pages.render_scenarios(bundle, currency, baseline_key)
+        if backend:
+            pages.render_scenarios(bundle, currency, baseline_key, backend=backend, payload=payload)
+        else:
+            pages.render_scenarios(bundle, currency, baseline_key)
     elif page == "AI Insights":
-        pages.render_insights(bundle, currency, baseline_key)
+        if backend:
+            pages.render_insights(bundle, currency, baseline_key, backend=backend, payload=payload)
+        else:
+            pages.render_insights(bundle, currency, baseline_key)
 
 
 if __name__ == "__main__":

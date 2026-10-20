@@ -29,3 +29,20 @@ EXPOSE 5000
 HEALTHCHECK --interval=30s --timeout=5s --start-period=40s --retries=3 \
   CMD python -c "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health',timeout=3)"
 CMD ["python", "-m", "mlflow", "server", "--host", "0.0.0.0", "--port", "5000", "--workers", "1", "--backend-store-uri", "sqlite:////app/var/mlflow.db", "--artifacts-destination", "/app/var/artifacts", "--allowed-hosts", "localhost:*,127.0.0.1:*,mlflow:5000"]
+
+# Public synthetic-only demo: existing runtime, no MLflow package or database.
+FROM runtime AS portfolio
+USER root
+RUN apt-get update && apt-get install -y --no-install-recommends nginx \
+    && rm -rf /var/lib/apt/lists/*
+COPY --chown=cashguard:cashguard deploy ./deploy
+COPY --chown=cashguard:cashguard reports/phase6/results.json ./reports/phase6/results.json
+ENV CASHGUARD_PUBLIC_DEMO=true CASHGUARD_EXECUTION_MODE=api \
+    CASHGUARD_DEPLOYMENT_PROFILE=public CASHGUARD_RATE_LIMIT_PER_MINUTE=60 \
+    CASHGUARD_GLOBAL_RATE_LIMIT_PER_MINUTE=240 CASHGUARD_MAX_CONCURRENT_ANALYTICS=2 \
+    CASHGUARD_INFERENCE_PROVIDER=deterministic PORT=8080
+USER cashguard
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=5s --start-period=90s --retries=3 \
+    CMD python -c "import os,urllib.request; urllib.request.urlopen('http://127.0.0.1:'+os.getenv('PORT','8080')+'/ready',timeout=3)"
+CMD ["python", "-m", "deploy.serve"]

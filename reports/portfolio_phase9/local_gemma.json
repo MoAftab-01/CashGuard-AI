@@ -1,0 +1,18 @@
+{
+  "model": "gemma3:4b",
+  "provider": "local Ollama",
+  "command": "python -m scripts.check_local_ai --generate --opening-balance 2500.00",
+  "source": "ai",
+  "error_code": null,
+  "validated_sections": [
+    "financial_health",
+    "cash_flow_risk",
+    "spending_insights",
+    "scenario_interpretation",
+    "suggested_steps"
+  ],
+  "synthetic_only": true,
+  "hosted_inference_executed": false,
+  "elapsed_seconds": null,
+  "scope": "Real generation and grounding validation executed; this invocation did not separately measure inference latency."
+}

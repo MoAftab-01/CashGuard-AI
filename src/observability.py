@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from time import perf_counter
 
-from prometheus_client import CollectorRegistry, Counter, Gauge, Histogram, generate_latest
+from prometheus_client import CollectorRegistry, Counter, Gauge, Histogram, ProcessCollector, generate_latest
 
 request_id = contextvars.ContextVar("cashguard_request_id", default="-")
 
@@ -39,15 +39,24 @@ class Metrics:
     """Per-application metrics with bounded labels and no financial values."""
 
     ROUTES = frozenset({"/health", "/ready", "/docs", "/openapi.json", "/metrics",
+        "/api/v1/transactions/csv", "/api/v1/dashboard/prepare", "/api/v1/dashboard/anomalies",
+        "/api/v1/dashboard/scenario", "/api/v1/models/status",
         "/api/v1/transactions/validate", "/api/v1/analytics/summary", "/api/v1/forecast",
         "/api/v1/anomalies/detect", "/api/v1/risk/analyze", "/api/v1/scenarios/simulate", "/api/v1/insights/generate"})
     OPERATIONS = frozenset({"forecast", "anomaly", "llm"})
     FAILURES = frozenset({"connection_error", "timeout", "model_missing", "remote_model", "unsupported_model",
-                        "invalid_response", "http_error", "invalid_metadata", "configuration", "unexpected"})
+                        "invalid_response", "http_error", "invalid_metadata", "configuration", "unexpected",
+                        "disabled", "quota_exceeded"})
 
     def __init__(self, enabled=True):
         self.enabled = enabled
         self.registry = CollectorRegistry()
+        ProcessCollector(registry=self.registry)
+        self.active = Gauge("cashguard_inflight_analytics", "Accepted analytics requests currently using capacity", registry=self.registry)
+        self.provider_available = Gauge("cashguard_inference_available", "Observed availability, -1 unassessed",
+                                        ["provider"], registry=self.registry)
+        for provider in ("ollama", "huggingface", "deterministic"):
+            self.provider_available.labels(provider).set(-1)
         self.requests = Counter("cashguard_http_requests", "HTTP requests by route template and status class",
                                 ["route", "method", "status_class"], registry=self.registry)
         self.latency = Histogram("cashguard_http_duration_seconds", "HTTP request duration",
@@ -84,13 +93,16 @@ class Metrics:
             if self.enabled:
                 self.operations.labels(operation, result).observe(perf_counter() - beginning)
 
-    def model_failure(self, code):
+    def model_failure(self, code, provider="ollama"):
         if not self.enabled:
             return
+        provider = provider if provider in {"ollama", "huggingface", "deterministic"} else "ollama"
         code = code if code in self.FAILURES else "unexpected"
         self.llm_failures.labels(code).inc()
-        if code in {"connection_error", "model_missing", "remote_model", "unsupported_model", "invalid_metadata", "configuration"}:
-            self.model_available.set(0)
+        if code in {"connection_error", "model_missing", "remote_model", "unsupported_model", "invalid_metadata", "configuration", "disabled"}:
+            self.provider_available.labels(provider).set(0)
+            if provider == "ollama":
+                self.model_available.set(0)
 
     def render(self):
         return generate_latest(self.registry)
@@ -102,15 +114,19 @@ class ObservedModel:
 
     def generate(self, context):
         from src.llm_service import LocalLLMError
+        provider = getattr(self.settings, "provider", "ollama")
+        provider = provider if provider in {"ollama", "huggingface", "deterministic"} else "ollama"
         try:
             with self.metrics.measure("llm"):
                 result = self.service.generate(context)
             if self.metrics.enabled:
-                self.metrics.model_available.set(1)
+                self.metrics.provider_available.labels(provider).set(1)
+                if provider == "ollama":
+                    self.metrics.model_available.set(1)
             return result
         except LocalLLMError as exc:
-            self.metrics.model_failure(exc.code)
+            self.metrics.model_failure(exc.code, provider)
             raise
         except Exception:
-            self.metrics.model_failure("unexpected")
+            self.metrics.model_failure("unexpected", provider)
             raise

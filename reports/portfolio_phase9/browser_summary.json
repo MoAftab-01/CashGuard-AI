@@ -1,0 +1,1025 @@
+{
+  "synthetic_only": true,
+  "transport": "Actual isolated Chromium/Edge CDP",
+  "page_layouts": 36,
+  "screenshots_local_only": 104,
+  "runtime_errors": 0,
+  "page_overflows": 0,
+  "clipped_kpi_values": 0,
+  "chart_boundary_issues": [],
+  "journeys": [
+    "Changed threshold recalculates API forecast",
+    "Emergency and reduced income alter projected balances",
+    "Navigation preserves historical metrics"
+  ],
+  "inference_requested": false,
+  "physical_device_testing": false,
+  "formal_accessibility_audit": false,
+  "local_evidence": "var/portfolio-phase9/browser/manifest.json",
+  "layouts": {
+    "desktop-light-overview": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1720,
+      "background": "rgb(248, 250, 252)",
+      "charts": 2,
+      "metrics": [
+        {
+          "label": "Estimated cash balance",
+          "value": "USD 16,268.23"
+        },
+        {
+          "label": "Total income",
+          "value": "USD 31,541.47"
+        },
+        {
+          "label": "Total expenses",
+          "value": "USD 17,773.24"
+        },
+        {
+          "label": "Net cash flow",
+          "value": "USD 13,768.23"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Monthly income and expenses</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        },
+        {
+          "title": "<b><b>Spending by category</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-light-transactions": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1244,
+      "background": "rgb(248, 250, 252)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "desktop-light-cash-flow-forecast": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1337,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Estimated balance at cutoff",
+          "value": "USD 16,268.23"
+        },
+        {
+          "label": "Projected closing balance",
+          "value": "USD 17,859.81"
+        },
+        {
+          "label": "Days below threshold",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Estimated cash balance</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-light-anomaly-detection": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1849,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Flagged unusual",
+          "value": "0"
+        },
+        {
+          "label": "Transactions scored",
+          "value": "118"
+        },
+        {
+          "label": "Warmup / unscored",
+          "value": "87"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Transaction review timeline</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-light-risk-analysis": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1990,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Current cash buffer",
+          "value": "199.7 days"
+        },
+        {
+          "label": "Expense-to-income ratio",
+          "value": "54.8%"
+        },
+        {
+          "label": "Forecast threshold breaches",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Contributions to the risk indicator</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-light-scenario-simulator": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1543,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Baseline minimum cash",
+          "value": "USD 16,204.86"
+        },
+        {
+          "label": "Scenario minimum cash",
+          "value": "USD 16,204.86"
+        },
+        {
+          "label": "Closing balance change",
+          "value": "USD 0.00"
+        },
+        {
+          "label": "Scenario breach days",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Estimated cash balance</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-light-ai-insights": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 2049,
+      "background": "rgb(248, 250, 252)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "desktop-light-model-evaluation": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1433,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Precision",
+          "value": "1.0000"
+        },
+        {
+          "label": "Recall",
+          "value": "0.9231"
+        },
+        {
+          "label": "F1",
+          "value": "0.9600"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Synthetic confusion matrix</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-light-data-quality": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1150,
+      "background": "rgb(248, 250, 252)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "mobile-light-overview": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2848,
+      "background": "rgb(248, 250, 252)",
+      "charts": 2,
+      "metrics": [
+        {
+          "label": "Estimated cash balance",
+          "value": "USD 16,268.23"
+        },
+        {
+          "label": "Total income",
+          "value": "USD 31,541.47"
+        },
+        {
+          "label": "Total expenses",
+          "value": "USD 17,773.24"
+        },
+        {
+          "label": "Net cash flow",
+          "value": "USD 13,768.23"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Monthly income and expenses</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        },
+        {
+          "title": "<b><b>Spending by category</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-light-transactions": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 1587,
+      "background": "rgb(248, 250, 252)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "mobile-light-cash-flow-forecast": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 1818,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Estimated balance at cutoff",
+          "value": "USD 16,268.23"
+        },
+        {
+          "label": "Projected closing balance",
+          "value": "USD 17,859.81"
+        },
+        {
+          "label": "Days below threshold",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Estimated cash balance</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-light-anomaly-detection": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2640,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Flagged unusual",
+          "value": "0"
+        },
+        {
+          "label": "Transactions scored",
+          "value": "118"
+        },
+        {
+          "label": "Warmup / unscored",
+          "value": "87"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Transaction review timeline</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-light-risk-analysis": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2755,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Current cash buffer",
+          "value": "199.7 days"
+        },
+        {
+          "label": "Expense-to-income ratio",
+          "value": "54.8%"
+        },
+        {
+          "label": "Forecast threshold breaches",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Contributions to the risk indicator</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-light-scenario-simulator": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2376,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Baseline minimum cash",
+          "value": "USD 16,204.86"
+        },
+        {
+          "label": "Scenario minimum cash",
+          "value": "USD 16,204.86"
+        },
+        {
+          "label": "Closing balance change",
+          "value": "USD 0.00"
+        },
+        {
+          "label": "Scenario breach days",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Estimated cash balance</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-light-ai-insights": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2799,
+      "background": "rgb(248, 250, 252)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "mobile-light-model-evaluation": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 1874,
+      "background": "rgb(248, 250, 252)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Precision",
+          "value": "1.0000"
+        },
+        {
+          "label": "Recall",
+          "value": "0.9231"
+        },
+        {
+          "label": "F1",
+          "value": "0.9600"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Synthetic confusion matrix</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-light-data-quality": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 1417,
+      "background": "rgb(248, 250, 252)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "desktop-dark-overview": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1720,
+      "background": "rgb(11, 18, 32)",
+      "charts": 2,
+      "metrics": [
+        {
+          "label": "Estimated cash balance",
+          "value": "USD 16,268.23"
+        },
+        {
+          "label": "Total income",
+          "value": "USD 31,541.47"
+        },
+        {
+          "label": "Total expenses",
+          "value": "USD 17,773.24"
+        },
+        {
+          "label": "Net cash flow",
+          "value": "USD 13,768.23"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Monthly income and expenses</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        },
+        {
+          "title": "<b><b>Spending by category</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-dark-transactions": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1244,
+      "background": "rgb(11, 18, 32)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "desktop-dark-cash-flow-forecast": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1337,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Estimated balance at cutoff",
+          "value": "USD 16,268.23"
+        },
+        {
+          "label": "Projected closing balance",
+          "value": "USD 17,859.81"
+        },
+        {
+          "label": "Days below threshold",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Estimated cash balance</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-dark-anomaly-detection": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1849,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Flagged unusual",
+          "value": "0"
+        },
+        {
+          "label": "Transactions scored",
+          "value": "118"
+        },
+        {
+          "label": "Warmup / unscored",
+          "value": "87"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Transaction review timeline</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-dark-risk-analysis": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1990,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Current cash buffer",
+          "value": "199.7 days"
+        },
+        {
+          "label": "Expense-to-income ratio",
+          "value": "54.8%"
+        },
+        {
+          "label": "Forecast threshold breaches",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Contributions to the risk indicator</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-dark-scenario-simulator": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1543,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Baseline minimum cash",
+          "value": "USD 16,204.86"
+        },
+        {
+          "label": "Scenario minimum cash",
+          "value": "USD 16,204.86"
+        },
+        {
+          "label": "Closing balance change",
+          "value": "USD 0.00"
+        },
+        {
+          "label": "Scenario breach days",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Estimated cash balance</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-dark-ai-insights": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 2049,
+      "background": "rgb(11, 18, 32)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "desktop-dark-model-evaluation": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1433,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Precision",
+          "value": "1.0000"
+        },
+        {
+          "label": "Recall",
+          "value": "0.9231"
+        },
+        {
+          "label": "F1",
+          "value": "0.9600"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Synthetic confusion matrix</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "desktop-dark-data-quality": {
+      "width": 1440,
+      "height": 1000,
+      "documentWidth": 1440,
+      "mainWidth": 1130,
+      "mainScrollWidth": 1130,
+      "mainHeight": 1150,
+      "background": "rgb(11, 18, 32)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "mobile-dark-overview": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2848,
+      "background": "rgb(11, 18, 32)",
+      "charts": 2,
+      "metrics": [
+        {
+          "label": "Estimated cash balance",
+          "value": "USD 16,268.23"
+        },
+        {
+          "label": "Total income",
+          "value": "USD 31,541.47"
+        },
+        {
+          "label": "Total expenses",
+          "value": "USD 17,773.24"
+        },
+        {
+          "label": "Net cash flow",
+          "value": "USD 13,768.23"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Monthly income and expenses</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        },
+        {
+          "title": "<b><b>Spending by category</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-dark-transactions": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 1587,
+      "background": "rgb(11, 18, 32)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "mobile-dark-cash-flow-forecast": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 1818,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Estimated balance at cutoff",
+          "value": "USD 16,268.23"
+        },
+        {
+          "label": "Projected closing balance",
+          "value": "USD 17,859.81"
+        },
+        {
+          "label": "Days below threshold",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Estimated cash balance</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-dark-anomaly-detection": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2640,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Flagged unusual",
+          "value": "0"
+        },
+        {
+          "label": "Transactions scored",
+          "value": "118"
+        },
+        {
+          "label": "Warmup / unscored",
+          "value": "87"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Transaction review timeline</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-dark-risk-analysis": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2755,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Current cash buffer",
+          "value": "199.7 days"
+        },
+        {
+          "label": "Expense-to-income ratio",
+          "value": "54.8%"
+        },
+        {
+          "label": "Forecast threshold breaches",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Contributions to the risk indicator</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-dark-scenario-simulator": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2376,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Baseline minimum cash",
+          "value": "USD 16,204.86"
+        },
+        {
+          "label": "Scenario minimum cash",
+          "value": "USD 16,204.86"
+        },
+        {
+          "label": "Closing balance change",
+          "value": "USD 0.00"
+        },
+        {
+          "label": "Scenario breach days",
+          "value": "0"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Estimated cash balance</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-dark-ai-insights": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 2799,
+      "background": "rgb(11, 18, 32)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    },
+    "mobile-dark-model-evaluation": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 1874,
+      "background": "rgb(11, 18, 32)",
+      "charts": 1,
+      "metrics": [
+        {
+          "label": "Precision",
+          "value": "1.0000"
+        },
+        {
+          "label": "Recall",
+          "value": "0.9231"
+        },
+        {
+          "label": "F1",
+          "value": "0.9600"
+        }
+      ],
+      "clippedMetricValues": 0,
+      "chartChecks": [
+        {
+          "title": "<b><b>Synthetic confusion matrix</b></b>",
+          "titleInside": true,
+          "legendInside": true,
+          "titleLegendOverlap": false
+        }
+      ]
+    },
+    "mobile-dark-data-quality": {
+      "width": 390,
+      "height": 844,
+      "documentWidth": 390,
+      "mainWidth": 390,
+      "mainScrollWidth": 390,
+      "mainHeight": 1417,
+      "background": "rgb(11, 18, 32)",
+      "charts": 0,
+      "metrics": [],
+      "clippedMetricValues": 0,
+      "chartChecks": []
+    }
+  }
+}

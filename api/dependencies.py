@@ -5,6 +5,7 @@ from api.services.analytics_service import AnalyticsService
 from src.llm_service import OllamaService, OllamaSettings
 from src.observability import ObservedModel
 from fastapi import Request
+from src.inference import create_provider
 
 
 def analytics_service(request: Request):
@@ -12,8 +13,10 @@ def analytics_service(request: Request):
 
 
 def model_service(payload: InsightsRequest, request: Request):
-    settings = OllamaSettings.from_environment(model=payload.model,
-                                               timeout_seconds=float(payload.timeout_seconds))
-    settings = settings.model_copy(update={"max_attempts": 1})
-    with OllamaService(settings) as service:
+    service = create_provider(request.app.state.provider_settings, request.app.state.provider_budget,
+                              getattr(request.state, "session_id", "local"), model=payload.model,
+                              timeout_seconds=float(payload.timeout_seconds))
+    try:
         yield ObservedModel(service, request.app.state.metrics)
+    finally:
+        service.close()

@@ -1,0 +1,11 @@
+{
+  "phase": "portfolio-phase9",
+  "client_date": "2026-10-19",
+  "base_commit": "9ac77b87860f838e7f72f5300ed043f0fa154ccd",
+  "branch": "portfolio-phase9",
+  "tests": {"passed": 458, "failed": 0, "skipped": 0, "seconds": 69.46, "warnings": 2},
+  "junit_local_only": "var/portfolio-phase9/baseline.xml",
+  "historical_initial_release_ci": {"run_id": 39152906679, "quality": "success", "containers": "success"},
+  "portfolio_published": false,
+  "deployed": false
+}

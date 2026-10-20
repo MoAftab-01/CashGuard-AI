@@ -16,6 +16,11 @@
 var
 mlruns
 reports
+!reports/
+reports/*
+!reports/phase6/
+reports/phase6/*
+!reports/phase6/results.json
 tests
 docs
 data/*

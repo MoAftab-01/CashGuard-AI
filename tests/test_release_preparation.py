@@ -18,11 +18,13 @@ def write(root, name, text="reviewed fixture"):
 
 def test_public_allowlist_excludes_stores_credentials_weights_logs_and_unreviewed_data(tmp_path):
     allowed = {"README.md", "LICENSE", "src/metrics.py", "tests/test_metrics.py", ".env.example",
-               ".github/workflows/ci.yml", "docs/submission/assets/main-dashboard.png"}
+               ".github/workflows/ci.yml", "docs/submission/assets/main-dashboard.png", "compose.staging.yaml",
+               "render.yaml", "deploy/serve.py", "deploy/nginx.conf.template", "deploy/public-demo.env.example"}
     denied = {".env", ".env.private", "var/mlflow/mlflow.db", ".aws/credentials", ".venv/tool.py",
               "src/__pycache__/secret.py", "data/private.csv", "private.csv", "reports/customer.csv",
               "reports/phase9/pytest.xml", "reports/phase9/api.log", "reports/phase7/screenshots/private.png",
               "docs/submission/assets/model.gguf", "model.safetensors", ".streamlit/secrets.toml"}
+    denied |= {"deploy/private.env", "deploy/credentials.json", "deploy/private.py"}
     for name in allowed | denied:
         write(tmp_path, name)
     assert {p.relative_to(tmp_path).as_posix() for p in candidates(tmp_path)} == allowed

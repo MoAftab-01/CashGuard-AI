@@ -1,0 +1,30 @@
+# Preparation only. Creating this service incurs costs and requires owner approval.
+services:
+  - type: web
+    name: cashguard-portfolio
+    runtime: docker
+    plan: 1c-2g
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    numInstances: 1
+    autoDeployTrigger: "off"
+    healthCheckPath: /ready
+    envVars:
+      - key: CASHGUARD_API_TOKEN
+        generateValue: true
+      - key: CASHGUARD_OPS_TOKEN
+        generateValue: true
+      - key: CASHGUARD_PUBLIC_DEMO
+        value: "true"
+      - key: CASHGUARD_EXECUTION_MODE
+        value: api
+      - key: CASHGUARD_DEPLOYMENT_PROFILE
+        value: public
+      - key: CASHGUARD_INFERENCE_PROVIDER
+        value: deterministic
+      - key: CASHGUARD_PUBLIC_HTTPS
+        value: "true"
+      - key: CASHGUARD_RATE_LIMIT_PER_MINUTE
+        value: "60"
+      - key: CASHGUARD_GLOBAL_RATE_LIMIT_PER_MINUTE
+        value: "240"

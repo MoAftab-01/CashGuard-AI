@@ -13,7 +13,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT_FILES = {"README.md", "LICENSE", "SECURITY.md", "CONTRIBUTING.md", "Dockerfile", "compose.yaml",
-              "app.py", "config.py", "pyproject.toml", ".python-version", ".gitignore", ".dockerignore", ".env.example"}
+              "app.py", "config.py", "pyproject.toml", ".python-version", ".gitignore", ".dockerignore", ".env.example",
+              "compose.staging.yaml", "render.yaml"}
 PRIVATE_PARTS = {".git", ".venv", "var", "__pycache__", ".pytest_cache", ".pytest_tmp", ".ruff_cache", ".aws", ".codex", ".agents"}
 REPORT_CSV = {"reports/phase5/" + name for name in ("anomaly_holdout.csv", "forecast_folds.csv", "forecast_predictions.csv")}
 REPORT_CSV |= {"reports/phase6/" + name for name in ("calibration_labels.csv", "calibration_transactions.csv",
@@ -42,6 +43,8 @@ def candidates(root):
             include = path.name in ROOT_FILES or path.name.startswith("requirements") and path.suffix == ".txt"
         elif relative.parts[0] in {"src", "api", "scripts", "tests"}:
             include = path.suffix == ".py"
+        elif relative.parts[0] == "deploy":
+            include = name in {"deploy/__init__.py", "deploy/serve.py", "deploy/nginx.conf.template", "deploy/public-demo.env.example"}
         elif name == ".github/workflows/ci.yml" or name == ".streamlit/config.toml":
             include = True
         elif relative.parts[0] == "data":

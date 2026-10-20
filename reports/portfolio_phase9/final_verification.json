@@ -1,0 +1,177 @@
+{
+  "phase": "portfolio-phase9",
+  "client_date": "2026-10-19",
+  "branch": "portfolio-phase9",
+  "base_commit": "9ac77b87860f838e7f72f5300ed043f0fa154ccd",
+  "baseline": {
+    "passed": 458,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 69.46
+  },
+  "windows": {
+    "tests": 512,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 512,
+    "warnings": 2,
+    "pytest_elapsed_seconds": 102.86,
+    "junit_suite_seconds": 102.678,
+    "evidence_local_only": "var/portfolio-phase9/final-windows.xml"
+  },
+  "linux": {
+    "tests": 512,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "passed": 512,
+    "warnings": 2,
+    "pytest_elapsed_seconds": 87.19,
+    "junit_suite_seconds": 87.184,
+    "evidence_local_only": "var/portfolio-phase9/linux-results/pytest.xml"
+  },
+  "new_test_cases": 54,
+  "checks": {
+    "ruff_configured_critical_checks": "passed",
+    "compileall": "passed",
+    "pip_check_workspace": "passed",
+    "pip_check_portfolio_container": "passed",
+    "git_diff_check": "passed",
+    "original_runtime_build": "passed",
+    "original_tracking_build": "passed",
+    "portfolio_build_startup": "passed",
+    "compose_staging_configuration": "passed",
+    "deployment_contract_tests": "passed"
+  },
+  "browser": {
+    "synthetic_only": true,
+    "transport": "Actual isolated Chromium/Edge CDP",
+    "page_layouts": 36,
+    "screenshots_local_only": 104,
+    "runtime_errors": 0,
+    "page_overflows": 0,
+    "clipped_kpi_values": 0,
+    "chart_boundary_issues": [],
+    "journeys": [
+      "Changed threshold recalculates API forecast",
+      "Emergency and reduced income alter projected balances",
+      "Navigation preserves historical metrics"
+    ],
+    "inference_requested": false,
+    "physical_device_testing": false,
+    "formal_accessibility_audit": false,
+    "local_evidence": "var/portfolio-phase9/browser/manifest.json"
+  },
+  "staging": {
+    "url": "http://localhost:8510",
+    "state": "healthy",
+    "uid": 10001,
+    "read_only": true,
+    "final_image": "sha256:47da082be1b3b18211244a32cbc7d883c07e8af68e6dc05d6864b911bb1996a8",
+    "earlier_boundary_load_image": "sha256:97fba954b4b110ee514399951b1ac4c509a6bd6b0aa9450e31c763666589a81c",
+    "supervisor_child_failure": "API child SIGTERM caused container exit 1; restart returned healthy",
+    "cloud_deployed": false
+  },
+  "gemma": {
+    "model": "gemma3:4b",
+    "provider": "local Ollama",
+    "command": "python -m scripts.check_local_ai --generate --opening-balance 2500.00",
+    "source": "ai",
+    "error_code": null,
+    "validated_sections": [
+      "financial_health",
+      "cash_flow_risk",
+      "spending_insights",
+      "scenario_interpretation",
+      "suggested_steps"
+    ],
+    "synthetic_only": true,
+    "hosted_inference_executed": false,
+    "elapsed_seconds": null,
+    "scope": "Real generation and grounding validation executed; this invocation did not separately measure inference latency."
+  },
+  "synthetic_evaluation": {
+    "protocol": "phase6-chronological-v1",
+    "fingerprint": "367539b12146d100f0aa6a924b8f4dbf454cca2f1a59193455fc2a9a00f2c037",
+    "selected": {
+      "method": "context_stat",
+      "threshold": 3.5,
+      "selected": true,
+      "precision": 1.0,
+      "recall": 0.9230769231,
+      "f1": 0.96,
+      "false_positive_rate": 0.0,
+      "confusion_matrix": [
+        [
+          234,
+          0
+        ],
+        [
+          1,
+          12
+        ]
+      ],
+      "test_rows": 247,
+      "injected_count": 13,
+      "predicted_unusual": 12,
+      "background_recurring_rows": 5,
+      "background_recurring_flags": 0
+    },
+    "scope": "Replay of known synthetic holdout, not fresh independent or real-world validation",
+    "forecast_30day_balance": [
+      {
+        "horizon_days": 30,
+        "method": "Recurring + residual",
+        "target": "balance",
+        "fold_count": 4,
+        "observation_count": 120,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-29T00:00:00.000",
+        "mae": 207.7844166667,
+        "rmse": 278.1314557947,
+        "bias": -79.62525
+      },
+      {
+        "horizon_days": 30,
+        "method": "Last balance (zero net)",
+        "target": "balance",
+        "fold_count": 4,
+        "observation_count": 120,
+        "test_start": "2026-04-01T00:00:00.000",
+        "test_end": "2026-07-29T00:00:00.000",
+        "mae": 2316.4166666667,
+        "rmse": 2403.0912097331,
+        "bias": -2316.3351666667
+      }
+    ]
+  },
+  "drift": {
+    "command": "python -m scripts.monitor_models --synthetic --output-dir reports/portfolio_phase9/drift",
+    "background": "review_required",
+    "deliberate_shift": "review_required",
+    "residual_and_alert_vectors": "Not supplied; unassessed",
+    "automatic_retraining": false
+  },
+  "dependency_advisories": {
+    "source": "https://api.osv.dev/v1/querybatch",
+    "packages_queried": 50,
+    "findings": [],
+    "scope": "Pinned Python runtime packages only; no code, credentials or financial data sent; not an OS-image or security certification scan"
+  },
+  "financial_engines_changed": false,
+  "contest_history_changed": false,
+  "portfolio_commit_created": false,
+  "portfolio_pushed": false,
+  "dev_published_or_changed": false,
+  "paid_inference_used": false,
+  "cloud_resources_created": false,
+  "limitations": [
+    "Hosted inference mocked only; disabled pending approval and provider/billing/privacy review.",
+    "Cloud TLS, WebSockets, startup latency and capacity are untested.",
+    "No built-OS-image or optional dependency advisory scan was performed.",
+    "Single-process quotas reset on restart; real financial uploads are disabled in public mode.",
+    "Browser viewport emulation is not physical-device, screen-reader or formal accessibility testing.",
+    "Local load smoke is small and does not establish peak memory or production throughput."
+  ]
+}

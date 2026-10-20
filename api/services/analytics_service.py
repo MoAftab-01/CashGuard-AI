@@ -62,6 +62,25 @@ class AnalyticsService:
                                       input_rows=imported.input_rows, duplicates_removed=imported.duplicates_removed,
                                       issues=[asdict(issue) for issue in imported.issues], transactions=transactions)
 
+    def import_csv(self, request):
+        from src.dashboard_wire import ImportWire
+        return ImportWire.pack(validate_csv(request.csv_text,
+                              remove_ambiguous_duplicates=request.remove_ambiguous_duplicates))
+
+    def dashboard(self, request):
+        from src.dashboard_wire import DashboardWire
+        imported, _, cutoff = self.history(request)
+        anomaly = self.anomalies(request)
+        result = build_dashboard(imported, request.opening_balance, as_of=cutoff,
+                                 cash_threshold=request.cash_threshold,
+                                 include_irregular_income=request.include_irregular_income,
+                                 reviewed_duplicates=request.reviewed_duplicates, anomalies=anomaly)
+        return DashboardWire.pack(result)
+
+    def scenario_wire(self, request):
+        from src.dashboard_wire import ScenarioWire
+        return ScenarioWire.pack(simulate_scenario(self.forecast(request), request.scenario))
+
     def history(self, request):
         imported = import_transactions(request)
         require_ready_import(imported, reviewed_duplicates=request.reviewed_duplicates)

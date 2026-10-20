@@ -1,6 +1,7 @@
 """Optional, explicit evaluation. Uploaded histories stay in private session state."""
 
 import streamlit as st
+import pandas as pd
 
 from src.dashboard_service import session_value
 from src.evaluation import evaluate_anomalies, evaluate_forecasts
@@ -80,6 +81,29 @@ def render_model_evaluation(imported, opening, as_of, irregular, dataset_key, so
                 st.dataframe(grouped.rename(columns={"count": "Background rows", "sum": "False positives", "mean": "False-positive rate"}), width="stretch")
         warnings_panel(result.warnings, "Synthetic evaluation limitations")
     _render_candidate_evaluation()
+
+
+def render_public_evaluation():
+    """Read-only public synthetic evidence; do not run user-controlled backtests."""
+    import json
+    from pathlib import Path
+    path = Path(__file__).resolve().parents[2] / "reports/phase6/results.json"
+    st.subheader("Recorded synthetic model evaluation")
+    st.caption("Read-only benchmark. Synthetic injected amount changes are not real-world fraud labels. The known holdout has been replayed; it is not a fresh independent validation.")
+    try:
+        report = json.loads(path.read_text(encoding="utf-8"))
+        results = report["final_metrics"]
+        selected = next(row for row in results if row["selected"])
+    except (OSError, ValueError, KeyError, StopIteration):
+        st.info("The recorded evaluation artifact is unavailable. No performance numbers are invented.")
+        return
+    for column, name in zip(st.columns(3), ("precision", "recall", "f1")):
+        column.metric(name.title(), f"{selected[name]:.4f}")
+    st.write(f"Selected method: {selected['method']}. Final partition: {selected['test_rows']} synthetic examples.")
+    st.dataframe(pd.DataFrame([{name: row[name] for name in ("method", "precision", "recall", "f1", "false_positive_rate")}
+                               for row in results]), hide_index=True, width="stretch")
+    chart(anomaly_confusion_chart(selected), "public_evaluation_confusion")
+    st.caption("Local mode retains interactive evaluations. Public mode shows fixed reproducible evidence to bound compute and prevent private uploads.")
 
 
 def _render_candidate_evaluation():

@@ -1,0 +1,72 @@
+worker_processes 1;
+pid @RUNTIME@/nginx.pid;
+error_log stderr crit;
+events { worker_connections 256; }
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    access_log off;
+    server_tokens off;
+    client_body_temp_path @RUNTIME@/client_body;
+    proxy_temp_path @RUNTIME@/proxy;
+    fastcgi_temp_path @RUNTIME@/fastcgi;
+    uwsgi_temp_path @RUNTIME@/uwsgi;
+    scgi_temp_path @RUNTIME@/scgi;
+    client_max_body_size 64k;
+    client_header_timeout 10s;
+    client_body_timeout 5s;
+    send_timeout 15s;
+    keepalive_timeout 15s;
+    map $http_upgrade $connection_upgrade { default upgrade; '' close; }
+    limit_req_zone $binary_remote_addr zone=demo_http:1m rate=10r/s;
+    limit_req_zone $binary_remote_addr zone=demo_assets:1m rate=100r/s;
+    limit_conn_zone $server_name zone=demo_connections:1m;
+    server {
+        listen @PORT@;
+        server_name _;
+        limit_req zone=demo_http burst=60 nodelay;
+        limit_req_status 429;
+        limit_conn demo_connections 64;
+        limit_conn_status 429;
+        add_header X-Content-Type-Options nosniff always;
+        add_header Referrer-Policy no-referrer always;
+        add_header X-Frame-Options DENY always;
+        add_header Content-Security-Policy "frame-ancestors 'none'; object-src 'none'; base-uri 'self'" always;
+        if ($request_method !~ ^(GET|HEAD|OPTIONS)$) { return 405; }
+        location ^~ /_stcore/upload_file { return 403; }
+        location ^~ /api/ { return 404; }
+        location = /metrics { return 404; }
+        location = /docs { return 404; }
+        location = /openapi.json { return 404; }
+        location ^~ /mlflow { return 404; }
+        location = /health {
+            proxy_pass http://127.0.0.1:8000/health;
+            proxy_set_header Host 127.0.0.1;
+        }
+        location = /ready {
+            proxy_pass http://127.0.0.1:8000/ready;
+            proxy_set_header Host 127.0.0.1;
+        }
+        # Streamlit loads many hashed JS/CSS chunks on a cold browser. Static
+        # files need a separate budget; they do not execute financial analytics.
+        location ^~ /static/ {
+            limit_req zone=demo_assets burst=300 nodelay;
+            proxy_pass http://127.0.0.1:8501;
+            proxy_http_version 1.1;
+            proxy_set_header Host $http_host;
+            proxy_buffering off;
+        }
+        location / {
+            proxy_pass http://127.0.0.1:8501;
+            proxy_http_version 1.1;
+            proxy_set_header Host $http_host;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection $connection_upgrade;
+            proxy_set_header X-Forwarded-Proto @SCHEME@;
+            proxy_set_header X-Forwarded-For "";
+            proxy_buffering off;
+            proxy_read_timeout 120s;
+            proxy_send_timeout 30s;
+        }
+    }
+}

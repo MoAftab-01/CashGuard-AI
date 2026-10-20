@@ -171,3 +171,10 @@ class HealthResponse(ResponseModel):
     status: str
     analytics_ready: bool
     optional_services_required: bool = False
+
+
+class ModelStatusResponse(ResponseModel):
+    ready: bool
+    code: str
+    message: str
+    model: str

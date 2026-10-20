@@ -14,26 +14,29 @@ from api.routes.v1 import router
 from api.schemas.responses import ErrorResponse, HealthResponse
 from src.settings import Settings
 from src.observability import Metrics
+from src.inference import InferenceBudget, ProviderSettings
 
 
 def create_app(settings: Settings | None = None):
     settings = settings or Settings.from_environment()
-    application = FastAPI(title="CashGuard AI", version="0.8.0", docs_url=None, redoc_url=None,
+    application = FastAPI(title="CashGuard AI", version="0.9.0", docs_url=None, redoc_url=None,
                           description="Local financial research API. Estimates, not bank balances or fraud decisions.",
                           responses={422: {"model": ErrorResponse}, 500: {"model": ErrorResponse}})
     application.state.settings = settings
     application.state.analytics_ready = True
     application.state.metrics = Metrics(settings.metrics_enabled)
+    application.state.provider_settings = ProviderSettings.from_environment(public_demo=settings.public_demo)
+    application.state.provider_budget = InferenceBudget(application.state.provider_settings)
     application.add_middleware(LocalPolicy, settings=settings, metrics=application.state.metrics)
     application.include_router(router)
 
     @application.exception_handler(RequestValidationError)
     async def invalid(request: Request, exc: RequestValidationError):
         # Do not include Pydantic input/context, URLs, or exception reprs.
-        from api.schemas.requests import AnalysisRequest, ImportRequest, InsightsRequest, StrictScenario
+        from api.schemas.requests import AnalysisRequest, CSVRequest, ImportRequest, InsightsRequest, ModelRequest, StrictScenario
         from src.data_processing import Transaction
         known = {"body", "query", "path", "header", "scenario", "model", "timeout_seconds"}
-        for schema in (AnalysisRequest, ImportRequest, InsightsRequest, StrictScenario, Transaction):
+        for schema in (AnalysisRequest, CSVRequest, ImportRequest, InsightsRequest, ModelRequest, StrictScenario, Transaction):
             known.update(schema.model_fields)
         issues = [{"row": None, "field": ".".join(str(part) if isinstance(part, int) or part in known else "unknown" for part in item["loc"]),
                    "message": "Invalid value: " + item["type"], "severity": "error"}
@@ -70,7 +73,7 @@ def create_app(settings: Settings | None = None):
         # Offline documentation: no third-party scripts can observe financial inputs.
         schema = html.escape(json.dumps(application.openapi(), indent=2))
         return "<!doctype html><title>CashGuard API</title><h1>CashGuard local API</h1><p>" \
-               "No authentication: keep this service on loopback. Money is decimal text or integer cents. " \
+               "Local mode must remain on loopback. Hosted endpoints require configured service credentials. Money is decimal text or integer cents. " \
                "<a href='/openapi.json'>OpenAPI JSON</a></p><pre>" + schema + "</pre>"
 
     @application.get("/metrics", include_in_schema=False)

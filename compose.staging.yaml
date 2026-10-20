@@ -1,0 +1,28 @@
+name: cashguard-portfolio-staging
+services:
+  demo:
+    build:
+      context: .
+      target: portfolio
+    image: cashguard-portfolio:phase9
+    ports:
+      - "127.0.0.1:${CASHGUARD_STAGING_PORT:-8510}:8080"
+    environment:
+      CASHGUARD_API_TOKEN: "${CASHGUARD_API_TOKEN:?Set a random service token of at least 32 characters}"
+      CASHGUARD_OPS_TOKEN: "${CASHGUARD_OPS_TOKEN:?Set a separate random operations token}"
+      CASHGUARD_DEPLOYMENT_PROFILE: staging
+      CASHGUARD_PUBLIC_DEMO: "true"
+      CASHGUARD_EXECUTION_MODE: api
+      CASHGUARD_INFERENCE_PROVIDER: deterministic
+      CASHGUARD_PUBLIC_HTTPS: "false"
+      PORT: "8080"
+    read_only: true
+    tmpfs:
+      - /tmp:size=128m,mode=1777
+      - /home/cashguard:size=32m,uid=10001,gid=10001
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    mem_limit: 1536m
+    cpus: 1.0
+    pids_limit: 128
+    restart: "no"
