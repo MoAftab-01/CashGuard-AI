@@ -1,0 +1,209 @@
+{
+  "date": "2026-10-20",
+  "branch": "phase10a-ui",
+  "reviewed_phase10a_commit": "7600b705e1f5437fbe2e44183ec6b4275902e0c4",
+  "local_only": true,
+  "pushed": false,
+  "merged": false,
+  "deployed": false,
+  "budget_dollars": 0,
+  "baseline": {
+    "tests": 531,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_seconds": 116.423,
+    "cli_seconds": 116.51
+  },
+  "windows": {
+    "tests": 539,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_seconds": 156.169,
+    "cli_seconds": 156.34
+  },
+  "linux": {
+    "tests": 539,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "junit_seconds": 114.699,
+    "cli_seconds": 114.7
+  },
+  "resource_profiles": {
+    "free": {
+      "image_id": "sha256:cd4bd3ba1aa4ae798d8d0eafef9ded4ec3fcbd471e9305b3688e73b37efd8988",
+      "image_bytes_uncompressed": 834731703,
+      "memory_limit_mib": 512,
+      "cpu_limit": 0.1,
+      "startup_to_ready_seconds": 57.944,
+      "cgroup": {
+        "memory/memory.usage_in_bytes": "388362240",
+        "memory/memory.max_usage_in_bytes": "393097216",
+        "memory/memory.oom_control": "oom_kill_disable 0\nunder_oom 0\noom_kill 0",
+        "memory/memory.failcnt": "0",
+        "cpu/cpu.stat": "nr_periods 1389\nnr_throttled 1324\nthrottled_time 337011716800"
+      },
+      "container_state": {
+        "Running": true,
+        "OOMKilled": false,
+        "ExitCode": 0
+      },
+      "idle_memory_samples": [
+        "231.5MiB / 512MiB",
+        "231.5MiB / 512MiB",
+        "231.5MiB / 512MiB"
+      ],
+      "idle_cpu_samples": [
+        "0.45%",
+        "0.45%",
+        "0.36%"
+      ],
+      "peak_sample_cpu_percent": 12.2,
+      "initial_session_seconds": 18.14,
+      "start_demo_seconds": 4.509,
+      "burst_wall_seconds": 10.198,
+      "burst_completed": 2,
+      "burst_busy": 3,
+      "isolated_sessions_correct_on_retry": 5,
+      "peak_memory_mib": 374.88671875
+    },
+    "control": {
+      "image_id": "sha256:cd4bd3ba1aa4ae798d8d0eafef9ded4ec3fcbd471e9305b3688e73b37efd8988",
+      "image_bytes_uncompressed": 834731703,
+      "memory_limit_mib": 1536,
+      "cpu_limit": 1.0,
+      "startup_to_ready_seconds": 5.488,
+      "cgroup": {
+        "memory/memory.usage_in_bytes": "392491008",
+        "memory/memory.max_usage_in_bytes": "393064448",
+        "memory/memory.oom_control": "oom_kill_disable 0\nunder_oom 0\noom_kill 0",
+        "memory/memory.failcnt": "0",
+        "cpu/cpu.stat": "nr_periods 218\nnr_throttled 82\nthrottled_time 3627781400"
+      },
+      "container_state": {
+        "Running": true,
+        "OOMKilled": false,
+        "ExitCode": 0
+      },
+      "idle_memory_samples": [
+        "231.3MiB / 1.5GiB",
+        "231.3MiB / 1.5GiB",
+        "231.4MiB / 1.5GiB"
+      ],
+      "idle_cpu_samples": [
+        "0.41%",
+        "0.41%",
+        "0.42%"
+      ],
+      "peak_sample_cpu_percent": 102.36,
+      "initial_session_seconds": 2.475,
+      "start_demo_seconds": 0.625,
+      "burst_wall_seconds": 1.288,
+      "burst_completed": 2,
+      "burst_busy": 3,
+      "isolated_sessions_correct_on_retry": 5,
+      "peak_memory_mib": 374.85546875
+    }
+  },
+  "dependency_advisories": {
+    "source": "OSV API",
+    "packages_queried": 111,
+    "findings": [],
+    "pagination_pending": false
+  },
+  "gemma": {
+    "source": "ai",
+    "model": "gemma3:4b",
+    "browser_roundtrip_seconds": 9.402015699975891
+  },
+  "native_protocol_runs": 15,
+  "api_browser_journeys": [
+    "Threshold recalculates expected shortfalls",
+    "Emergency changes only projections",
+    "Reduced income changes projection",
+    "Navigation and scenario preserve historical metrics",
+    "Public assistant is deterministic with generation disabled"
+  ],
+  "tls": {
+    "https": 200,
+    "certificate_verified": true,
+    "public_trusted_certificate": false,
+    "health": {
+      "status": "ready",
+      "analytics_ready": true,
+      "optional_services_required": false
+    },
+    "wss": true,
+    "headings": [
+      "CashGuard AI",
+      "Home",
+      "Explore cash flow with fictional transactions"
+    ]
+  },
+  "literal_table_browser_probe": {
+    "before_images": 1,
+    "after_images": 0,
+    "after_links": 0,
+    "literal_text_and_exact_amount_verified": true
+  },
+  "limitations": [
+    "No participant results, physical-device or screen-reader testing.",
+    "Native browser menu zoom and comprehensive manual contrast/target-size checks remain.",
+    "No cloud account/billing validation, deployment, public CA TLS or sleep/wake test.",
+    "No full OS image CVE audit; OSV covers public Python package/version pairs only.",
+    "Synthetic small-load measurements do not establish real-world ML accuracy or sustained traffic capacity."
+  ],
+  "files_changed": [
+    "README.md",
+    "app.py",
+    "docs/phase10b_accessibility.md",
+    "docs/phase10b_free_hosting.md",
+    "docs/phase10b_release_readiness.md",
+    "docs/phase10b_usability_study.md",
+    "docs/phase9_deployment.md",
+    "render.yaml",
+    "reports/phase10b/results.json",
+    "scripts/profile_public_demo.py",
+    "scripts/qa_phase10b_accessibility.py",
+    "src/ui/ai_insights.py",
+    "src/ui/chart_data.py",
+    "src/ui/components.py",
+    "src/ui/model_evaluation.py",
+    "src/ui/pages.py",
+    "src/visualizations.py",
+    "tests/test_ai_insights_app.py",
+    "tests/test_phase10b_readiness.py",
+    "tests/test_portfolio_backend.py",
+    "tests/test_portfolio_experience.py"
+  ],
+  "accessibility": {
+    "axe_version": "4.11.0",
+    "page_combinations": 36,
+    "expanded_light_dark_states": 12,
+    "violations": 0,
+    "overflow_pages": 0,
+    "clipped_kpi_values": 0,
+    "keyboard_focus": {
+      "name": "Explore",
+      "width": "3px",
+      "style": "solid"
+    },
+    "mobile_keyboard_open": true,
+    "root_font_200_percent_overflows": 0,
+    "native_browser_zoom_tested": false,
+    "screen_reader_tested": false,
+    "incomplete_rule_ids": [
+      "color-contrast"
+    ]
+  },
+  "release_scan": {
+    "candidates": 276,
+    "findings": [],
+    "all_changed_files_allowlisted": true,
+    "new_binary_files": 0,
+    "raw_qa_evidence_ignored": true
+  },
+  "relative_file_links_checked": 62
+}

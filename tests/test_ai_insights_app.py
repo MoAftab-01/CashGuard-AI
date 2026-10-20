@@ -56,7 +56,7 @@ def test_inference_requires_a_button_click_and_is_not_repeated_on_reruns(fake_lo
     assert not app.exception and fake_local_model.generations == 0
     app.button(key="generate_ai_insights").click().run()
     assert not app.exception and fake_local_model.generations == 1
-    assert any(item.value == "AI-generated explanations" for item in app.subheader)
+    assert any(item.value == "AI-generated explanations" for item in app.header)
     app.run()
     assert not app.exception and fake_local_model.generations == 1
     assert fake_local_model.checks == 1
@@ -67,7 +67,7 @@ def test_financial_changes_invalidate_ai_text_without_automatic_regeneration(fak
     app.button(key="generate_ai_insights").click().run()
     app.sidebar.text_input(key="opening_balance").set_value("200.00").run()
     assert not app.exception and fake_local_model.generations == 1
-    assert not any(item.value == "AI-generated explanations" for item in app.subheader)
+    assert not any(item.value == "AI-generated explanations" for item in app.header)
     assert any("changed" in item.value.lower() for item in app.info)
     assert "cashguard_ai_report" not in app.session_state
 
@@ -77,7 +77,7 @@ def test_model_change_invalidates_previous_explanation(fake_local_model):
     app.button(key="generate_ai_insights").click().run()
     app.text_input(key="ai_model").set_value("qwen2.5:3b").run()
     assert not app.exception and fake_local_model.generations == 1
-    assert not any(item.value == "AI-generated explanations" for item in app.subheader)
+    assert not any(item.value == "AI-generated explanations" for item in app.header)
     assert fake_local_model.checks == 2
 
 
@@ -88,8 +88,8 @@ def test_unavailable_or_failed_model_keeps_deterministic_financial_summaries(fak
     app = insights_page()
     app.button(key="generate_ai_insights").click().run()
     assert not app.exception
-    assert any(item.value == "Calculated financial summaries" for item in app.subheader)
-    assert not any(item.value == "AI-generated explanations" for item in app.subheader)
+    assert any(item.value == "Calculated financial summaries" for item in app.header)
+    assert not any(item.value == "AI-generated explanations" for item in app.header)
     assert any(MESSAGES[failure] in item.value for item in app.warning)
 
 
@@ -100,7 +100,7 @@ def test_unsupported_model_claim_is_never_rendered(fake_local_model):
     assert not app.exception
     rendered = " ".join(item.value for item in app.markdown)
     assert "PRIVATE_CANARY" not in rendered and "999999999" not in rendered
-    assert not any(item.value == "AI-generated explanations" for item in app.subheader)
+    assert not any(item.value == "AI-generated explanations" for item in app.header)
 
 
 def test_connection_refresh_and_invalid_endpoint_never_infer(fake_local_model, monkeypatch):
@@ -122,5 +122,5 @@ def test_suggested_questions_reuse_validated_response_and_keep_full_details(fake
         app.session_state["assistant_topic"] = topic
         app.run()
         assert not app.exception and fake_local_model.generations == 1
-        assert any(item.value == "AI-generated explanations" for item in app.subheader)
+        assert any(item.value == "AI-generated explanations" for item in app.header)
         assert any(item.label == "Full explanations and calculated evidence" for item in app.expander)

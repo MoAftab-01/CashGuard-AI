@@ -150,7 +150,7 @@ def main() -> None:
         st.button("Exit walkthrough", key="guided_exit", on_click=_end_walkthrough)
     if source == "Synthetic demo" and not opening.strip() and page == "Overview":
         with st.container(border=True):
-            st.subheader("Explore cash flow with fictional transactions")
+            st.header("Explore cash flow with fictional transactions")
             st.write("Load the sample, inspect a conditional forecast and test an emergency expense. No financial upload or bank account is needed.")
             st.button("Launch synthetic walkthrough", key="landing_demo", on_click=_begin_walkthrough, type="primary")
             st.caption("The sample uses explicitly assumed opening cash. This research prototype does not provide financial advice or fraud decisions.")
@@ -190,7 +190,7 @@ def main() -> None:
     if imported.has_errors:
         st.error("Import has errors. Correct the source CSV and upload again. Financial summaries are blocked to avoid incomplete totals.")
         if not imported.data.empty:
-            st.subheader("Valid rows for review only")
+            st.header("Valid rows for review only")
             st.dataframe(display_transactions(imported.data), hide_index=True, width="stretch")
         return
     if imported.data.empty:
@@ -251,13 +251,13 @@ def main() -> None:
         pages.render_anomalies(result, currency, dataset_key)
         return
     if not opening.strip():
-        st.subheader("Get started with your cash-flow workspace")
+        st.header("Get started with your cash-flow workspace")
         st.write("1. Choose Synthetic demo or upload a transaction CSV in the sidebar.\n"
                  "2. Enter the cash balance immediately before the earliest transaction, or click Start demo for a clearly fictional starting point.\n"
                  "3. Explore the forecast, review indicators and try a scenario. Local AI is optional.")
         st.caption("On a narrow screen, open the sidebar using the menu button at the top left. Transactions, Anomaly Detection and Model Evaluation can be explored before entering an opening balance.")
         st.warning("Enter an opening balance in the sidebar to calculate estimated balances. Enter 0 if you intentionally want a zero starting point.")
-        st.subheader("Imported transaction preview")
+        st.header("Imported transaction preview")
         st.dataframe(display_transactions(imported.data.head(20)), hide_index=True, width="stretch")
         return
     try:

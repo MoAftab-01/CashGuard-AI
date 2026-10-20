@@ -1,5 +1,9 @@
 # Portfolio deployment preparation
 
+Historical Phase 9 assessment. The paid-plan recommendation below is superseded
+by the [Phase 10B strict $0 configuration and measurements](phase10b_free_hosting.md).
+Do not create the earlier paid service. The original report is retained as history.
+
 No cloud service has been created, deployed or purchased. Owner approval is required
 before publishing the portfolio branch, creating hosting resources or enabling paid
 inference. Contest history and its published commits are preserved.

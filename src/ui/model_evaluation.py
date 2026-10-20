@@ -14,7 +14,7 @@ from src.visualizations import anomaly_confusion_chart, anomaly_score_chart, for
 
 def render_model_evaluation(imported, opening, as_of, irregular, dataset_key, source):
     st.info("Evaluation runs only on request. Synthetic results demonstrate behavior on fictional data and do not establish real-world accuracy.")
-    st.subheader("Forecast backtest | selected history")
+    st.header("Forecast backtest | selected history")
     st.caption(f"Source: {source}. Expanding rolling origins, at least 90 training days, 30-day origin spacing, "
                "7/14/30-day complete horizons. Missing calendar days are assumed to have zero flows. "
                "Last-balance baseline predicts zero daily net flow. Both methods share all origins and dates within each horizon.")
@@ -48,7 +48,7 @@ def render_model_evaluation(imported, opening, as_of, irregular, dataset_key, so
     else:
         st.caption("No backtest has been run for these inputs. Changing history, cutoff, opening balance or income assumptions invalidates prior results.")
     st.divider()
-    st.subheader("Legacy Isolation Forest | historical synthetic benchmark")
+    st.header("Legacy Isolation Forest | historical synthetic benchmark")
     st.caption("Separate benchmark, independent of uploads: seed 42, 480 training transactions over 120 days; "
                "240 test transactions over the following 60 days. Twelve grocery expenses are multiplied by twelve. "
                "Labels remain separate until scoring. No holdout tuning; the legacy auto threshold is score > 0.5. This is not the default calibrated review policy.")
@@ -88,7 +88,7 @@ def render_public_evaluation():
     import json
     from pathlib import Path
     path = Path(__file__).resolve().parents[2] / "reports/phase6/results.json"
-    st.subheader("Recorded synthetic model evaluation")
+    st.header("Recorded synthetic model evaluation")
     st.caption("Read-only benchmark. Synthetic injected amount changes are not real-world fraud labels. The known holdout has been replayed; it is not a fresh independent validation.")
     try:
         report = json.loads(path.read_text(encoding="utf-8"))
@@ -108,7 +108,7 @@ def render_public_evaluation():
 
 def _render_candidate_evaluation():
     st.divider()
-    st.subheader("Phase 6 | calibrated candidate comparison")
+    st.header("Phase 6 | calibrated candidate comparison")
     st.caption("Separate chronological synthetic train/calibration/final partitions, 120/60/60 days. "
                "Candidate family and thresholds are selected on calibration before final scoring. "
                "Final labels describe injected amount changes, not fraud. The historical Phase 5 benchmark above uses different examples.")

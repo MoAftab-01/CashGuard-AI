@@ -7,6 +7,15 @@ Application code: [MIT](LICENSE). [Architecture diagram](docs/architecture.md) Â
 
 ![Redesigned CashGuard Home with estimated cash, income, expenses and one historical/forecast chart on fictional data](docs/phase10a/assets/home-desktop.png)
 
+**Phase 10B: UI stabilization and $0 deployment preparation.** The reviewed Phase
+10A baseline is committed locally. Accessibility fixes add readable chart/table
+alternatives, semantic sections, stronger status contrast, visible focus, reduced
+motion and metric reflow for enlarged text. Both final Windows and Linux suites passed **539 tests**. No cloud service has been created.
+See [release readiness](docs/phase10b_release_readiness.md),
+[accessibility scope and limitations](docs/phase10b_accessibility.md),
+[the unfilled usability study kit](docs/phase10b_usability_study.md) and
+[measured free-hosting feasibility](docs/phase10b_free_hosting.md).
+
 **Phase 10A UI: Home, Explore, Plan and AI Assistant.** Advanced retains Model
 Evaluation, Data quality and the complete view directory. All nine original capabilities,
 financial engines, API workflows and local Gemma remain available. This redesign is
@@ -209,9 +218,11 @@ is needed. Stop with `docker compose -f compose.staging.yaml down`.
 
 This is a single-instance demonstration, not a customer financial service. Quotas
 reset on restart, and session state is lost when the process restarts. Optional hosted
-Gemma is disabled pending approval and privacy/billing review. A prepared Render
-configuration estimates 1 CPU / 2 GB at $25/month before other charges; no cloud service
-has been created. Do not expose the raw Streamlit port as the public deployment.
+Gemma remains local; public inference is deterministic. The prepared Render
+configuration now selects **free**, with automatic deployment off. The strict
+**$0** conditions, measured limits and remaining cloud checks are documented in
+[Phase 10B free hosting](docs/phase10b_free_hosting.md). No cloud service has been
+created. Do not expose the raw Streamlit port as the public deployment.
 
 Synthetic F1 **0.9600** is a replay of a known 247-example synthetic holdout, not a
 fresh independent validation or evidence of real-world fraud-detection accuracy.

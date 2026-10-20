@@ -1,9 +1,9 @@
-# Preparation only. Creating this service incurs costs and requires owner approval.
+# Preparation only; no deployment is authorized. Free tier only: see docs/phase10b_free_hosting.md.
 services:
   - type: web
     name: cashguard-portfolio
     runtime: docker
-    plan: 1c-2g
+    plan: free
     dockerfilePath: ./Dockerfile
     dockerContext: .
     numInstances: 1

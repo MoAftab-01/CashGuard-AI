@@ -8,7 +8,7 @@ APP=Path(__file__).resolve().parents[1]/'app.py'
 def test_first_run_walkthrough_loads_explicit_demo_and_navigates_without_new_pages():
     app=AppTest.from_file(APP,default_timeout=20).run()
     assert not app.exception
-    assert any('fictional transactions' in item.value for item in app.subheader)
+    assert any('fictional transactions' in item.value for item in app.header)
     app.button(key='landing_demo').click().run()
     assert not app.exception and app.session_state['cashguard_walkthrough']
     assert {metric.label:metric.value for metric in app.metric}['Estimated cash balance']=='USD 16,268.23'

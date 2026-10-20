@@ -20,6 +20,7 @@ from src.ui.components import chart, overview_metrics, risk_status, warnings_pan
 from src.ui.ai_insights import render_ai_insights
 from src.ui.navigation import navigate
 from src.ui.scenario_controls import PRESETS, apply_preset
+from src.ui.chart_data import table_values
 from src.visualizations import (anomaly_timeline, forecast_comparison, monthly_comparison,
                                 risk_contributions, spending_distribution)
 
@@ -30,12 +31,12 @@ def render_overview(bundle: DashboardBundle, currency: str) -> None:
     chart(forecast_comparison(bundle.balance_history, bundle.forecast, currency=currency), "home_cash_flow")
     left, right = st.columns(2)
     with left:
-        st.subheader("Your cash outlook")
+        st.header("Your cash outlook")
         breaches = len(bundle.forecast.shortage_dates)
         st.write(f"{breaches} projected days below your cash floor." if breaches else "No projected days below your cash floor in this 30-day outlook.")
         st.caption(f"Lowest projected cash: {format_cents(int(bundle.forecast.daily['balance_cents'].min()), currency)}. Patterns may change.")
     with right:
-        st.subheader("Financial Risk")
+        st.header("Financial Risk")
         st.write(f"{bundle.risk.level} indicator · Based on your selected history.")
         if bundle.risk.score is None or "limited" in bundle.risk.data_sufficiency or "insufficient" in bundle.risk.data_sufficiency:
             st.warning("Some risk inputs need more history. Review Financial Risk before relying on this indicator.")
@@ -64,11 +65,16 @@ def render_transactions(imported: ImportResult, dataset_key: str) -> None:
         return
     shown = filter_transactions(data, start_date=dates[0], end_date=dates[1], categories=selected,
                                 search=search, direction=direction)
-    st.subheader(f"Transactions · {len(shown):,}")
+    st.header(f"Transactions · {len(shown):,}")
     if shown.empty:
         st.info("No transactions match these filters. Widen the date range or clear a filter.")
     st.dataframe(display_transactions(shown.sort_values("date", ascending=False, kind="stable")), hide_index=True, width="stretch",
                  column_order=["date", "description", "amount", "category"])
+    with st.expander("Readable transaction table"):
+        st.caption("The same filtered transactions in an HTML table for assistive technology.")
+        st.table(table_values(display_transactions(shown.sort_values("date", ascending=False, kind="stable"))[
+            ["date", "description", "amount", "category"]]), hide_index=True,
+            alt="Filtered transactions: date, description, amount and category.")
     st.download_button("Download filtered CSV", export_transactions(shown), file_name="cashguard_filtered_transactions.csv",
                         mime="text/csv", disabled=shown.empty, on_click="ignore")
     st.caption("Amounts retain two-decimal precision. Spreadsheet formulas in text fields are exported as plain text.")
@@ -144,13 +150,16 @@ def render_anomalies(result: AnomalyResult, currency: str, dataset_key: str) -> 
     columns = ["date", "description", "amount", "category", "anomaly_score", "is_anomaly", "explanation", "training_end"]
     if "severity" in shown:
         columns += ["severity", "calibrated_percentile", "decision_threshold", "recurring_expected", "calibration_end"]
-    st.subheader(f"Transactions to review · {len(shown)}")
+    st.header(f"Transactions to review · {len(shown)}")
     if shown.empty:
         st.info("No transactions match this review. Try another status or clear the filters.")
     st.dataframe(display_transactions(shown)[columns], hide_index=True, width="stretch",
                  column_order=["date", "description", "amount", "category", "explanation"],
                  column_config={"anomaly_score": st.column_config.NumberColumn("Anomaly score", format="%.4f"),
                                 "explanation": st.column_config.TextColumn("Historical feature comparison", width="large")})
+    with st.expander("Readable unusual-activity table"):
+        st.table(table_values(display_transactions(shown)[["date", "description", "amount", "category", "explanation"]]),
+                 hide_index=True, alt="Filtered unusual-activity review, including the reason for each flag.")
     with st.expander("Scores, timeline and review method"):
         st.caption("Higher scores indicate more unusual activity within the selected engine. Scores differ by engine; calibration percentiles are ranks, not probabilities.")
         st.caption("Informational: no alert. Review recommended: exceeds its calibrated threshold. High priority: alert, rank at least 99%, and amount/reference at least 3. Unscored rows remain unassessed.")
@@ -183,7 +192,7 @@ def render_risk(bundle: DashboardBundle, currency: str) -> None:
     middle.metric("Expense-to-income ratio", f"{ratio:.1%}" if ratio is not None else "Unavailable")
     right.metric("Forecast threshold breaches", len(bundle.forecast.shortage_dates))
     st.caption("Buffer and expense/income comparisons use the risk engine's historical window. Missing denominators are shown as unavailable.")
-    st.subheader("What needs attention")
+    st.header("What needs attention")
     for factor in ranked_risk_factors(bundle.risk):
         with st.container(border=True):
             st.markdown(f"**{factor.name.replace('_', ' ').title()}**")
@@ -252,7 +261,11 @@ def render_scenarios(bundle: DashboardBundle, currency: str, baseline_key: tuple
         return
     except (ValidationError, ValueError) as exc:
         st.session_state.pop("cashguard_latest_scenario", None)
-        message = "; ".join(item["msg"] for item in exc.errors(include_input=False)) if isinstance(exc, ValidationError) else str(exc)
+        labels = {"emergency_expense": "Emergency expense", "emergency_date": "Emergency date",
+                  "income_decrease_pct": "Income reduction (%)", "expense_increase_pct": "Expense increase (%)",
+                  "delayed_event_id": "Expected payment to delay", "delay_days": "Payment delay (days)"}
+        message = "; ".join(f"{labels.get(item['loc'][0], 'Scenario') if item['loc'] else 'Scenario'}: {item['msg']}"
+                            for item in exc.errors(include_input=False)) if isinstance(exc, ValidationError) else str(exc)
         st.error(f"Check the scenario inputs: {message}")
         return
     st.session_state["cashguard_latest_scenario"] = (baseline_key, result)

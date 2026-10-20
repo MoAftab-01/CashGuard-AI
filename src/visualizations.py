@@ -66,7 +66,7 @@ def forecast_comparison(history: pd.DataFrame, baseline: ForecastResult, *,
                                    mode="lines", name="Historical estimate",
                                    line=dict(color="#64748B", width=2)))
     for forecast, label, color, dash in ((baseline, "Baseline projection", "#0D9488", "dash"),
-                                         (scenario, "Scenario projection", "#A78BFA", "solid")):
+                                         (scenario, "Scenario projection", "#7C3AED", "solid")):
         if forecast is None:
             continue
         dates = [forecast.as_of, *forecast.daily["date"].tolist()]
@@ -122,7 +122,8 @@ def anomaly_confusion_chart(metrics: dict) -> Figure:
     figure = go.Figure(go.Heatmap(z=metrics["confusion_matrix"],
                                   x=["Not flagged", "Flagged unusual"], y=["Background", "Injected expense"],
                                   text=metrics["confusion_matrix"], texttemplate="%{text}",
-                                  colorscale=[[0, "#E2E8F0"], [1, "#0F766E"]], showscale=False,
+                                  colorscale=[[0, "#E2E8F0"], [1, "#5EEAD4"]],
+                                  textfont=dict(color="#0F172A"), showscale=False,
                                   hovertemplate="Actual: %{y}<br>Predicted: %{x}<br>Count: %{z}<extra></extra>"))
     figure.update_layout(title="Synthetic confusion matrix", xaxis_title="Prediction", yaxis_title="Known injection label")
     return style_figure(figure)

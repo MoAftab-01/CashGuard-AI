@@ -7,6 +7,7 @@ import streamlit as st
 from src.dashboard_service import DashboardBundle, format_money
 from src.risk_engine import RiskResult
 from src.ui.navigation import VIEWS
+from src.ui.chart_data import chart_alternative, table_values
 
 PAGE_DESCRIPTIONS = {
     "Overview": "Your cash today. A clearer view of the month ahead.",
@@ -35,10 +36,34 @@ def apply_style() -> None:
       font-size:clamp(1.2rem,1.7vw,1.55rem); line-height:1.35; white-space:normal;}
     [data-testid="stMetricValue"] > div {white-space:normal; overflow:visible;
       text-overflow:clip; overflow-wrap:anywhere;}
+    [data-testid="stMetricLabel"] {height:auto;}
+    [data-testid="stMetricLabel"] [data-testid="stMarkdownContainer"],
+    [data-testid="stMetricLabel"] p, [data-testid="stMetricValue"] p {
+      white-space:normal !important; overflow:visible; text-overflow:clip;
+      overflow-wrap:anywhere;}
+    [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"] [data-testid="stMetric"]) {
+      flex-wrap:wrap;}
+    [data-testid="stHorizontalBlock"]:has(> [data-testid="stColumn"] [data-testid="stMetric"]) > [data-testid="stColumn"] {
+      flex:1 1 14rem !important; min-width:min(100%,14rem) !important;}
     [data-testid="stSidebar"] h1 {font-size:1.35rem;}
     button[kind="primary"]:not(:disabled) {
       background-color:#0F766E; border-color:#0F766E; color:#FFFFFF;}
     [data-testid="stCaptionContainer"] {color:var(--text-color); opacity:.88;}
+    /* Fixed foreground/surface pairs avoid theme-dependent low-contrast status text. */
+    [data-testid="stAlertContainer"]:has([data-testid="stAlertContentSuccess"]) {
+      background-color:#DCFCE7;}
+    [data-testid="stAlertContentSuccess"], [data-testid="stAlertContentSuccess"] p {
+      color:#166534;}
+    [data-testid="stAlertContainer"]:has([data-testid="stAlertContentError"]) {
+      background-color:#FEE2E2;}
+    [data-testid="stAlertContentError"], [data-testid="stAlertContentError"] p {
+      color:#991B1B;}
+    [data-testid="stTable"] th, [data-testid="stTable"] th p {
+      color:#334155; background-color:#E2E8F0;}
+    [data-testid="stMetricDelta"]:has([data-testid="stMetricDeltaIcon-Up"]) {
+      color:#166534; background-color:#DCFCE7;}
+    [data-testid="stMetricDelta"]:has([data-testid="stMetricDeltaIcon-Down"]) {
+      color:#991B1B; background-color:#FEE2E2;}
     button:focus-visible, input:focus-visible, textarea:focus-visible,
     [role="radio"]:focus-visible, [role="slider"]:focus-visible,
     summary:focus-visible, a:focus-visible {
@@ -52,6 +77,17 @@ def apply_style() -> None:
       .block-container {padding-top:3rem; padding-left:1rem; padding-right:1rem;}
       h1 {font-size:1.75rem;}
       [data-testid="stMetric"] {min-height:95px; padding:.75rem;}
+    }
+    [data-testid="stApp"] :focus-visible {
+      outline:3px solid #0F766E !important; outline-offset:3px !important;}
+    @media (prefers-color-scheme:dark) {
+      [data-testid="stApp"] :focus-visible {outline-color:#5EEAD4 !important;}
+    }
+    @media (prefers-reduced-motion:reduce) {
+      [data-testid="stApp"] *, [data-testid="stApp"] *::before,
+      [data-testid="stApp"] *::after {
+        animation-duration:0.01ms !important; animation-iteration-count:1 !important;
+        transition-duration:0.01ms !important; scroll-behavior:auto !important;}
     }
     </style>""", unsafe_allow_html=True)
 
@@ -104,5 +140,12 @@ def warnings_panel(warnings: tuple[str, ...], title: str = "Data sufficiency and
 
 
 def chart(figure, key: str) -> None:
+    description, points = chart_alternative(figure)
     st.plotly_chart(figure, width="stretch", theme="streamlit", key=key,
-                    config={"displaylogo": False, "scrollZoom": False})
+                    config={"displaylogo": False, "scrollZoom": False}, alt=description)
+    with st.expander(f"Chart data: {figure.layout.title.text or 'Financial chart'}"):
+        st.write(description)
+        if points.empty:
+            st.info("No plotted observations are available for these inputs.")
+        else:
+            st.table(table_values(points), hide_index=True, alt="All plotted source values, without recalculation.")

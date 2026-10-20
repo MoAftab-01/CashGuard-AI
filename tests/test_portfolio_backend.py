@@ -207,11 +207,11 @@ def test_ai_ui_uses_api_generation_once_and_invalidates_on_changed_evidence(back
     assert calls == [] and not app.exception
     app.button(key="generate_ai_insights").click().run()
     assert len(calls) == 1 and not app.exception and not app.error
-    assert any(s.value == "AI-generated explanations" for s in app.subheader)
+    assert any(s.value == "AI-generated explanations" for s in app.header)
     app.run()
     assert len(calls) == 1
     app.text_input(key="cash_threshold").set_value("20000.00").run()
-    assert len(calls) == 1 and not any(s.value == "AI-generated explanations" for s in app.subheader)
+    assert len(calls) == 1 and not any(s.value == "AI-generated explanations" for s in app.header)
 
 
 def test_disabled_backend_keeps_calculated_summaries_without_offering_model_generation(backend, monkeypatch):
@@ -227,7 +227,7 @@ def test_disabled_backend_keeps_calculated_summaries_without_offering_model_gene
     app.radio(key="navigation").set_value("AI Insights").run()
     assert not app.exception and not app.error
     assert app.button(key="generate_ai_insights").disabled
-    assert any(item.value == "Calculated financial summaries" for item in app.subheader)
+    assert any(item.value == "Calculated financial summaries" for item in app.header)
     assert any("16,268.23" in item.value for item in app.markdown)
 
 

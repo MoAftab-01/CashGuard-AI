@@ -34,7 +34,7 @@ def _conversation(bundle, currency, scenario, report):
     with st.chat_message("user", avatar=":material/person:"):
         st.write(QUESTIONS[topic])
     if report and report.source == "ai":
-        st.subheader("AI-generated explanations")
+        st.header("AI-generated explanations")
         with st.chat_message("assistant", avatar=":material/insights:"):
             st.caption(f"Model-generated · {report.model} · Validated against calculated evidence")
             section = getattr(report.insights, topic)
@@ -58,7 +58,7 @@ def _conversation(bundle, currency, scenario, report):
         if report:
             st.warning(report.message)
             st.caption("Deterministic fallback · No rejected model output is displayed.")
-        st.subheader("Calculated financial summaries")
+        st.header("Calculated financial summaries")
         facts = dict(financial_summaries(bundle, currency, scenario=scenario))
         group = {"financial_health": "Estimated cash position", "cash_flow_risk": "Minimum cash threshold",
                  "spending_insights": "Historical cash flow", "scenario_interpretation": "Scenario outcome"}[topic]
@@ -142,7 +142,7 @@ def render_ai_insights(bundle: DashboardBundle, currency: str, baseline_key: tup
 
 def _calculated_summaries(bundle, currency, scenario) -> None:
     with st.expander("All calculated evidence"):
-        st.subheader("Calculated financial summaries")
+        st.header("Calculated financial summaries")
         for title, text in financial_summaries(bundle, currency, scenario=scenario):
             with st.container(border=True):
                 st.subheader(title)
