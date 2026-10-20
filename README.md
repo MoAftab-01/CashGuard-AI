@@ -5,7 +5,35 @@ Application code: [MIT](LICENSE). [Architecture diagram](docs/architecture.md) �
 [Release audit](docs/submission/RELEASE_AUDIT.md) ·
 [Submission checklist](docs/submission/FINAL_CHECKLIST.md).
 
-![CashGuard AI showing explicitly estimated cash, income, expenses and a 30-day outlook on fictional transactions](docs/submission/assets/main-dashboard.png)
+![Redesigned CashGuard Home with estimated cash, income, expenses and one historical/forecast chart on fictional data](docs/phase10a/assets/home-desktop.png)
+
+**Phase 10A UI: Home, Explore, Plan and AI Assistant.** Advanced retains Model
+Evaluation, Data quality and the complete view directory. All nine original capabilities,
+financial engines, API workflows and local Gemma remain available. This redesign is
+local work; it has not been pushed or deployed to cloud hosting.
+
+See the [UX audit](docs/phase10a_ux_audit.md), [design system](docs/phase10a_design_system.md),
+[user journeys](docs/phase10a_user_journeys.md) and [actual QA results](docs/phase10a_testing.md).
+The final suites passed **531 tests on Windows and Linux**; rendered QA exercised all
+nine views on desktop, tablet and mobile in both themes. These checks do not establish
+that a new user understands the app within 30 seconds; a usability study remains needed.
+
+<details>
+<summary>Genuine redesigned screens: mobile, planning and AI</summary>
+
+![Mobile Home with explicitly estimated cash and the 30-day estimate](docs/phase10a/assets/home-mobile.png)
+
+![Plan with labeled hypothetical presets and baseline versus scenario results](docs/phase10a/assets/plan-desktop.png)
+
+![AI Assistant in dark mode, clearly labeled as a calculated answer without model generation](docs/phase10a/assets/assistant-dark.png)
+
+![Actual local gemma3:4b answer with verified financial evidence on fictional transactions](docs/phase10a/assets/assistant-gemma.png)
+
+These are unedited captures of the running application using fictional transactions.
+The local Gemma capture and deterministic public-mode capture show different,
+explicitly labeled provider states. [Before/after audit](docs/phase10a_ux_audit.md).
+
+</details>
 
 **Version 0.9: API-backed portfolio demo, private local analytics and bounded inference.** It imports transactions, reports data-quality issues,
 and computes explainable historical summaries, deterministic cash-flow forecasts,
@@ -27,7 +55,7 @@ direct local path. Portfolio Phase 9 integrates supported dashboard workflows wi
 FastAPI through the existing client; execution mode is environment-configured.
 See the [Phase 8 guide and actual verification](docs/phase8_mlops.md) and
 [architecture assessment](docs/phase8_architecture.md). The initial release passed
-GitHub Actions; that historical run does not verify the unpushed portfolio changes.
+GitHub Actions; that historical run does not verify the current local UI changes.
 
 See the [Phase 6 technical report](docs/phase6_anomaly_review.md),
 [measured comparisons](reports/phase6/results.json), and
@@ -84,12 +112,12 @@ page execution; startup and evaluation-page tests are available with:
 .\.venv\Scripts\python.exe -m pytest -q tests/test_app.py tests/test_model_evaluation_app.py
 ```
 
-Use **Analysis date** to select the inclusive history cutoff and **Minimum cash threshold**
-to configure alerts. Transaction-table filters do not change the opening-balance basis
+Use **Analysis settings → Analysis date** to select the inclusive history cutoff and
+**Cash settings → Minimum cash threshold** to configure alerts. Transaction-table filters do not change the opening-balance basis
 or analytics history. Switch Light/Dark in the app's Settings menu. Streamlit 1.66+
 is required for the verified interface and switchable theme configuration.
 
-**Anomaly review engine** selects the review policy and recalculates anomaly/risk
+**Review method → Anomaly review engine** selects the review policy and recalculates anomaly/risk
 results. The default uses the interpretable family chosen on separate synthetic
 calibration data; its live threshold uses strictly earlier unlabeled transactions.
 Warmup rows remain unscored. Zero alerts is not assurance of normal activity.
@@ -194,33 +222,35 @@ Unusual transactions are review candidates; zero alerts does not mean zero risk.
 On a narrow screen, use the top-left arrow to open the sidebar. The top-right menu
 contains **Settings**, including Light / Dark / System display modes.
 
-1. **Overview** — review estimated cash, income, expenses and net flow. Demo totals
+1. **Home** — review estimated cash, income, expenses and the 30-day estimate. Recent
+   activity and net flow remain in the detail panel. Demo totals
    with the explicit starting assumption are USD 16,268.23 estimated cash,
    USD 31,541.47 income, USD 17,773.24 expenses and USD 13,768.23 net flow.
-2. **Transactions** — filter dates, categories, descriptions and direction; download
+2. **Explore → Transactions** — search, open More filters for dates/categories/direction; download
    only matching rows. Filters persist while navigating. Replacing a file resets old
    review filters. These filters never change the financial history used by other pages.
-3. **Cash Flow Forecast** — view 30 projected days, threshold dates and the expandable
-   assumptions. Change **Minimum cash threshold** in the sidebar to recalculate alerts.
+3. **Explore → Cash forecast** — view 30 projected days, threshold dates and expandable
+   assumptions. Change **Cash settings → Minimum cash threshold** to recalculate alerts.
    This changes alerts and risk components, not recorded transactions or cash flows.
-4. **Anomaly Detection** — review scores, severity, coverage warnings and historical
+4. **Explore → Unusual Activity** — review explanations, then optional scores, severity, coverage warnings and historical
    comparisons. If the default demo has no alerts, choose **All scored** to inspect
    explanations, or deliberately select **Legacy Isolation Forest** to inspect its
    alerts and limitations. A flag is a review prompt; zero flags never establishes safety.
-5. **Risk Analysis** — inspect all weighted contributions and data sufficiency. This
+5. **Explore → Financial Risk** — inspect all weighted contributions and data sufficiency. This
    is a heuristic budgeting indicator, not a credit score or externally validated rating.
-6. **Scenario Simulator** — enter an emergency expense, reduce income, increase costs
+6. **Plan** — choose a labeled hypothetical preset, reset, or open Customize this plan
+   to enter an emergency expense, reduce income, increase costs
    or delay a supported recurring inflow. Compare future curves and shortage dates;
    historical estimated cash remains fixed. Scenario controls survive page navigation.
-7. **AI Insights** — calculated summaries work immediately. With local Ollama ready,
+7. **AI Assistant** — guided questions show calculated summaries immediately. With local Ollama ready,
    explicitly click **Generate AI Insights** for optional evidence-linked explanations.
    Changing inputs invalidates old explanations. An unavailable model keeps the
    deterministic summaries and explains the fallback.
-8. **Model Evaluation** — explicitly run a chronological forecast backtest, historical
+8. **Advanced → Model Evaluation** — explicitly run a chronological forecast backtest, historical
    legacy benchmark or calibrated candidate comparison. These actions can take several
    seconds. The selected synthetic method achieved F1 0.9600 on 247 final examples
    (precision 1.0000, recall 0.9231); these figures do not establish real-world accuracy.
-9. **Data quality** — inspect import findings and source previews. Invalid imports
+9. **Advanced → Data quality** — inspect import findings and source previews. Invalid imports
    block every financial total until corrected, even if some rows are valid.
 
 **Upload guidance:** choose Upload CSV in the sidebar and use **Download CSV template**
@@ -229,11 +259,13 @@ the opening balance and currency when replacing a file. Any previously entered c
 assumption remains visible until changed. **Clear session data** returns to a blank
 starting assumption and releases app-held data. Close the tab when finished.
 
-Raw uploaded transactions are held in the session, never in a shared application cache
-or database. Ordinary page navigation and model metadata checks do not send financial
-evidence to a model. Clicking Generate sends computed aggregates, not transaction
-descriptions, merchant/account details or IDs, to a loopback Ollama endpoint. No cloud
-model is used. This boundary does not guarantee how a separately configured local
+Uploaded transactions belong to the session and, in API mode, a request-scoped backend
+operation, without a shared financial result cache or database. Ordinary navigation
+and model metadata checks do not send financial evidence to a model. In direct local
+mode, Generate sends computed aggregates, not transaction descriptions, merchant/account
+details or IDs, to loopback Ollama. In API mode, the configured backend/provider boundary
+is disclosed on AI Assistant; optional hosted inference remains disabled pending approval.
+This boundary does not guarantee how a separately configured local
 Ollama service or your operating system manages memory/logs. Keep the server on loopback.
 
 ## Optional local Gemma setup
@@ -258,7 +290,7 @@ start another server on the same port. To apply `OLLAMA_NO_CLOUD`, quit and rest
 Ollama with that environment setting; setting it in an unrelated terminal does not
 change an already-running server. Cloud-routed models are rejected by CashGuard.
 
-Start CashGuard using the command above, open **AI Insights**, and click
+Start CashGuard using the command above, open **AI Assistant**, and click
 **Generate AI Insights**. A connection/model check is automatic; inference is not.
 Unavailable, timed-out or rejected model responses retain calculated summaries.
 No paid API key is required. See the [Phase 4 guide](docs/phase4_local_ai.md) for the

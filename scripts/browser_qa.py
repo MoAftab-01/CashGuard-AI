@@ -79,7 +79,7 @@ class BrowserQA:
         await self.call("Emulation.setEmulatedMedia", features=[dict(name="prefers-color-scheme", value="dark" if dark else "light")])
         await self.call("Page.navigate", url=url)
         await asyncio.sleep(.5)
-        await self.wait("document.readyState === 'complete' && [...document.querySelectorAll('[data-testid=\"stTextInput\"] label')].some(e=>e.innerText.trim()==='Opening balance')")
+        await self.wait("document.readyState === 'complete' && ([...document.querySelectorAll('[data-testid=\"stTextInput\"] label')].some(e=>e.innerText.trim()==='Opening balance') || [...document.querySelectorAll('[data-testid=stSidebar] button')].some(e=>e.innerText.trim()==='Start demo'))")
         await self.settle()
 
     async def sidebar(self, opened=True):
@@ -91,8 +91,19 @@ class BrowserQA:
                 raise RuntimeError("Sidebar toggle was not found")
             await asyncio.sleep(.3)
 
+    async def expand(self, label):
+        await self.evaluate("(() => {const e=[...document.querySelectorAll('details')].find(e=>e.querySelector('summary')?.innerText.includes(" + json.dumps(label) + "));if(e&&!e.open)e.querySelector('summary').click()})()")
+        await asyncio.sleep(.2)
+        await self.settle()
+
     async def input(self, label, value):
         # Real input events pass through React's controlled input handlers.
+        panels = {"Opening balance": "Cash settings", "Minimum cash threshold": "Cash settings",
+                  "Emergency expense": "Customize this plan", "Payment delay (days)": "Customize this plan",
+                  "Local model": "Model settings", "Model": "Model settings"}
+        if label in panels:
+            await self.sidebar(label in {"Opening balance", "Minimum cash threshold"})
+            await self.expand(panels[label])
         in_sidebar = await self.evaluate("[...document.querySelectorAll('[data-testid=stSidebar] label')].some(e=>e.innerText.trim()===" + json.dumps(label) + ")")
         await self.sidebar(in_sidebar)
         found = await self.evaluate("""(() => {const e=[...document.querySelectorAll('[data-testid="stTextInput"], [data-testid="stNumberInput"]')].find(e=>e.querySelector('label')?.innerText.trim()===""" + json.dumps(label) + """);if(!e)return false; const i=e.querySelector('input');i.scrollIntoView({block:'center'});i.focus();i.select();return true})()""")
@@ -113,8 +124,15 @@ class BrowserQA:
 
     async def navigate(self, page):
         await self.sidebar(True)
-        await self.click(page)
-        await self.wait("[...document.querySelectorAll('h1')].some(e=>e.innerText===" + json.dumps(page) + ")")
+        from src.ui.navigation import VIEWS
+        modern = await self.evaluate("[...document.querySelectorAll('button')].some(e=>e.innerText.trim()==='AI Assistant')")
+        title = VIEWS[page][1] if modern else page
+        if modern:
+            await self.evaluate("(() => {const e=[...document.querySelectorAll('[data-testid=stSidebar] details')].find(e=>e.querySelector('summary')?.innerText.includes('Advanced'));if(e&&!e.open)e.querySelector('summary').click()})()")
+            await self.evaluate("(() => {const e=[...document.querySelectorAll('[data-testid=stSidebar] [role=radiogroup] label')].find(e=>e.innerText.trim()===" + json.dumps(title) + ");if(!e)throw Error('Missing view');e.click()})()")
+        else:
+            await self.click(page)
+        await self.wait("[...document.querySelectorAll('h1')].some(e=>e.innerText===" + json.dumps(title) + ")")
         await self.settle()
         if await self.evaluate("window.innerWidth < 700"):
             await self.sidebar(False)
@@ -125,6 +143,11 @@ class BrowserQA:
         Path(path).write_bytes(base64.b64decode(image["data"]))
 
     async def select(self, label, value):
+        if label == "Anomaly review engine":
+            await self.sidebar(True)
+            await self.expand("Review method")
+        elif label in {"Direction"}:
+            await self.expand("More filters")
         in_sidebar = await self.evaluate("[...document.querySelectorAll('[data-testid=stSidebar] label')].some(e=>e.innerText.trim()===" + json.dumps(label) + ")")
         await self.sidebar(in_sidebar)
         point = await self.evaluate("""(() => {const e=[...document.querySelectorAll('[data-testid=stSelectbox]')].find(e=>e.querySelector('label')?.innerText.trim()===""" + json.dumps(label) + """);if(!e)throw Error('Missing select'); const i=e.querySelector('button[aria-haspopup=listbox]');i.scrollIntoView({block:'center'});const r=i.getBoundingClientRect();return {x:r.x+r.width/2,y:r.y+r.height/2}})()""")
@@ -142,6 +165,7 @@ class BrowserQA:
 
     async def slider(self, label, steps):
         await self.sidebar(False)
+        await self.expand("Customize this plan")
         await self.evaluate("""(() => {const e=[...document.querySelectorAll('[data-testid=stSlider]')].find(e=>e.querySelector('label')?.innerText.trim()===""" + json.dumps(label) + """);const i=e.querySelector('input[type=range]');e.scrollIntoView({block:'center'});i.focus()})()""")
         for key, code in [("Home", 36)] + [("ArrowRight", 39)] * steps:
             await self.call("Input.dispatchKeyEvent", type="keyDown", key=key, windowsVirtualKeyCode=code)

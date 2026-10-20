@@ -112,3 +112,15 @@ def test_connection_refresh_and_invalid_endpoint_never_infer(fake_local_model, m
     assert not app.exception and fake_local_model.generations == 0
     assert any("loopback" in item.value for item in app.error)
     assert not any("private-secret" in item.value for item in app.error)
+
+
+def test_suggested_questions_reuse_validated_response_and_keep_full_details(fake_local_model):
+    app = insights_page()
+    app.button(key="generate_ai_insights").click().run()
+    assert fake_local_model.generations == 1
+    for topic in ("spending_insights", "cash_flow_risk", "scenario_interpretation"):
+        app.session_state["assistant_topic"] = topic
+        app.run()
+        assert not app.exception and fake_local_model.generations == 1
+        assert any(item.value == "AI-generated explanations" for item in app.subheader)
+        assert any(item.label == "Full explanations and calculated evidence" for item in app.expander)

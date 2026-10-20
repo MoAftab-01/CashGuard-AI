@@ -1,0 +1,222 @@
+{
+  "phase": "10A",
+  "client_date": "2026-10-20",
+  "branch": "phase10a-ui",
+  "base_commit": "6a1f5870dd4c76ff9f992fac0013861d4ca33d97",
+  "application_source_sha256": "2b452df95e3602435003e6d97d9473e5933865b4f3f704aa88d3c39ac30bc21e",
+  "baseline": {
+    "tests": 512,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_elapsed_seconds": 146.77,
+    "junit_suite_seconds": 146.688,
+    "local_evidence": "var/phase10a/baseline.xml"
+  },
+  "windows": {
+    "tests": 531,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_elapsed_seconds": 90.96,
+    "junit_suite_seconds": 90.897,
+    "local_evidence": "var/phase10a/final-windows.xml"
+  },
+  "linux": {
+    "tests": 531,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_elapsed_seconds": 101.04,
+    "junit_suite_seconds": 101.032,
+    "local_evidence": "var/phase10a/final-linux.xml"
+  },
+  "post_documentation_release_ui_gate": {
+    "tests": 24,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pytest_elapsed_seconds": 10.23,
+    "junit_suite_seconds": 10.166,
+    "local_evidence": "var/phase10a/release-ui-gate.xml"
+  },
+  "additional_test_cases": 19,
+  "browser": {
+    "layouts": 54,
+    "viewports": [
+      [
+        1440,
+        1000
+      ],
+      [
+        834,
+        1112
+      ],
+      [
+        390,
+        844
+      ]
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "page_screenshots": 122,
+    "runtime_errors": 0,
+    "page_overflows": 0,
+    "clipped_metric_values": 0,
+    "chart_bound_issues": 0,
+    "contrast_minima": {
+      "heading": 15.187691175863478,
+      "primary button": 5.473250081210842,
+      "caption": 10.834919566352811
+    },
+    "journeys": [
+      "Search empty state, with safe disabled download",
+      "Threshold changes update the API forecast",
+      "Presets, reset and malformed-input recovery without changing history",
+      "Suggested question uses existing scenario evidence without inference"
+    ],
+    "source": "Actual isolated Edge/CDP against local nginx/Streamlit/API staging",
+    "local_evidence": "var/phase10a/browser/manifest.json"
+  },
+  "keyboard": [
+    {
+      "width": 1440,
+      "dark": false,
+      "focus": {
+        "label": "Explore",
+        "outline": "solid",
+        "width": "3px",
+        "color": "rgb(15, 118, 110)"
+      },
+      "enter_navigation": "Explore -> Transactions"
+    },
+    {
+      "width": 1440,
+      "dark": true,
+      "focus": {
+        "label": "Explore",
+        "outline": "solid",
+        "width": "3px",
+        "color": "rgb(94, 234, 212)"
+      },
+      "enter_navigation": "Explore -> Transactions"
+    },
+    {
+      "width": 834,
+      "dark": false,
+      "focus": {
+        "label": "Explore",
+        "outline": "solid",
+        "width": "3px",
+        "color": "rgb(15, 118, 110)"
+      },
+      "enter_navigation": "Explore -> Transactions"
+    },
+    {
+      "width": 834,
+      "dark": true,
+      "focus": {
+        "label": "Explore",
+        "outline": "solid",
+        "width": "3px",
+        "color": "rgb(94, 234, 212)"
+      },
+      "enter_navigation": "Explore -> Transactions"
+    },
+    {
+      "width": 390,
+      "dark": false,
+      "focus": {
+        "label": "Explore",
+        "outline": "solid",
+        "width": "3px",
+        "color": "rgb(15, 118, 110)"
+      },
+      "enter_navigation": "Explore -> Transactions"
+    },
+    {
+      "width": 390,
+      "dark": true,
+      "focus": {
+        "label": "Explore",
+        "outline": "solid",
+        "width": "3px",
+        "color": "rgb(94, 234, 212)"
+      },
+      "enter_navigation": "Explore -> Transactions"
+    }
+  ],
+  "local_browser": {
+    "synthetic_only": true,
+    "hosted_inference": false,
+    "journeys": [
+      "Real local Gemma answer and expandable validated evidence",
+      "Unavailable-model fallback clearly retains calculations",
+      "Valid CSV, long content, invalid CSV blocks totals, corrected CSV recovers"
+    ],
+    "local_model_status": {
+      "ready": true,
+      "code": "ready",
+      "model": "gemma3:4b"
+    },
+    "gemma": {
+      "source": "ai",
+      "model": "gemma3:4b",
+      "browser_roundtrip_seconds": 9.75307450001128
+    },
+    "runtime_errors": []
+  },
+  "direct_protocol_runs": 15,
+  "direct_protocol_model_inference": false,
+  "checks": {
+    "ruff": "passed",
+    "compileall": "passed",
+    "pip_check": "passed",
+    "git_diff_check": "passed",
+    "staging_build": "passed",
+    "staging_startup": "healthy"
+  },
+  "preserved_unchanged": [
+    "src/data_processing.py",
+    "src/metrics.py",
+    "src/forecasting.py",
+    "src/anomaly_detection.py",
+    "src/calibrated_anomalies.py",
+    "src/risk_engine.py",
+    "src/scenario_simulator.py",
+    "src/dashboard_service.py",
+    "src/financial_context.py",
+    "src/insight_prompts.py",
+    "src/insight_workflow.py",
+    "src/inference.py",
+    "src/settings.py",
+    "src/observability.py",
+    "src/model_monitoring.py",
+    "src/experiment_tracking.py",
+    "src/visualizations.py",
+    "api",
+    "Dockerfile",
+    "compose.yaml",
+    "compose.staging.yaml",
+    "render.yaml",
+    "requirements.lock.txt",
+    "docs/submission",
+    "reports/portfolio_phase9"
+  ],
+  "screenshots": "reports/phase10a/screenshots.json",
+  "phase10a_published": false,
+  "phase10a_committed": false,
+  "cloud_deployed": false,
+  "paid_dependencies_added": false,
+  "hosted_inference_executed": false,
+  "limitations": [
+    "No physical-device or screen-reader testing.",
+    "Computed contrast samples and a focused navigation check are not a full accessibility certification.",
+    "No measured 30-second comprehension or nontechnical user study.",
+    "Guided questions select existing verified report sections; no arbitrary free-form assistant was introduced.",
+    "Synthetic evaluation remains known-holdout evidence, not independent or real-world fraud validation.",
+    "No cloud behavior, public deployment or hosted inference was tested in this UI phase."
+  ]
+}

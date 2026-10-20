@@ -18,6 +18,7 @@ from src.dashboard_backend import DashboardBackend
 from src.settings import Settings
 from src.ui import pages
 from src.ui.components import apply_style, page_header
+from src.ui.navigation import initialize, navigate, sidebar_navigation, explore_navigation
 from src.ui.model_evaluation import render_model_evaluation
 
 PAGES = ["Overview", "Transactions", "Cash Flow Forecast", "Anomaly Detection", "Risk Analysis",
@@ -33,7 +34,7 @@ WALKTHROUGH = {
 
 
 def _navigate(page):
-    st.session_state["navigation"] = page
+    navigate(page)
 
 
 def _begin_walkthrough():
@@ -71,6 +72,7 @@ def _start_demo() -> None:
     """Explicit fictional starting assumption; never infer an uploaded bank balance."""
     st.session_state.update(opening_balance="2500.00", cash_threshold="500.00", currency="USD",
                             irregular_income=False, anomaly_engine=ANOMALY_ENGINES[0], navigation="Overview")
+    navigate("Overview")
     for key in ("cashguard_private_cache", "cashguard_latest_scenario", "cashguard_scenario_controls", "cashguard_ai_report"):
         st.session_state.pop(key, None)
 
@@ -89,36 +91,41 @@ def main() -> None:
         st.session_state.clear()
     st.session_state["cashguard_runtime_profile"] = profile
     session_id = st.session_state.setdefault("cashguard_session_id", uuid4().hex)
+    st.session_state.setdefault("cashguard_private_cache", {})
     backend = DashboardBackend(settings, session_id=session_id) if settings.execution_mode == "api" else None
     st.session_state.setdefault("cash_threshold", "500.00")
+    initialize()
     with st.sidebar:
         st.title("CashGuard AI")
-        st.caption("FINANCIAL RISK & CASH FLOW")
-        page = st.radio("Navigation", PAGES, key="navigation")
+        st.caption("Make room for what comes next.")
+        page = sidebar_navigation()
         st.divider()
-        st.subheader("Data workspace")
         if settings.public_demo:
             source = "Synthetic demo"
-            st.info("Public synthetic demo. Real financial CSV uploads are disabled.")
+            st.caption("Public synthetic demo · Real financial CSV uploads are disabled.")
         else:
             source = st.radio("Data source", ["Synthetic demo", "Upload CSV"], key="data_source")
         if source == "Synthetic demo":
             st.button("Start demo", key="start_demo", on_click=_start_demo, width="stretch")
-            st.caption("Sets fictional opening cash to 2,500.00 and the minimum threshold to 500.00. No bank balance is assumed.")
+            st.caption("Fictional opening cash: 2,500.00. Cash floor: 500.00.")
         uploaded = st.file_uploader("Transaction CSV", type=["csv"], key="transaction_upload",
                                     max_upload_size=max(1, settings.max_request_bytes // (1024 * 1024)) if backend else 10) if source == "Upload CSV" else None
         if source == "Upload CSV" and backend:
             st.caption("API mode accepts at most 2,000 transactions within its encoded request-size limit. Use direct local mode for larger private histories.")
-        currency = st.selectbox("Currency label (no conversion)", ["USD", "INR", "EUR", "GBP"], key="currency")
-        opening = st.text_input("Opening balance", placeholder="e.g. 2500.00", key="opening_balance")
-        st.caption("Immediately before the first imported transaction. Enter 0 explicitly for a zero starting point. Use a single currency.")
-        threshold = st.text_input("Minimum cash threshold", key="cash_threshold")
-        remove_duplicates = st.checkbox("Remove identical rows without IDs", value=False, key="remove_duplicates",
-                                         help="Identical purchases may be legitimate. Review repeated rows before removing them.")
-        anomaly_engine = st.selectbox("Anomaly review engine", ANOMALY_ENGINES, key="anomaly_engine",
-                                       help="Calibrated amount review uses the interpretable family selected on separate synthetic calibration data. Legacy scores remain available.")
+        with st.expander("Cash settings", expanded=source == "Upload CSV"):
+            currency = st.selectbox("Currency label (no conversion)", ["USD", "INR", "EUR", "GBP"], key="currency")
+            opening = st.text_input("Opening balance", placeholder="e.g. 2500.00", key="opening_balance")
+            st.caption("Cash immediately before the first transaction. Enter 0 explicitly to start at zero. This is your assumption, not a bank balance.")
+            threshold = st.text_input("Minimum cash threshold", key="cash_threshold",
+                                      help="Your cash floor: projections below this amount need attention.")
+            remove_duplicates = st.checkbox("Remove identical rows without IDs", value=False, key="remove_duplicates",
+                                             help="Identical purchases may be legitimate. Review repeated rows before removing them.")
+        with st.expander("Review method"):
+            anomaly_engine = st.selectbox("Anomaly review engine", ANOMALY_ENGINES, key="anomaly_engine",
+                                           help="Advanced: change the review policy. All existing calibrated and legacy engines remain available.")
         if st.button("Clear session data", key="clear_session"):
             st.session_state.clear()
+            st.query_params.clear()
             st.rerun()
         if source == "Synthetic demo":
             with st.expander("Guided synthetic walkthrough"):
@@ -126,7 +133,7 @@ def main() -> None:
                 for index, target in enumerate(WALKTHROUGH, 1):
                     st.button(f"{index}. {target}", key=f"guided_{index}", on_click=_navigate, args=(target,), width="stretch")
                 st.caption("These controls navigate the existing pages. They do not connect to a bank or create model output.")
-        st.caption("Synthetic-only · API backend · No bank connection" if settings.public_demo else "Local processing · No bank connection")
+        st.caption("Synthetic only · No bank connection" if settings.public_demo else "No bank connection")
         st.caption("Display: switch Light / Dark in the app Settings menu.")
         with st.expander("About estimates and local AI"):
             st.write("CashGuard is a local budgeting research tool, not a bank, financial advisor or fraud detection service.")
@@ -135,17 +142,20 @@ def main() -> None:
                      if backend else "Raw transactions stay in your session. Clicking Generate AI Insights sends only aggregate evidence to local Ollama; no cloud model is used.")
 
     page_header(page)
+    explore_navigation(page)
     if source == "Upload CSV":
         st.session_state["cashguard_walkthrough"] = False
     if st.session_state.get("cashguard_walkthrough"):
         st.info(WALKTHROUGH.get(page, "Use the sidebar to explore the synthetic workspace."))
         st.button("Exit walkthrough", key="guided_exit", on_click=_end_walkthrough)
-    if source == "Synthetic demo" and not opening.strip():
+    if source == "Synthetic demo" and not opening.strip() and page == "Overview":
         with st.container(border=True):
             st.subheader("Explore cash flow with fictional transactions")
             st.write("Load the sample, inspect a conditional forecast and test an emergency expense. No financial upload or bank account is needed.")
             st.button("Launch synthetic walkthrough", key="landing_demo", on_click=_begin_walkthrough, type="primary")
             st.caption("The sample uses explicitly assumed opening cash. This research prototype does not provide financial advice or fraud decisions.")
+        st.warning("Enter an opening balance in Cash settings, or select Start demo to use fictional cash.")
+        return
     if source == "Upload CSV" and uploaded is None:
         _select_source((source, None))
         st.info("Upload a UTF-8 CSV with date, description, amount and category columns using the sidebar.")
@@ -172,13 +182,8 @@ def main() -> None:
         st.error(str(exc))
         st.info("No partial results are displayed. Retry when the configured API is available.")
         return
-    if source == "Synthetic demo":
-        st.caption("SYNTHETIC DEMO · Fictional financial activity in illustrative currency units. No conversion is applied.")
-        if backend:
-            st.caption("API analytics · Session-owned results · Model inference only on request")
-    else:
-        st.caption("PRIVATE SESSION · Raw transactions stay in this session's memory and are not saved to a database. Only aggregate evidence is sent to local Ollama when you explicitly generate AI insights. When replacing a file, verify the opening balance and currency again.")
-    st.caption(f"{imported.input_rows:,} input rows · {len(imported.data):,} valid preview rows · {imported.duplicates_removed:,} duplicates removed")
+    if source != "Synthetic demo":
+        st.caption("Private session · No CSV is saved to a financial database. Verify opening cash and currency when replacing a file.")
     if imported.issues:
         with st.expander(f"Validation report · {len(imported.issues)} finding(s)", expanded=imported.has_errors or page == "Data quality"):
             st.dataframe(pd.DataFrame(asdict(issue) for issue in imported.issues), hide_index=True, width="stretch")
@@ -201,12 +206,20 @@ def main() -> None:
         st.warning("Review the validation report before relying on these estimates.")
     dataset_key = fingerprint[:16]
     first, last = imported.data["date"].min(), imported.data["date"].max()
-    as_of = st.sidebar.date_input("Analysis date", last, min_value=first, max_value=last,
+    with st.sidebar.expander("Analysis settings"):
+        as_of = st.date_input("Analysis date", last, min_value=first, max_value=last,
                                   key=f"analysis_date_{dataset_key}",
                                   help="Metrics and analytics include transactions through this date. It is not necessarily today's bank balance.")
-    irregular = st.sidebar.checkbox("Include averaged irregular income", value=False, key="irregular_income",
+        irregular = st.checkbox("Include averaged irregular income", value=False, key="irregular_income",
                                      help="Adds an uncertain historical income baseline. It does not create a scheduled client payment.")
-    st.caption(f"Imported history: {first} → {last} · Analytics cutoff: {as_of} · Currency: {currency}")
+    st.caption(f"{'Sample data' if source == 'Synthetic demo' else 'Your data'} · {currency} · Through {as_of:%d %b %Y} · Balances are estimates, not verified bank balances.")
+    with st.expander("Data and assumptions"):
+        st.write(f"{imported.input_rows:,} input rows · {len(imported.data):,} valid rows · {imported.duplicates_removed:,} duplicates removed.")
+        st.write(f"History: {first} to {last}. Analysis includes transactions through {as_of}. Currency labels do not convert amounts.")
+        st.write(f"Opening cash applies immediately before {first}. The cash floor is your minimum cash threshold.")
+        st.caption("Fictional transactions, not a bank connection." if source == "Synthetic demo" else
+                   "API mode sends validated transactions to the configured backend; inference receives minimized aggregates." if backend else
+                   "Direct local mode keeps transactions in this session. Optional local inference receives minimized aggregates.")
     if page == "Transactions":
         pages.render_transactions(imported, dataset_key)
         return
@@ -270,7 +283,6 @@ def main() -> None:
     except (ValueError, OverflowError) as exc:
         st.error(str(exc))
         return
-    st.caption(f"Opening balance applies immediately before {first}. All balances are reconstructed estimates, not actual verified bank balances.")
     if page == "Overview":
         pages.render_overview(bundle, currency)
     elif page == "Cash Flow Forecast":

@@ -1,0 +1,11 @@
+{
+  "client_date": "2026-10-20",
+  "source_files_scanned": 267,
+  "changed_files": 29,
+  "all_changed_files_allowlisted": true,
+  "findings": [],
+  "private_credentials_csv_and_full_browser_junit_artifacts_ignored": true,
+  "screenshots": "Only six explicitly named, visually reviewed fictional-data assets are included",
+  "publication": false,
+  "limits": "Pattern matching is not a complete secret detector, penetration test or security certification; no new advisory/OS scan was performed in this UI phase."
+}

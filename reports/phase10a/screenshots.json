@@ -1,0 +1,50 @@
+[
+  {
+    "file": "docs/phase10a/assets/home-before.png",
+    "source": "var/portfolio-phase9/browser/desktop-light-overview-0.png",
+    "bytes": 158644,
+    "sha256": "79a170dbc1c7bfed02e2adee83e8d745d3459ba5b76d35fa2f150dd25a56c8cd",
+    "synthetic_data_only": true,
+    "pixel_edits": false
+  },
+  {
+    "file": "docs/phase10a/assets/home-desktop.png",
+    "source": "var/phase10a/browser/desktop-light-home-0.png",
+    "bytes": 122328,
+    "sha256": "28782e8c7f23e9310ccc3c079bd68ba5f4bfec6f6df874dfc81876490b98aca7",
+    "synthetic_data_only": true,
+    "pixel_edits": false
+  },
+  {
+    "file": "docs/phase10a/assets/home-mobile.png",
+    "source": "var/phase10a/browser/mobile-light-home-0.png",
+    "bytes": 45518,
+    "sha256": "6a3e1eb983e8ff98e3e7bc36538a5e4559125af24ce3d9102af67dfd5fe4e157",
+    "synthetic_data_only": true,
+    "pixel_edits": false
+  },
+  {
+    "file": "docs/phase10a/assets/plan-desktop.png",
+    "source": "var/phase10a/browser/desktop-light-plan-0.png",
+    "bytes": 118360,
+    "sha256": "2652a2e95f61b9c3491bf2350a86dd1a5fbc2754577836745c90bf7dc37ff754",
+    "synthetic_data_only": true,
+    "pixel_edits": false
+  },
+  {
+    "file": "docs/phase10a/assets/assistant-dark.png",
+    "source": "var/phase10a/browser/desktop-dark-assistant-0.png",
+    "bytes": 131938,
+    "sha256": "0ee000c89f50f20427e7bd29f549e2bccac4a5e565678b3c937b2a424b5db0a6",
+    "synthetic_data_only": true,
+    "pixel_edits": false
+  },
+  {
+    "file": "docs/phase10a/assets/assistant-gemma.png",
+    "source": "var/phase10a/local-browser/local-gemma-answer-0.png",
+    "bytes": 98955,
+    "sha256": "4631d4afa02b345089b1b83910cc445e7be4bf1682f2358c88e859c59a0f75af",
+    "synthetic_data_only": true,
+    "pixel_edits": false
+  }
+]

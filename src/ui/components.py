@@ -1,18 +1,21 @@
 """Shared native Streamlit components and static, theme-compatible styling."""
 
+from decimal import Decimal
+
 import streamlit as st
 
 from src.dashboard_service import DashboardBundle, format_money
 from src.risk_engine import RiskResult
+from src.ui.navigation import VIEWS
 
 PAGE_DESCRIPTIONS = {
-    "Overview": "Your cash position, spending patterns and financial risk in one place.",
+    "Overview": "Your cash today. A clearer view of the month ahead.",
     "Transactions": "Validate, investigate and export the activity behind your analysis.",
     "Cash Flow Forecast": "A transparent 30-day outlook built from recurring payments and historical spending.",
     "Anomaly Detection": "Investigate unusual activity with comparisons to earlier transactions.",
     "Risk Analysis": "Understand each contribution to your financial risk indicator.",
     "Scenario Simulator": "Explore how changes in income, costs and payment timing affect your cash.",
-    "AI Insights": "Evidence-linked explanations with calculated summaries always available.",
+    "AI Insights": "Ask about your cash. Every answer starts with your calculated financial evidence.",
     "Model Evaluation": "Measure chronological forecast errors and labeled synthetic anomaly detection.",
     "Data quality": "Review import findings before relying on financial totals.",
 }
@@ -21,18 +24,33 @@ PAGE_DESCRIPTIONS = {
 def apply_style() -> None:
     # Static CSS only. User descriptions and financial data never enter HTML.
     st.markdown("""<style>
-    .block-container {max-width:1480px; padding-top:4.5rem; padding-bottom:3rem;}
-    h1 {letter-spacing:-0.035em; font-weight:700;}
+    .block-container {max-width:1280px; padding-top:2.25rem; padding-bottom:2rem;}
+    h1 {letter-spacing:-0.035em; font-weight:650; font-size:2rem; line-height:1.2;}
     h2, h3 {letter-spacing:-0.02em;}
-    [data-testid="stMetric"] {border:1px solid rgba(128,148,170,.25);
-      border-radius:.8rem; padding:1rem 1.1rem; min-height:110px;}
+    h2 {font-size:1.35rem;} h3 {font-size:1.1rem;}
+    [data-testid="stMetric"] {background:var(--secondary-background-color, rgba(128,148,170,.06));
+      border:1px solid rgba(128,148,170,.18); border-radius:.75rem;
+      padding:.85rem 1rem; min-height:100px;}
     [data-testid="stMetricValue"] {font-variant-numeric:tabular-nums;
       font-size:clamp(1.2rem,1.7vw,1.55rem); line-height:1.35; white-space:normal;}
     [data-testid="stMetricValue"] > div {white-space:normal; overflow:visible;
       text-overflow:clip; overflow-wrap:anywhere;}
-    [data-testid="stSidebar"] .block-container {padding-top:1.5rem;}
+    [data-testid="stSidebar"] h1 {font-size:1.35rem;}
+    button[kind="primary"]:not(:disabled) {
+      background-color:#0F766E; border-color:#0F766E; color:#FFFFFF;}
+    [data-testid="stCaptionContainer"] {color:var(--text-color); opacity:.88;}
+    button:focus-visible, input:focus-visible, textarea:focus-visible,
+    [role="radio"]:focus-visible, [role="slider"]:focus-visible,
+    summary:focus-visible, a:focus-visible {
+      outline:3px solid #0F766E !important; outline-offset:3px !important;}
+    @media (prefers-color-scheme:dark) {
+      button:focus-visible, input:focus-visible, textarea:focus-visible,
+      [role="radio"]:focus-visible, [role="slider"]:focus-visible,
+      summary:focus-visible, a:focus-visible {outline-color:#5EEAD4 !important;}
+    }
     @media (max-width:740px) {
-      .block-container {padding-top:4rem; padding-left:1rem; padding-right:1rem;}
+      .block-container {padding-top:3rem; padding-left:1rem; padding-right:1rem;}
+      h1 {font-size:1.75rem;}
       [data-testid="stMetric"] {min-height:95px; padding:.75rem;}
     }
     </style>""", unsafe_allow_html=True)
@@ -51,16 +69,16 @@ def page_header(page: str) -> None:
           document.querySelector('[data-testid="stMain"]')?.scrollTo({{top:0, behavior:'instant'}});
         }});
         </script>""", unsafe_allow_javascript=True)
-    st.caption("CASHGUARD AI  /  FINANCIAL ANALYTICS")
-    st.title(page)
+    st.title(VIEWS[page][1])
     st.write(PAGE_DESCRIPTIONS[page])
 
 
 def overview_metrics(bundle: DashboardBundle, currency: str) -> None:
     values = bundle.metrics
     for column, label, amount in zip(st.columns(4),
-                                     ["Estimated cash balance", "Total income", "Total expenses", "Net cash flow"],
-                                     [values.estimated_balance, values.total_income, values.total_expenses, values.net_cash_flow]):
+                                     ["Estimated cash balance", "Total income", "Total expenses", "Estimated 30-day balance"],
+                                     [values.estimated_balance, values.total_income, values.total_expenses,
+                                      Decimal(int(bundle.forecast.daily.iloc[-1]['balance_cents'])) / 100]):
         column.metric(label, format_money(amount, currency))
 
 

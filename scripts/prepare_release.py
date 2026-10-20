@@ -20,6 +20,8 @@ REPORT_CSV = {"reports/phase5/" + name for name in ("anomaly_holdout.csv", "fore
 REPORT_CSV |= {"reports/phase6/" + name for name in ("calibration_labels.csv", "calibration_transactions.csv",
                "final_predictions.csv", "train_labels.csv", "train_transactions.csv")}
 DEMO_SHA256 = "1d992cbd20c2b5265890db4dad4cb2420572788d2ccdbccfe3f7df4fe171f369"
+UI_ASSETS = {"docs/phase10a/assets/" + name for name in (
+    "home-before.png", "home-desktop.png", "home-mobile.png", "plan-desktop.png", "assistant-dark.png", "assistant-gemma.png")}
 PATTERNS = {
     "credential_prefix": re.compile(r"(?<![\w])(?:gh[pousr]_[A-Za-z0-9]{25,}|sk-[A-Za-z0-9]{24,}|AIza[\w-]{30,}|AKIA[0-9A-Z]{16})"),
     "private_key": re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
@@ -50,7 +52,7 @@ def candidates(root):
         elif relative.parts[0] == "data":
             include = name == "data/synthetic_transactions.csv"
         elif relative.parts[0] == "docs":
-            include = path.suffix in {".md", ".mmd", ".svg"} or name.startswith("docs/submission/assets/") and (
+            include = name in UI_ASSETS or path.suffix in {".md", ".mmd", ".svg"} or name.startswith("docs/submission/assets/") and (
                 path.suffix in {".png", ".json", ".mp4", ".srt"} or path.name == "synthetic-anomaly-benchmark.csv")
         elif relative.parts[0] == "reports":
             include = (path.suffix in {".md", ".json", ".html"} and "screenshots" not in relative.parts

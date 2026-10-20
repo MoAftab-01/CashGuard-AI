@@ -18,6 +18,7 @@ import websockets
 from streamlit.proto.BackMsg_pb2 import BackMsg
 from streamlit.proto.ClientState_pb2 import ClientState
 from streamlit.proto.ForwardMsg_pb2 import ForwardMsg
+from src.ui.navigation import VIEWS
 
 
 async def smoke(port):
@@ -37,7 +38,7 @@ async def smoke(port):
                 elif kind == "slider":
                     widget.double_array_value.data.extend([float(value)])
                 else:
-                    widget.string_value = str(value)
+                    widget.string_value = VIEWS[value][1] if name == "Navigation" else str(value)
             request = BackMsg()
             request.rerun_script.CopyFrom(state)
             await connection.send(request.SerializeToString())
@@ -78,7 +79,7 @@ async def smoke(port):
         for page in ("Transactions", "Cash Flow Forecast", "Anomaly Detection", "Risk Analysis", "Scenario Simulator"):
             core["Navigation"] = page
             headings, _, _ = await run(page)
-            assert page in headings
+            assert VIEWS[page][1] in headings
         _, _, metrics = await run("Scenario income stress", {"Income reduction (%)": 20})
         assert metrics["Closing balance change"] != "USD 0.00"
         core["Navigation"] = "Model Evaluation"
